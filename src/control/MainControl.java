@@ -1,6 +1,7 @@
 package control;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
@@ -11,10 +12,14 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import services.NhanVienServices;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+
 import com.jfoenix.controls.JFXButton;
 
+import application.Services;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
@@ -56,16 +61,28 @@ public class MainControl implements Initializable {
 	@FXML
 	public void handleButtonAction(MouseEvent e) {
 		if(e.getSource() == btnClose || e.getSource() == btnClose1) {
-			alert(AlertType.CONFIRMATION, "Confirm Exit", "Do you want to exit the HKVTravel", null);
+			if(alert(AlertType.CONFIRMATION, "Confirm Exit", "Do you want to exit the HKVTravel", null).getResult() == ButtonType.OK) {
+				Services services = new Services();
+				NhanVienServices nhanVienServices = services.getNhanVienServices();
+				try {
+					nhanVienServices.dangXuat(nhanvien);
+					System.exit(0);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			}
 		}
 	}
 	
-	private static void alert(AlertType alertType, String title, String header, String content) {
+	private static Alert alert(AlertType alertType, String title, String header, String content) {
 		Alert alert = new Alert(alertType);
 		alert.setTitle(title);
 		alert.setHeaderText(header);
 		alert.setContentText(content);
 		alert.showAndWait();
+		return alert;
 	}
 
 
