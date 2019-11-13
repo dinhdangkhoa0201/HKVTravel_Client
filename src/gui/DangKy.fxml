@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.validation.RequiredFieldValidator?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.DangKyControl">
+	<children>
+		<Pane prefHeight="700.0" prefWidth="500.0" style="-fx-background-color: #0ff;">
+			<children>
+				<Pane layoutX="190.0" layoutY="180.0" prefHeight="120.0" prefWidth="120.0">
+					<children>
+						<ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@../img/wolf.png" />
+							</image>
+						</ImageView>
+					</children>
+				</Pane>
+			</children>
+		</Pane>
+		<Label layoutX="692.0" layoutY="14.0" text="Đăng Ký" textFill="#4400ff">
+			<font>
+				<Font name="Arial" size="30.0" />
+			</font>
+		</Label>
+		<JFXButton fx:id="btnCloseWindown" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="944.0" onMouseClicked="#handleButtonAction" prefHeight="40.0" prefWidth="40.0" text=" ">
+			<graphic>
+				<ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+					<image>
+						<Image url="@../img/iconClose.png" />
+					</image>
+				</ImageView>
+			</graphic>
+		</JFXButton>
+		<VBox layoutX="540.0" layoutY="58.0" prefHeight="452.0" prefWidth="419.0">
+			<children>
+				<JFXTextField fx:id="txtHoTen" labelFloat="true" prefHeight="30.0" prefWidth="370.0" promptText="Full Name (*)">
+					<font>
+						<Font size="15.0" />
+					</font>
+					<VBox.margin>
+						<Insets />
+					</VBox.margin>
+					<padding>
+						<Insets top="10.0" />
+					</padding>
+					<validators>
+						<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
+						</RequiredFieldValidator>
+					</validators>
+				</JFXTextField>
+				<JFXTextField fx:id="txtEmail" labelFloat="true" layoutX="10.0" layoutY="20.0" prefHeight="30.0" prefWidth="370.0" promptText="Địa chỉ Email (*)">
+					<font>
+						<Font size="15.0" />
+					</font>
+					<VBox.margin>
+						<Insets top="50.0" />
+					</VBox.margin>
+					<validators>
+						<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
+						</RequiredFieldValidator>
+					</validators>
+				</JFXTextField>
+            <Label fx:id="lblEmailError" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" textFill="RED">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Label>
+				<JFXPasswordField fx:id="txtMatKhau" labelFloat="true" prefHeight="30.0" prefWidth="370.0" promptText="Mật khẩu (*)">
+					<font>
+						<Font size="15.0" />
+					</font>
+					<VBox.margin>
+						<Insets top="25.0" />
+					</VBox.margin>
+					<validators>
+						<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
+						</RequiredFieldValidator>
+					</validators>
+				</JFXPasswordField>
+				<JFXPasswordField fx:id="txtConfirmMatKhau" labelFloat="true" layoutX="10.0" layoutY="194.0" prefHeight="30.0" prefWidth="370.0" promptText="Mật khẩu (*)">
+					<font>
+						<Font size="15.0" />
+					</font>
+					<VBox.margin>
+						<Insets top="50.0" />
+					</VBox.margin>
+					<validators>
+						<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
+						</RequiredFieldValidator>
+					</validators>
+				</JFXPasswordField>
+				<JFXTextField fx:id="txtDienThoai" labelFloat="true" layoutX="10.0" layoutY="220.0" prefHeight="30.0" prefWidth="370.0" promptText="Phone">
+					<font>
+						<Font size="15.0" />
+					</font>
+					<VBox.margin>
+						<Insets top="50.0" />
+					</VBox.margin>
+					<validators>
+						<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
+						</RequiredFieldValidator>
+					</validators>
+				</JFXTextField>
+            <Label fx:id="lblSDTError" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" textFill="RED">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </Label>
+				<JFXTextField fx:id="txtDiaChi" labelFloat="true" layoutX="10.0" layoutY="270.0" prefHeight="30.0" prefWidth="370.0" promptText="Address">
+					<font>
+						<Font size="15.0" />
+					</font>
+					<VBox.margin>
+						<Insets top="25.0" />
+					</VBox.margin>
+				</JFXTextField>
+			</children>
+		</VBox>
+		<HBox layoutX="513.0" layoutY="517.0" prefHeight="50.0" prefWidth="473.0">
+			<children>
+				<JFXButton fx:id="btnSignUp" onMouseClicked="#handleButtonAction" prefHeight="46.0" prefWidth="370.0" ripplerFill="#fffb2d" text="ĐĂNG KÝ" textFill="BLUE">
+					<font>
+						<Font size="25.0" />
+					</font>
+				</JFXButton>
+				<Region prefHeight="200.0" prefWidth="200.0" />
+				<JFXButton fx:id="btnCancel" onMouseClicked="#handleButtonAction" prefHeight="46.0" prefWidth="370.0" ripplerFill="#5cbc9e" text="HUỶ" textFill="RED">
+					<font>
+						<Font size="25.0" />
+					</font>
+				</JFXButton>
+			</children>
+		</HBox>
+		<Label layoutX="540.0" layoutY="590.0" text="Đăng có tài khoản?" />
+		<JFXButton fx:id="btnSignIn" layoutX="645.0" layoutY="586.0" onMouseClicked="#handleButtonAction" text="Đăng nhập" textFill="RED" />
+	</children>
+</AnchorPane>

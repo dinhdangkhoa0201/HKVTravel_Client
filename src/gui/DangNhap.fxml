@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.validation.RequiredFieldValidator?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.DangNhapControl">
+	<children>
+
+		<Pane prefHeight="600.0" prefWidth="500.0" style="-fx-background-color: #0ff;">
+			<children>
+				<Pane layoutX="190.0" layoutY="180.0" prefHeight="120.0" prefWidth="120.0">
+					<children>
+						<ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+							<image>
+								<Image url="@../img/wolf.png" />
+							</image>
+						</ImageView>
+					</children>
+				</Pane>
+			</children>
+		</Pane>
+		<Label layoutX="826.0" layoutY="300.0" text="Forgot Password?" textFill="#1100ffba">
+			<font>
+				<Font size="15.0" />
+			</font>
+			<cursor>
+				<Cursor fx:constant="HAND" />
+			</cursor>
+		</Label>
+		<Label layoutX="422.0" layoutY="14.0" text="Đăng nhập" textFill="#1500db">
+			<font>
+				<Font name="Arial Bold" size="30.0" />
+			</font>
+		</Label>
+		<JFXPasswordField fx:id="txtPassword" labelFloat="true" layoutX="572.0" layoutY="212.0" prefHeight="40.0" prefWidth="370.0" promptText="Mật khẩu">
+			<font>
+				<Font size="15.0" />
+			</font>
+			<validators>
+				<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
+				</RequiredFieldValidator>
+			</validators>
+		</JFXPasswordField>
+		<Label fx:id="lblError" layoutX="575.0" layoutY="282.0" />
+		<JFXButton fx:id="btnCloseWindown" layoutX="934.0" layoutY="14.0" onMouseClicked="#handleButtonAction" prefHeight="50.0" prefWidth="50.0" text=" ">
+			<graphic>
+				<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+					<image>
+						<Image url="@../img/iconClose.png" />
+					</image>
+				</ImageView>
+			</graphic>
+		</JFXButton>
+		<HBox layoutX="577.0" layoutY="344.0" prefHeight="50.0" prefWidth="370.0">
+			<children>
+				<JFXButton fx:id="btnSignIn" onMouseClicked="#handleButtonAction" prefHeight="50.0" prefWidth="370.0" ripplerFill="BLUE" text="Đăng nhập" textFill="BLUE">
+					<font>
+						<Font size="25.0" />
+					</font>
+				</JFXButton>
+				<Region prefHeight="200.0" prefWidth="200.0" />
+				<JFXButton layoutX="10.0" layoutY="10.0" onMouseClicked="#handleButtonAction" prefHeight="50.0" prefWidth="370.0" ripplerFill="RED" text="Huỷ" textFill="#f20000">
+					<font>
+						<Font size="25.0" />
+					</font>
+				</JFXButton>
+			</children>
+		</HBox>
+		<Label layoutX="577.0" layoutY="426.0" text="Chưa có tài khoản" />
+		<JFXButton fx:id="btnSignUp" layoutX="673.0" layoutY="422.0" onMouseClicked="#handleButtonAction" text="Đăng ký" textFill="#0b44ff" />
+		<JFXCheckBox fx:id="chkNhoTaiKhoan" layoutX="572.0" layoutY="302.0" onMouseClicked="#handleButtonAction" text="Nhớ tài khoản" />
+		<JFXComboBox fx:id="cbxTaiKhoan" editable="true" labelFloat="true" layoutX="572.0" layoutY="121.0" onMouseClicked="#handleButtonAction" prefHeight="40.0" prefWidth="370.0" promptText="Tài Khoản" stylesheets="@../main/application.css">
+			<validators>
+				<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
+				</RequiredFieldValidator>
+			</validators>
+		</JFXComboBox>
+	</children>
+</AnchorPane>

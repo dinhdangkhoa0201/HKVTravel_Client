@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXNodesList?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.MenuAdminQuanLyControl">
+	<children>
+		<ToolBar layoutY="860.0" prefHeight="40.0" prefWidth="1366.0">
+			<items>
+				<Label text="Name:" />
+				<Label fx:id="lblTen" text="Khoa" />
+				<Separator orientation="VERTICAL" prefHeight="20.0" />
+				<Label text="Chức vụ:" />
+				<Label fx:id="lblChucVu" text="Nhân viên" />
+				<Region prefHeight="30.0" prefWidth="1094.0" />
+				<Label fx:id="lblNgay" prefHeight="20.0" text="Ngày" />
+			</items>
+		</ToolBar>
+						<JFXButton fx:id="btnHome" buttonType="RAISED" graphicTextGap="5.0" layoutX="118.0" layoutY="14.0" onMouseClicked="#handleButtonAction" prefHeight="50.0" style="-fx-background-color: BLACK; -fx-text-fill: WHITE;" text="HOME">
+							<graphic>
+								<ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../img/iconTrangChu.png" />
+									</image>
+								</ImageView>
+							</graphic>
+							<font>
+								<Font size="14.0" />
+							</font>
+						</JFXButton>
+      <HBox layoutX="265.0" layoutY="14.0" spacing="50.0">
+         <children>
+            <MenuButton alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="160.0">
+              <items>
+                <MenuItem fx:id="menuThemNV" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Thêm Nhân Viên">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconAdd.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+                <MenuItem fx:id="menuTimNV" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Tìm kiếm">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconTimKiem.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem fx:id="menuThongKeNV" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Thống kê">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconThongKe.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+              </items>
+               <graphic>
+                  <JFXButton fx:id="btnNhanVien" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#handleButtonAction" prefHeight="50.0" text="Nhân viên">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/iconKhachHang.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+               </graphic>
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </MenuButton>
+            <MenuButton maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0">
+              <items>
+                <MenuItem fx:id="menuThemKH" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" graphicTextGap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" text="Thêm Khách Hàng">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconAdd.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+                <MenuItem fx:id="menuTimKH" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" graphicTextGap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" text="Tìm kiếm">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconTimKiem.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem fx:id="menuThongKeKH" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Thống kê">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconThongKe.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+              </items>
+               <graphic>
+                  <JFXButton fx:id="btnKhachHang" buttonType="RAISED" graphicTextGap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" onMouseClicked="#handleButtonAction" prefHeight="50.0" text="Khách Hàng">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/iconNhanVien.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </JFXButton>
+               </graphic>
+            </MenuButton>
+            <MenuButton alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0">
+               <items>
+                  <MenuItem fx:id="menuThemHDV" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Thêm Hướng dẫn viên">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconAdd.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem fx:id="menuTimHDV" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Tìm kiếm">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconTimKiem.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem fx:id="menuThongKeHDV" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Thống kê">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconThongKe.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+               </items>
+               <graphic>
+                  <JFXButton fx:id="btnHuongDanVien" buttonType="RAISED" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#handleButtonAction" prefHeight="50.0" text="Hướng dẫn viên">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/iconKhachHang.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+               </graphic>
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </MenuButton>
+            <MenuButton maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0">
+              <items>
+                <MenuItem fx:id="menuTimHD" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" graphicTextGap="5.0" prefHeight="50.0" text="Tìm Hoá Đơn">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconTimKiem.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+                <MenuItem fx:id="menuThongKeHD" mnemonicParsing="false">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" graphicTextGap="5.0" prefHeight="50.0" text="Thống kê">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconThongKe.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+              </items>
+               <graphic>
+                  <JFXButton fx:id="btnHoaDon" buttonType="RAISED" graphicTextGap="5.0" onMouseClicked="#handleButtonAction" prefHeight="50.0" text="Hoá Đơn">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/iconHoaDon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+               </graphic>
+            </MenuButton>
+            <MenuButton maxHeight="-Infinity" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0">
+              <items>
+                <MenuItem fx:id="menuThemTour" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" graphicTextGap="5.0" prefHeight="50.0" text="Thêm Tour">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconAdd.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+                <MenuItem fx:id="menuTimTour" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" graphicTextGap="5.0" prefHeight="50.0" text="Tìm kiếm">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconTimKiem.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+                  <MenuItem fx:id="menuThongKeTour" mnemonicParsing="false" onAction="#handle">
+                     <graphic>
+                        <JFXButton buttonType="RAISED" graphicTextGap="5.0" prefHeight="50.0" text="Thống kê">
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../img/iconThongKe.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </JFXButton>
+                     </graphic>
+                  </MenuItem>
+              </items>
+               <graphic>
+                  <JFXButton fx:id="btnTour" buttonType="RAISED" graphicTextGap="5.0" onMouseClicked="#handleButtonAction" prefHeight="50.0" text="Tour">
+                     <graphic>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/iconVietNam.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </JFXButton>
+               </graphic>
+            </MenuButton>
+         </children>
+      </HBox>
+		<Pane layoutY="210.0" prefHeight="650.0" prefWidth="1366.0">
+			<children>
+				<AnchorPane fx:id="paneMain" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="650.0" prefWidth="1366.0" />
+			</children>
+		</Pane>
+      <JFXNodesList alignment="TOP_RIGHT" layoutY="14.0">
+         <children>
+            <JFXButton buttonType="RAISED" prefHeight="50.0" prefWidth="106.0" text=" ">
+               <graphic>
+                  <HBox>
+                     <children>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/iconName.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icon_Down.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnThongTinCaNhan" onMouseClicked="#handleButtonAction" text="Thông Tin Cá Nhân">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/iconThongTinCaNhan.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnDoiMatKhau" onMouseClicked="#handleButtonAction" text="Đổi mật khẩu">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/iconDoiMatKhau.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btnDangXuat" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleButtonAction" text="Đặt xuất">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/iconDangXuat.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </JFXNodesList>
+	</children>
+</AnchorPane>

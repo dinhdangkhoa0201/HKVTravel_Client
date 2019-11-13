@@ -1,0 +1,20 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.text-input {
+	-fx-text-fill: #2e2eff;
+}
+.jfx-combo-box{
+    -fx-font-size: 15px;
+}
+.jfx-time-picker {
+    -fx-font-size: 15px;
+}
+.jfx-date-picker {
+    -fx-font-size: 15px;
+}
+.error-label {
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+}
+.scroll-bar {
+    -fx-font-size: 15px;
+}
