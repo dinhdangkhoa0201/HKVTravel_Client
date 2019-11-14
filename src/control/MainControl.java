@@ -10,6 +10,8 @@ import entities.NhanVien;
 import entities.UserPassword;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import services.NhanVienServices;
@@ -60,18 +62,42 @@ public class MainControl implements Initializable {
 
 	@FXML
 	public void handleButtonAction(MouseEvent e) {
-		if(e.getSource() == btnClose || e.getSource() == btnClose1) {
+		if(e.getSource() == btnClose1) {
 			if(alert(AlertType.CONFIRMATION, "Confirm Exit", "Do you want to exit the HKVTravel", null).getResult() == ButtonType.OK) {
 				Services services = new Services();
 				NhanVienServices nhanVienServices = services.getNhanVienServices();
 				try {
-					nhanVienServices.dangXuat(nhanvien);
+					nhanVienServices.dangXuat(this.nhanvien);
 					System.exit(0);
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
+			}
+		}
+		else if(e.getSource() == btnClose) {
+			Services services = new Services();
+			NhanVienServices nhanVienServices = services.getNhanVienServices();
+			try {
+				nhanVienServices.dangXuat(this.nhanvien);
+				System.exit(0);
+			} catch (RemoteException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		else if(e.getSource() == btnThongTinCaNhan) {
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ThongTinCaNhan.fxml"));
+				BorderPane paneThongTinCaNhan = fxmlLoader.load();
+				ThongTinCaNhanControl thongTinCaNhanControl = fxmlLoader.getController();
+				thongTinCaNhanControl.setValues(nhanvien);
+				border_pane.setCenter(paneThongTinCaNhan);
+			} catch (Exception e2) {
+				// TODO: handle exception
+				
+				e2.printStackTrace();
 			}
 		}
 	}

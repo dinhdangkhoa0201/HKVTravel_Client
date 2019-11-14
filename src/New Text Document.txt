@@ -1,0 +1,221 @@
+								<RibbonTab text="Hệ Thống">
+									<RibbonGroup title="Hệ thống">
+										<nodes>
+											<Button fx:id="btnClose1" alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="100.0" text="Thoát">
+												<graphic>
+													<ImageView fitHeight="40" fitWidth="40.0">
+														<image>
+															<Image url="@../img/iconShutDown.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="10.0" />
+												</padding>
+											</Button>
+											<Button fx:id="btnDangXuat" alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Đăng xuất">
+												<graphic>
+													<ImageView fitHeight="40.0" fitWidth="40.0">
+														<image>
+															<Image url="@../img/iconDangXuat.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="10.0" />
+												</padding>
+											</Button>
+											<Button fx:id="btnThongTinCaNhan" alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" maxHeight="-Infinity" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="100.0" text="Thông tin cá nhân" textAlignment="CENTER" wrapText="true">
+												<graphic>
+													<ImageView fitHeight="40.0" fitWidth="40.0">
+														<image>
+															<Image url="@../img/iconUser.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="10.0" />
+												</padding>
+											</Button>
+											<Button fx:id="btnDoiMatKhau" alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Đổi mật khẩu" textAlignment="CENTER" wrapText="true">
+												<graphic>
+													<ImageView>
+														<image>
+															<Image url="@../img/iconDoiMatKhau.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="10.0" />
+												</padding>
+											</Button>
+										</nodes>
+									</RibbonGroup>
+								</RibbonTab>
+								<RibbonTab text="Danh mục">
+									<RibbonGroup maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="1280.0">
+										<nodes>
+											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Nhân viên" textAlignment="CENTER">
+												<graphic>
+													<ImageView>
+														<image>
+															<Image url="@../img/iconEmployee.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="10.0" />
+												</padding>
+											</Button>
+											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Khách hàng" textAlignment="CENTER">
+												<graphic>
+													<ImageView>
+														<image>
+															<Image url="@../img/iconTourist.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="10.0" />
+												</padding>
+											</Button>
+											<Button alignment="TOP_RIGHT" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Hướng dẫn viên" textAlignment="CENTER" wrapText="true">
+												<graphic>
+													<ImageView>
+														<image>
+															<Image url="@../img/iconCustomer.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="10.0" />
+												</padding>
+											</Button>
+											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Tour" textAlignment="CENTER">
+												<graphic>
+													<ImageView fitHeight="40.0" fitWidth="40.0">
+														<image>
+															<Image url="@../img/iconVietNam.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="10.0" />
+												</padding>
+											</Button>
+										</nodes>
+									</RibbonGroup>
+								</RibbonTab>
+
+
+								<RibbonTab text="Xử lý">
+									<RibbonGroup>
+										<nodes>
+											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Đặt Tour" textAlignment="CENTER">
+												<graphic>
+													<ImageView fitHeight="40.0" fitWidth="40.0">
+														<image>
+															<Image url="@../img/iconDuLich.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="10.0" />
+												</padding>
+											</Button>
+										</nodes>
+									</RibbonGroup>
+								</RibbonTab>
+								<RibbonTab text="Tìm kiếm">
+									<RibbonGroup>
+										<nodes>
+											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Nhân viên">
+												<graphic>
+													<ImageView>
+														<image>
+															<Image url="@../img/iconEmployee.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="20.0" />
+												</padding>
+											</Button>
+											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Khách hàng">
+												<graphic>
+													<ImageView>
+														<image>
+															<Image url="@../img/iconTourist.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="20.0" />
+												</padding>
+											</Button>
+											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Tour">
+												<graphic>
+													<ImageView fitHeight="40.0" fitWidth="40.0">
+														<image>
+															<Image url="@../img/iconVietNam.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="20.0" />
+												</padding>
+											</Button>
+											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Hoá đơn">
+												<graphic>
+													<ImageView fitHeight="40.0" fitWidth="40.0">
+														<image>
+															<Image url="@../img/iconHoaDon.png" />
+														</image>
+													</ImageView>
+												</graphic>
+												<font>
+													<Font size="15.0" />
+												</font>
+												<padding>
+													<Insets top="20.0" />
+												</padding>
+											</Button>
+										</nodes>
+									</RibbonGroup>
+								</RibbonTab>
