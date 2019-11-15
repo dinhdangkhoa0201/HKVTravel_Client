@@ -117,9 +117,14 @@
                                           <Insets top="23.0" />
                                        </VBox.margin>
                                     </JFXTextField>
+                                    <Label fx:id="lblErrorCMND" layoutX="10.0" layoutY="204.0" prefHeight="20.0" textFill="RED">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
                                     <JFXComboBox fx:id="cbxGioiTinh" labelFloat="true" prefHeight="25.0" prefWidth="312.0" promptText="Giới tính" style="-fx-font-size: 15px;" VBox.vgrow="ALWAYS">
                                        <VBox.margin>
-                                          <Insets top="48.0" />
+                                          <Insets top="23.0" />
                                        </VBox.margin>
                                     </JFXComboBox>
                                     <JFXTextField fx:id="txtNgaySinh" editable="false" labelFloat="true" layoutX="10.0" layoutY="168.0" promptText="Ngày sinh (dd/MM/yyyy)">
@@ -130,6 +135,11 @@
                                           <Insets top="48.0" />
                                        </VBox.margin>
                                     </JFXTextField>
+                                    <Label fx:id="lblErrorNgaySinh" layoutX="10.0" layoutY="204.0" prefHeight="20.0" textFill="RED">
+                                       <VBox.margin>
+                                          <Insets top="5.0" />
+                                       </VBox.margin>
+                                    </Label>
                                  </children>
                               </VBox>
                            </children>
