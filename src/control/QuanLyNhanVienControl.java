@@ -126,6 +126,7 @@ public class QuanLyNhanVienControl implements Initializable{
 			Services services = new Services();
 			NhanVienServices nhanVienServices = services.getNhanVienServices();
 			data = FXCollections.observableArrayList(nhanVienServices.danhsachNhanVien());
+			System.out.println(data);
 			filter = new FilteredList<>(data, p -> true);
 			tableNhanVien.setItems(filter);
 			tableNhanVien.getSelectionModel().clearSelection();
@@ -174,39 +175,39 @@ public class QuanLyNhanVienControl implements Initializable{
 			}
 		}
 		else {
-//			tableNhanVien.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//				@Override
-//				public void handle(MouseEvent event) {
-//					NhanVien nhanvien = tableNhanVien.getSelectionModel().getSelectedItem();
-//					if(event.getClickCount()==2 && nhanvien!=null) {
-//						System.out.println(nhanvien);
-//						try {
-//							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ThongTinNhanVien.fxml"));
-//							DialogPane dialogPane = new DialogPane();
-//							dialogPane = fxmlLoader.load();
-//							ThongTinNhanVienControl thongTinNhanVienControl = fxmlLoader.getController();	
-//							thongTinNhanVienControl.setValues(nhanvien, quanLy);
-//							Alert alert = new Alert(AlertType.CONFIRMATION);
-//							alert.setTitle("Thông tin Nhân viên");
-//							alert.setResizable(false);
-//							alert.setDialogPane(dialogPane);
-//							alert.initModality(Modality.APPLICATION_MODAL);
-//							Window window = alert.getDialogPane().getScene().getWindow();
-//							window.setOnCloseRequest(e -> window.hide());
-//
-//							alert.showAndWait();
-//							if(thongTinNhanVienControl.getResult() == true) {
-//								loadDataFromDatabase();
-//							}
-//						} catch (Exception e2) {
-//							// TODO: handle exception
-//							System.out.println(e2.getMessage());
-//							e2.printStackTrace();
-//
-//						}
-//					}
-//				}
-//			});
+			tableNhanVien.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent event) {
+					NhanVien nhanvien = tableNhanVien.getSelectionModel().getSelectedItem();
+					if(event.getClickCount() == 2 && nhanvien!=null) {
+						System.out.println(nhanvien);
+						try {
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ThongTinNhanVien.fxml"));
+							DialogPane dialogPane = new DialogPane();
+							dialogPane = fxmlLoader.load();
+							ThongTinNhanVienControl thongTinNhanVienControl = fxmlLoader.getController();	
+							thongTinNhanVienControl.setValues(nhanvien, quanLy);
+							Alert alert = new Alert(AlertType.CONFIRMATION);
+							alert.setTitle("Thông tin Nhân viên");
+							alert.setResizable(false);
+							alert.setDialogPane(dialogPane);
+							alert.initModality(Modality.APPLICATION_MODAL);
+							Window window = alert.getDialogPane().getScene().getWindow();
+							window.setOnCloseRequest(e -> window.hide());
+
+							alert.showAndWait();
+							if(thongTinNhanVienControl.getResult() == true) {
+								loadDataFromDatabase();
+							}
+						} catch (Exception e2) {
+							// TODO: handle exception
+							System.out.println(e2.getMessage());
+							e2.printStackTrace();
+
+						}
+					}
+				}
+			});
 		}
 	}
 

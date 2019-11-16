@@ -116,7 +116,7 @@ public class MainControl implements Initializable {
 				BorderPane paneDoiMatKhau = fxmlLoader.load();
 				DoiMatKhauControl doiMatKhauControl = fxmlLoader.getController();
 				doiMatKhauControl.setValues(nhanVien, userPassword);
-				paneCenter.getChildren().setAll(paneDoiMatKhau);
+				border_pane.setCenter(paneDoiMatKhau);
 			} catch (Exception e2) {
 				// TODO: handle exception
 				
@@ -129,7 +129,7 @@ public class MainControl implements Initializable {
 				BorderPane paneThongTinCaNhan = fxmlLoader.load();
 				ThongTinCaNhanControl thongTinCaNhanControl = fxmlLoader.getController();
 				thongTinCaNhanControl.setValues(nhanVien);
-				paneCenter.getChildren().setAll(paneThongTinCaNhan);
+				border_pane.setCenter(paneThongTinCaNhan);
 			} catch (Exception e2) {
 				// TODO: handle exception
 				
@@ -140,7 +140,9 @@ public class MainControl implements Initializable {
 			try {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/QuanLyNhanVien.fxml"));
 				BorderPane paneNhanVien = fxmlLoader.load();
-				paneCenter.getChildren().setAll(paneNhanVien);
+				QuanLyNhanVienControl quanLyNhanVienControl = fxmlLoader.getController();
+				quanLyNhanVienControl.setValues(nhanVien);
+				border_pane.setCenter(paneNhanVien);
 			} catch (Exception e2) {
 				// TODO: handle exception
 				e2.printStackTrace();
