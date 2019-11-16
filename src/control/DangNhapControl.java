@@ -1,8 +1,13 @@
 package control;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
+
+import javax.xml.bind.DatatypeConverter;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
@@ -71,6 +76,7 @@ public class DangNhapControl implements Initializable {
 				});
 			}
 		});
+		
 		init();
 	}
 
@@ -224,7 +230,8 @@ public class DangNhapControl implements Initializable {
 		UserPasswordServices userPasswordServices = services.getUserPasswordServices();
 
 		try {
-			this.userPassword = userPasswordServices.timUserPassword(user, password);
+			System.out.println(hash(password));
+			this.userPassword = userPasswordServices.timUserPassword(user, hash(password));
 			if (this.userPassword != null) {
 				System.out.println("ID" + this.userPassword.getId());
 				if (this.userPassword.getId().contains("KH")) {
@@ -262,6 +269,16 @@ public class DangNhapControl implements Initializable {
 		}
 	}
 
+	private String hash(String matKhau) {
+		try {
+			return DatatypeConverter.printHexBinary(MessageDigest.getInstance("MD5").digest(matKhau.getBytes("UTF-8")));
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
 //	private void thongTinKhachHang() {
 //		ds.xoaViewKhachHang();
 //		ds.taoViewThongTinKhachHang(user);

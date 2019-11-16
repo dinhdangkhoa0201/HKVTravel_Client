@@ -87,6 +87,19 @@ public class MainControl implements Initializable {
 				e1.printStackTrace();
 			}
 		}
+		else if(e.getSource() == btnDoiMatKhau) {
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/DoiMatKhau.fxml"));
+				BorderPane paneDoiMatKhau = fxmlLoader.load();
+				DoiMatKhauControl doiMatKhauControl = fxmlLoader.getController();
+				doiMatKhauControl.setValues(nhanvien, userPassword);
+				border_pane.setCenter(paneDoiMatKhau);
+			} catch (Exception e2) {
+				// TODO: handle exception
+				
+				e2.printStackTrace();
+			}
+		}
 		else if(e.getSource() == btnThongTinCaNhan) {
 			try {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ThongTinCaNhan.fxml"));

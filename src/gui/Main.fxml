@@ -16,32 +16,44 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="border_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" styleClass="menubar" stylesheets="@../css/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.MainControl">
+<BorderPane fx:id="border_pane" maxHeight="-Infinity"
+	maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+	prefHeight="1080.0" prefWidth="1920.0" styleClass="menubar"
+	stylesheets="@../css/stylesheet.css"
+	xmlns="http://javafx.com/javafx/8.0.171"
+	xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.MainControl">
 	<bottom>
 	</bottom>
 	<top>
 		<VBox BorderPane.alignment="CENTER">
 			<children>
-				<HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="20.0">
-               <children>
-                  <JFXButton fx:id="btnClose" contentDisplay="CENTER" graphicTextGap="0.0" onMouseClicked="#handleButtonAction" text="">
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../img/iconClose.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-               </children></HBox>
+				<HBox alignment="CENTER_RIGHT" prefHeight="30.0"
+					prefWidth="20.0">
+					<children>
+						<JFXButton fx:id="btnClose" contentDisplay="CENTER"
+							graphicTextGap="0.0" onMouseClicked="#handleButtonAction" text="">
+							<graphic>
+								<ImageView fitHeight="30.0" fitWidth="30.0"
+									pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@../img/iconClose.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</JFXButton>
+					</children>
+				</HBox>
 				<HBox VBox.vgrow="ALWAYS">
 					<children>
 						<Ribbon HBox.hgrow="ALWAYS">
 							<tabs>
-																<RibbonTab text="Hệ Thống">
+								<RibbonTab text="Hệ Thống">
 									<RibbonGroup title="Hệ thống">
 										<nodes>
-											<Button fx:id="btnClose1" alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="100.0" text="Thoát">
+											<Button fx:id="btnClose1" alignment="TOP_CENTER"
+												contentDisplay="TOP" graphicTextGap="5.0"
+												onMouseClicked="#handleButtonAction" prefHeight="100.0"
+												prefWidth="100.0" text="Thoát">
 												<graphic>
 													<ImageView fitHeight="40" fitWidth="40.0">
 														<image>
@@ -56,7 +68,9 @@
 													<Insets top="10.0" />
 												</padding>
 											</Button>
-											<Button fx:id="btnDangXuat" alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Đăng xuất">
+											<Button fx:id="btnDangXuat" alignment="TOP_CENTER"
+												contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0"
+												prefWidth="100.0" text="Đăng xuất">
 												<graphic>
 													<ImageView fitHeight="40.0" fitWidth="40.0">
 														<image>
@@ -71,7 +85,12 @@
 													<Insets top="10.0" />
 												</padding>
 											</Button>
-											<Button fx:id="btnThongTinCaNhan" alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" maxHeight="-Infinity" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="100.0" text="Thông tin cá nhân" textAlignment="CENTER" wrapText="true">
+											<Button fx:id="btnThongTinCaNhan"
+												alignment="TOP_CENTER" contentDisplay="TOP"
+												graphicTextGap="5.0" maxHeight="-Infinity"
+												onMouseClicked="#handleButtonAction" prefHeight="100.0"
+												prefWidth="100.0" text="Thông tin cá nhân"
+												textAlignment="CENTER" wrapText="true">
 												<graphic>
 													<ImageView fitHeight="40.0" fitWidth="40.0">
 														<image>
@@ -86,7 +105,11 @@
 													<Insets top="10.0" />
 												</padding>
 											</Button>
-											<Button fx:id="btnDoiMatKhau" alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Đổi mật khẩu" textAlignment="CENTER" wrapText="true">
+											<Button fx:id="btnDoiMatKhau" alignment="TOP_CENTER"
+												contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0"
+												onMouseClicked="#handleButtonAction" prefWidth="100.0"
+												text="Đổi mật khẩu" textAlignment="CENTER"
+												wrapText="true">
 												<graphic>
 													<ImageView>
 														<image>
@@ -105,9 +128,12 @@
 									</RibbonGroup>
 								</RibbonTab>
 								<RibbonTab text="Danh mục">
-									<RibbonGroup maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="1280.0">
+									<RibbonGroup maxHeight="-Infinity"
+										maxWidth="-Infinity" prefHeight="100.0" prefWidth="1280.0">
 										<nodes>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Nhân viên" textAlignment="CENTER">
+											<Button alignment="TOP_CENTER" contentDisplay="TOP"
+												graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+												text="Nhân viên" textAlignment="CENTER">
 												<graphic>
 													<ImageView>
 														<image>
@@ -122,7 +148,9 @@
 													<Insets top="10.0" />
 												</padding>
 											</Button>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Khách hàng" textAlignment="CENTER">
+											<Button alignment="TOP_CENTER" contentDisplay="TOP"
+												graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+												text="Khách hàng" textAlignment="CENTER">
 												<graphic>
 													<ImageView>
 														<image>
@@ -137,7 +165,10 @@
 													<Insets top="10.0" />
 												</padding>
 											</Button>
-											<Button alignment="TOP_RIGHT" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Hướng dẫn viên" textAlignment="CENTER" wrapText="true">
+											<Button alignment="TOP_RIGHT" contentDisplay="TOP"
+												graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+												text="Hướng dẫn viên" textAlignment="CENTER"
+												wrapText="true">
 												<graphic>
 													<ImageView>
 														<image>
@@ -152,7 +183,9 @@
 													<Insets top="10.0" />
 												</padding>
 											</Button>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Tour" textAlignment="CENTER">
+											<Button alignment="TOP_CENTER" contentDisplay="TOP"
+												graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+												text="Tour" textAlignment="CENTER">
 												<graphic>
 													<ImageView fitHeight="40.0" fitWidth="40.0">
 														<image>
@@ -175,7 +208,9 @@
 								<RibbonTab text="Xử lý">
 									<RibbonGroup>
 										<nodes>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Đặt Tour" textAlignment="CENTER">
+											<Button alignment="TOP_CENTER" contentDisplay="TOP"
+												graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+												text="Đặt Tour" textAlignment="CENTER">
 												<graphic>
 													<ImageView fitHeight="40.0" fitWidth="40.0">
 														<image>
@@ -196,7 +231,9 @@
 								<RibbonTab text="Tìm kiếm">
 									<RibbonGroup>
 										<nodes>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Nhân viên">
+											<Button alignment="TOP_CENTER" contentDisplay="TOP"
+												graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+												text="Nhân viên">
 												<graphic>
 													<ImageView>
 														<image>
@@ -211,7 +248,9 @@
 													<Insets top="20.0" />
 												</padding>
 											</Button>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Khách hàng">
+											<Button alignment="TOP_CENTER" contentDisplay="TOP"
+												graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+												text="Khách hàng">
 												<graphic>
 													<ImageView>
 														<image>
@@ -226,7 +265,9 @@
 													<Insets top="20.0" />
 												</padding>
 											</Button>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Tour">
+											<Button alignment="TOP_CENTER" contentDisplay="TOP"
+												graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+												text="Tour">
 												<graphic>
 													<ImageView fitHeight="40.0" fitWidth="40.0">
 														<image>
@@ -241,7 +282,9 @@
 													<Insets top="20.0" />
 												</padding>
 											</Button>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Hoá đơn">
+											<Button alignment="TOP_CENTER" contentDisplay="TOP"
+												graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+												text="Hoá đơn">
 												<graphic>
 													<ImageView fitHeight="40.0" fitWidth="40.0">
 														<image>
@@ -262,99 +305,114 @@
 								<RibbonTab text="Thống kê">
 									<ribbonGroups>
 										<RibbonGroup title="Thống kê">
-										<nodes>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Tour đang đăng ký" textAlignment="CENTER" wrapText="true">
-												<graphic>
-													<ImageView fitHeight="40.0" fitWidth="40.0">
-														<image>
-															<Image url="@../img/iconDangKyTour.png" />
-														</image>
-													</ImageView>
-												</graphic>
-												<font>
-													<Font size="15.0" />
-												</font>
-												<padding>
-													<Insets top="10.0" />
-												</padding>
-											</Button>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Tour đang thực hiện" textAlignment="CENTER" wrapText="true">
-												<graphic>
-													<ImageView fitHeight="40.0" fitWidth="40.0">
-														<image>
-															<Image url="@../img/iconTourDangThucHien.png" />
-														</image>
-													</ImageView>
-												</graphic>
-												<font>
-													<Font size="15.0" />
-												</font>
-												<padding>
-													<Insets top="10.0" />
-												</padding>
-											</Button>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Top Tour" textAlignment="CENTER" wrapText="true">
-												<graphic>
-													<ImageView fitHeight="40.0" fitWidth="40.0">
-														<image>
-															<Image url="@../img/iconTourNhieuNhat.png" />
-														</image>
-													</ImageView>
-												</graphic>
-												<font>
-													<Font size="15.0" />
-												</font>
-												<padding>
-													<Insets top="10.0" />
-												</padding>
-											</Button>
-										</nodes>
-									</RibbonGroup>
-																			<RibbonGroup title="Khách hàng">
-										<nodes>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Khách hàng" textAlignment="CENTER" wrapText="true">
-												<graphic>
-													<ImageView fitHeight="40.0" fitWidth="40.0">
-														<image>
-															<Image url="@../img/iconTourist.png" />
-														</image>
-													</ImageView>
-												</graphic>
-												<font>
-													<Font size="15.0" />
-												</font>
-												<padding>
-													<Insets top="10.0" />
-												</padding>
-											</Button>
-										</nodes>
-									</RibbonGroup>
-									<RibbonGroup title="Doanh thu">
-										<nodes>
-											<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Doanh thu" textAlignment="CENTER" wrapText="true">
-												<graphic>
-													<ImageView fitHeight="40.0" fitWidth="40.0">
-														<image>
-															<Image url="@../img/iconDoanhThu.png" />
-														</image>
-													</ImageView>
-												</graphic>
-												<font>
-													<Font size="15.0" />
-												</font>
-												<padding>
-													<Insets top="10.0" />
-												</padding>
-											</Button>
-										</nodes>
-									</RibbonGroup>
-										</ribbonGroups>
+											<nodes>
+												<Button alignment="TOP_CENTER" contentDisplay="TOP"
+													graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+													text="Tour đang đăng ký" textAlignment="CENTER"
+													wrapText="true">
+													<graphic>
+														<ImageView fitHeight="40.0" fitWidth="40.0">
+															<image>
+																<Image url="@../img/iconDangKyTour.png" />
+															</image>
+														</ImageView>
+													</graphic>
+													<font>
+														<Font size="15.0" />
+													</font>
+													<padding>
+														<Insets top="10.0" />
+													</padding>
+												</Button>
+												<Button alignment="TOP_CENTER" contentDisplay="TOP"
+													graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+													text="Tour đang thực hiện" textAlignment="CENTER"
+													wrapText="true">
+													<graphic>
+														<ImageView fitHeight="40.0" fitWidth="40.0">
+															<image>
+																<Image url="@../img/iconTourDangThucHien.png" />
+															</image>
+														</ImageView>
+													</graphic>
+													<font>
+														<Font size="15.0" />
+													</font>
+													<padding>
+														<Insets top="10.0" />
+													</padding>
+												</Button>
+												<Button alignment="TOP_CENTER" contentDisplay="TOP"
+													graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+													text="Top Tour" textAlignment="CENTER" wrapText="true">
+													<graphic>
+														<ImageView fitHeight="40.0" fitWidth="40.0">
+															<image>
+																<Image url="@../img/iconTourNhieuNhat.png" />
+															</image>
+														</ImageView>
+													</graphic>
+													<font>
+														<Font size="15.0" />
+													</font>
+													<padding>
+														<Insets top="10.0" />
+													</padding>
+												</Button>
+											</nodes>
+										</RibbonGroup>
+										<RibbonGroup title="Khách hàng">
+											<nodes>
+												<Button alignment="TOP_CENTER" contentDisplay="TOP"
+													graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+													text="Khách hàng" textAlignment="CENTER" wrapText="true">
+													<graphic>
+														<ImageView fitHeight="40.0" fitWidth="40.0">
+															<image>
+																<Image url="@../img/iconTourist.png" />
+															</image>
+														</ImageView>
+													</graphic>
+													<font>
+														<Font size="15.0" />
+													</font>
+													<padding>
+														<Insets top="10.0" />
+													</padding>
+												</Button>
+											</nodes>
+										</RibbonGroup>
+										<RibbonGroup title="Doanh thu">
+											<nodes>
+												<Button alignment="TOP_CENTER" contentDisplay="TOP"
+													graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+													text="Doanh thu" textAlignment="CENTER" wrapText="true">
+													<graphic>
+														<ImageView fitHeight="40.0" fitWidth="40.0">
+															<image>
+																<Image url="@../img/iconDoanhThu.png" />
+															</image>
+														</ImageView>
+													</graphic>
+													<font>
+														<Font size="15.0" />
+													</font>
+													<padding>
+														<Insets top="10.0" />
+													</padding>
+												</Button>
+											</nodes>
+										</RibbonGroup>
+									</ribbonGroups>
 								</RibbonTab>
 								<RibbonTab text="Báo cáo">
 									<ribbonGroups>
 										<RibbonGroup title="Báo cáo">
 											<nodes>
-												<Button alignment="TOP_CENTER" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Xuất báo cáo" textAlignment="CENTER" wrapText="true">
+												<Button alignment="TOP_CENTER" contentDisplay="TOP"
+													graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0"
+													text="Xuất báo cáo" textAlignment="CENTER"
+													wrapText="true">
 													<graphic>
 														<ImageView>
 															<image>
@@ -380,43 +438,49 @@
 			</children>
 		</VBox>
 	</top>
-   <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
-   <bottom>
-      <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER_LEFT" focusTraversable="true" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Label text="Tên :">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <Label fx:id="lblTen" ellipsisString="" layoutX="20.0" layoutY="17.0" text="Tên">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <effect>
-                  <Blend />
-               </effect>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Label text="Ngày :" />
-                  <Label fx:id="lblNgay" layoutX="616.0" layoutY="17.0" text="Ngày">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-               <effect>
-                  <Blend />
-               </effect>
-            </HBox>
-         </children>
-      </HBox>
-   </bottom>
+	<center>
+		<AnchorPane prefHeight="200.0" prefWidth="200.0"
+			BorderPane.alignment="CENTER" />
+	</center>
+	<bottom>
+		<HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="200.0"
+			BorderPane.alignment="CENTER">
+			<children>
+				<HBox alignment="CENTER_LEFT" focusTraversable="true"
+					prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+					<children>
+						<Label text="Tên :">
+							<HBox.margin>
+								<Insets left="10.0" />
+							</HBox.margin>
+						</Label>
+						<Label fx:id="lblTen" ellipsisString="" layoutX="20.0"
+							layoutY="17.0" text="Tên">
+							<HBox.margin>
+								<Insets left="10.0" />
+							</HBox.margin>
+						</Label>
+					</children>
+					<effect>
+						<Blend />
+					</effect>
+				</HBox>
+				<HBox alignment="CENTER_RIGHT" prefHeight="100.0"
+					prefWidth="200.0" HBox.hgrow="ALWAYS">
+					<children>
+						<Label text="Ngày :" />
+						<Label fx:id="lblNgay" layoutX="616.0" layoutY="17.0"
+							text="Ngày">
+							<HBox.margin>
+								<Insets left="10.0" right="10.0" />
+							</HBox.margin>
+						</Label>
+					</children>
+					<effect>
+						<Blend />
+					</effect>
+				</HBox>
+			</children>
+		</HBox>
+	</bottom>
 </BorderPane>

@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import services.NhanVienServices;
@@ -91,8 +92,6 @@ public class ThongTinCaNhanControl implements Initializable{
 			}
 		});
 		
-		
-		
 		txtNgaySinh.textProperty().addListener((val, oldVal, newVal) -> {
 			if(!newVal.equals("")) {
 				String regex = "\\d{1,2}/\\d{1,2}/\\d{4}$";
@@ -109,7 +108,6 @@ public class ThongTinCaNhanControl implements Initializable{
 				or(lblErrorNgaySinh.textProperty().isNotEmpty().
 						or(lblErrorCMND.textProperty().isNotEmpty().
 								or(lblErrorSoDT.textProperty().isNotEmpty()))));
-		
 	}
 
 	public void setValues(NhanVien nhanVien) {
@@ -162,7 +160,6 @@ public class ThongTinCaNhanControl implements Initializable{
 		}
 		else if(e.getSource() == btnLuu) {
 			if(capNhatNhanVien() == true) {
-				btnLuu.setDisable(true);
 				btnChinhSuaHoSo.setDisable(flag);
 				setDisable();
 				setUnFocus();

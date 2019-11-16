@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-border-color: GRAY;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.DoiMatKhauControl">
+   <top>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" style="-fx-border-color: GRAY;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="THAY ĐỔI MẬT KHẨU" underline="true">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </top>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="220.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="50.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Mật khẩu hiện tại">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="30.0" layoutY="30.0" text="Mật khẩu mới">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="30.0" layoutY="100.0" text="Xác nhận mật khẩu">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="20.0" top="20.0" />
+               </padding>
+            </HBox>
+            <HBox prefHeight="300.0" prefWidth="384.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <JFXPasswordField fx:id="txtMatKhau" labelFloat="true" promptText="Mật khẩu hiện tại">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXPasswordField>
+                        <Label fx:id="lblErrorMatKhau" prefHeight="20.0" textFill="#f80000">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </Label>
+                        <JFXPasswordField fx:id="txtMatKhauMoi" promptText="Mật khẩu mới">
+                           <VBox.margin>
+                              <Insets top="27.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXPasswordField>
+                        <Label fx:id="lblErrorMatKhauMoi" prefHeight="20.0" textFill="RED">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </Label>
+                        <JFXPasswordField fx:id="txtXacNhan" promptText="Xác nhận mật khẩu">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="27.0" />
+                           </VBox.margin>
+                        </JFXPasswordField>
+                        <Label fx:id="lblErrorXacNhan" layoutX="10.0" layoutY="125.0" prefHeight="20.0" textFill="RED">
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets left="10.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+         </children>
+      </HBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btnXacNhan" buttonType="RAISED" onMouseClicked="#handleButtonAction" prefWidth="100.0" style="-fx-background-color: #009900;" text="Xác nhận">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnHuy" buttonType="RAISED" onMouseClicked="#handleButtonAction" prefWidth="100.0" style="-fx-background-color: #b32d00;" text="Huỷ">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
