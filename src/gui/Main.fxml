@@ -70,7 +70,8 @@
 											</Button>
 											<Button fx:id="btnDangXuat" alignment="TOP_CENTER"
 												contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0"
-												prefWidth="100.0" text="Đăng xuất">
+												prefWidth="100.0" onMouseClicked="#handleButtonAction"
+												text="Đăng xuất">
 												<graphic>
 													<ImageView fitHeight="40.0" fitWidth="40.0">
 														<image>
