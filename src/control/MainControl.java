@@ -27,6 +27,7 @@ import application.Services;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 public class MainControl implements Initializable {
 
@@ -46,9 +47,12 @@ public class MainControl implements Initializable {
 	Label lblTen;
 	@FXML
 	Label lblNgay;
+	@FXML
+	Button btnNhanVien;
 	private UserPassword userPassword;
 	private NhanVien nhanVien;
 	private Stage stage = new Stage();
+	@FXML HBox paneCenter;
 
 	public void setValues(NhanVien nv, UserPassword userPassword) {
 		this.userPassword = userPassword;
@@ -112,7 +116,7 @@ public class MainControl implements Initializable {
 				BorderPane paneDoiMatKhau = fxmlLoader.load();
 				DoiMatKhauControl doiMatKhauControl = fxmlLoader.getController();
 				doiMatKhauControl.setValues(nhanVien, userPassword);
-				border_pane.setCenter(paneDoiMatKhau);
+				paneCenter.getChildren().setAll(paneDoiMatKhau);
 			} catch (Exception e2) {
 				// TODO: handle exception
 				
@@ -125,10 +129,20 @@ public class MainControl implements Initializable {
 				BorderPane paneThongTinCaNhan = fxmlLoader.load();
 				ThongTinCaNhanControl thongTinCaNhanControl = fxmlLoader.getController();
 				thongTinCaNhanControl.setValues(nhanVien);
-				border_pane.setCenter(paneThongTinCaNhan);
+				paneCenter.getChildren().setAll(paneThongTinCaNhan);
 			} catch (Exception e2) {
 				// TODO: handle exception
 				
+				e2.printStackTrace();
+			}
+		}
+		else if(e.getSource() == btnNhanVien) {
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/QuanLyNhanVien.fxml"));
+				BorderPane paneNhanVien = fxmlLoader.load();
+				paneCenter.getChildren().setAll(paneNhanVien);
+			} catch (Exception e2) {
+				// TODO: handle exception
 				e2.printStackTrace();
 			}
 		}
