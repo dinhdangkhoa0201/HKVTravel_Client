@@ -86,7 +86,7 @@ public class ThongTinCaNhanControl implements Initializable{
 					lblErrorCMND.setText("CMND không hợp lệ");
 				} else {
 					lblErrorCMND.setText("");
-				}
+				} 
 			} else {
 				lblErrorCMND.setText("");
 			}
@@ -97,7 +97,7 @@ public class ThongTinCaNhanControl implements Initializable{
 				String regex = "\\d{1,2}/\\d{1,2}/\\d{4}$";
 				if(!newVal.matches(regex)) {
 					lblErrorNgaySinh.setText("Ngày chưa hợp lệ");
-				}
+				} 
 				else {
 					lblErrorNgaySinh.setText("");
 				}
@@ -221,7 +221,6 @@ public class ThongTinCaNhanControl implements Initializable{
 				lblErrorNgaySinh.setText("");
 			}
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		

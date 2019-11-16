@@ -3,6 +3,7 @@ package control;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -71,13 +72,13 @@ public class ThongTinNhanVienControl implements Initializable {
 	private boolean flag;
 	private NhanVien nhanVien;
 	final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-	
+
 	private List<String> danhSachEmailKH;
 	private List<String> danhSachEmailNV;
 
 	private List<String> danhSachSDTKH;
 	private List<String> danhSachSDTNV;
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cbxGioiTinh.getItems().add("Nam");
@@ -100,7 +101,7 @@ public class ThongTinNhanVienControl implements Initializable {
 		SimpleStringProperty propertyMaQL = new SimpleStringProperty(quanLy.getMaNV());
 
 		btnXoa.disableProperty().bind(propertyMaNV.isEqualTo(propertyMaQL));
-		
+
 		Services services = new Services();
 		NhanVienServices nhanVienServices = services.getNhanVienServices();
 		KhachHangServices khachHangServices = services.getKhachHangServices();
@@ -112,13 +113,13 @@ public class ThongTinNhanVienControl implements Initializable {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		if(danhSachEmailKH.contains(nhanVien.getEmail())) {
 			danhSachEmailKH.remove(nhanVien.getEmail());
 		} else if (danhSachEmailNV.contains(nhanVien.getEmail())) {
 			danhSachEmailNV.remove(nhanVien.getEmail());
 		} 
-		
+
 		if(danhSachSDTKH.contains(nhanVien.getSoDienThoai())) {
 			danhSachSDTKH.remove(nhanVien.getSoDienThoai());
 		} else if(danhSachSDTNV.contains(nhanVien.getSoDienThoai())) {
@@ -144,10 +145,45 @@ public class ThongTinNhanVienControl implements Initializable {
 		txtNgaySinh.textProperty().addListener((val, oldVal, newVal) -> {
 			if(!newVal.equals("")) {
 				String regex = "\\d{1,2}/\\d{1,2}/\\d{4}$";
-				if(!newVal.matches(regex)) {
+				if(!txtNgaySinh.getText().matches(regex)) {
 					lblErrorNgaySinh.setText("Ngày chưa hợp lệ");
 				}
-				
+				else {
+					try {
+						String r1 = "\\d{1}/\\d{1}/\\d{4}$";
+						String r2 = "\\d{2}/\\d{1}/\\d{4}$";
+						String r3 = "\\d{1}/\\d{2}/\\d{4}$";
+						String[] temp = txtNgaySinh.getText().split("/");
+						String tempNgaySinh = "";
+						if(txtNgaySinh.getText().matches(r1)) {
+							tempNgaySinh += "0"+temp[0];
+							tempNgaySinh += "/0"+temp[1];
+							tempNgaySinh += "/"+temp[2];
+						} else if(txtNgaySinh.getText().matches(r2)) {
+							tempNgaySinh += ""+temp[0];
+							tempNgaySinh += "/0"+temp[1];
+							tempNgaySinh += "/"+temp[2];
+						} else if(txtNgaySinh.getText().matches(r3)) {
+							tempNgaySinh += "0"+temp[0];
+							tempNgaySinh += "/"+temp[1];
+							tempNgaySinh += "/"+temp[2];
+						} else {
+							tempNgaySinh += ""+temp[0];
+							tempNgaySinh += "/"+temp[1];
+							tempNgaySinh += "/"+temp[2];
+						}
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+						LocalDate localDate = LocalDate.parse(tempNgaySinh, formatter);
+						System.out.println(localDate);
+						if(!localDate.format(formatter).equals(tempNgaySinh)) {
+							lblErrorNgaySinh.setText("Ngày không tồn tại");
+						} else {
+							lblErrorNgaySinh.setText("");
+						}
+					} catch (Exception e) {
+						lblErrorNgaySinh.setText("Ngày không tồn tại");
+					}
+				}
 			}else {
 				lblErrorNgaySinh.setText("");
 			}
