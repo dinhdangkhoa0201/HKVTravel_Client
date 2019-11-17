@@ -189,8 +189,13 @@ public class ThongTinNhanVienControl implements Initializable {
 		});
 		txtEmail.textProperty().addListener((val, oldVal, newVal) -> {
 			if (!newVal.equals("")) {
+				String regex = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
 				if (danhSachEmailNV.contains(newVal) || danhSachEmailKH.contains(newVal)) {
 					lblErrorEmail.setText("Email '" + newVal + "' đã được sử dụng");
+				} else if(!newVal.matches(regex)) {
+					lblErrorEmail.setText("Địa chỉ email không hợp lệ");
+				} else {
+					lblErrorEmail.setText("");
 				}
 			} else {
 				lblErrorEmail.setText("");
@@ -275,7 +280,6 @@ public class ThongTinNhanVienControl implements Initializable {
 				Node node = (Node) e.getSource();
 				Stage stage = (Stage) node.getScene().getWindow();
 				stage.close();
-
 			}
 		} else if (e.getSource() == btnXoa) {
 			Alert alert = new Alert(AlertType.WARNING);
@@ -306,7 +310,12 @@ public class ThongTinNhanVienControl implements Initializable {
 
 	private boolean capNhatNhanVien() {
 		try {
-
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			LocalDate localDate = LocalDate.parse(txtNgaySinh.getText(), formatter);
+			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(), cbxGioiTinh.getValue(), localDate, txtCMND.getText(), nhanVien.getNgayVaoLam(), txtDiaChi.getText(), txtEmail.getText(), txtSoDienThoai.getText(), nhanVien.getChucVu());
+			Services services = new Services();
+			NhanVienServices nhanVienServices = services.getNhanVienServices();
+			return nhanVienServices.suaNhanVien(newNhanVien);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

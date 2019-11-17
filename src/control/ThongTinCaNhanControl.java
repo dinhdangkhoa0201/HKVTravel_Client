@@ -157,6 +157,14 @@ public class ThongTinCaNhanControl implements Initializable{
 				}
 			}
 		});
+		
+		txtDiaChi.textProperty().addListener((o, oldVal, newVal) -> {
+			if(newVal.equals("")) {
+				lblErrorDiaChi.setText("Chưa nhập địa chỉ");
+			} else {
+				lblErrorDiaChi.setText("");
+			}
+		});
 
 		btnLuu.disableProperty().bind(txtHoTen.textProperty().isEqualTo(nhanVien.getHoTen())
 				.and(txtSoDT.textProperty().isEqualTo(nhanVien.getSoDienThoai()))

@@ -44,7 +44,7 @@
 				</ImageView>
 			</graphic>
 		</JFXButton>
-		<VBox layoutX="540.0" layoutY="58.0" prefHeight="452.0" prefWidth="419.0">
+		<VBox layoutX="540.0" layoutY="58.0" prefWidth="419.0">
 			<children>
 				<JFXTextField fx:id="txtHoTen" labelFloat="true" prefHeight="30.0" prefWidth="370.0" promptText="Full Name (*)">
 					<font>
@@ -61,23 +61,28 @@
 						</RequiredFieldValidator>
 					</validators>
 				</JFXTextField>
+				<Label fx:id="lblErrorHoTen" prefHeight="20.0" textFill="RED">
+					<VBox.margin>
+						<Insets top="5.0" />
+					</VBox.margin>
+				</Label>
 				<JFXTextField fx:id="txtEmail" labelFloat="true" layoutX="10.0" layoutY="20.0" prefHeight="30.0" prefWidth="370.0" promptText="Địa chỉ Email (*)">
 					<font>
 						<Font size="15.0" />
 					</font>
 					<VBox.margin>
-						<Insets top="50.0" />
+						<Insets top="25.0" />
 					</VBox.margin>
 					<validators>
 						<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
 						</RequiredFieldValidator>
 					</validators>
 				</JFXTextField>
-            <Label fx:id="lblEmailError" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" textFill="RED">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Label>
+				<Label fx:id="lblEmailError" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" textFill="RED">
+					<VBox.margin>
+						<Insets top="5.0" />
+					</VBox.margin>
+				</Label>
 				<JFXPasswordField fx:id="txtMatKhau" labelFloat="true" prefHeight="30.0" prefWidth="370.0" promptText="Mật khẩu (*)">
 					<font>
 						<Font size="15.0" />
@@ -90,35 +95,48 @@
 						</RequiredFieldValidator>
 					</validators>
 				</JFXPasswordField>
+            <VBox alignment="CENTER_LEFT" prefWidth="420.0">
+               <children>
+      				<Label fx:id="lblErrorMatKhau" alignment="BASELINE_LEFT" contentDisplay="TOP" graphicTextGap="0.0" maxWidth="-Infinity" textFill="RED" wrapText="true" />
+               </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </VBox>
 				<JFXPasswordField fx:id="txtConfirmMatKhau" labelFloat="true" layoutX="10.0" layoutY="194.0" prefHeight="30.0" prefWidth="370.0" promptText="Mật khẩu (*)">
 					<font>
 						<Font size="15.0" />
 					</font>
 					<VBox.margin>
-						<Insets top="50.0" />
+						<Insets top="25.0" />
 					</VBox.margin>
 					<validators>
 						<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
 						</RequiredFieldValidator>
 					</validators>
 				</JFXPasswordField>
+				<Label fx:id="lblErrorXacNhan" layoutX="10.0" layoutY="208.0" prefHeight="20.0" textFill="RED">
+					<VBox.margin>
+						<Insets top="5.0" />
+					</VBox.margin>
+				</Label>
 				<JFXTextField fx:id="txtDienThoai" labelFloat="true" layoutX="10.0" layoutY="220.0" prefHeight="30.0" prefWidth="370.0" promptText="Phone">
 					<font>
 						<Font size="15.0" />
 					</font>
 					<VBox.margin>
-						<Insets top="50.0" />
+						<Insets top="25.0" />
 					</VBox.margin>
 					<validators>
 						<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
 						</RequiredFieldValidator>
 					</validators>
 				</JFXTextField>
-            <Label fx:id="lblSDTError" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" textFill="RED">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </Label>
+				<Label fx:id="lblSDTError" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" textFill="RED">
+					<VBox.margin>
+						<Insets top="5.0" />
+					</VBox.margin>
+				</Label>
 				<JFXTextField fx:id="txtDiaChi" labelFloat="true" layoutX="10.0" layoutY="270.0" prefHeight="30.0" prefWidth="370.0" promptText="Address">
 					<font>
 						<Font size="15.0" />
@@ -127,6 +145,11 @@
 						<Insets top="25.0" />
 					</VBox.margin>
 				</JFXTextField>
+				<Label layoutX="10.0" layoutY="370.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" textFill="RED">
+					<VBox.margin>
+						<Insets top="5.0" />
+					</VBox.margin>
+				</Label>
 			</children>
 		</VBox>
 		<HBox layoutX="513.0" layoutY="517.0" prefHeight="50.0" prefWidth="473.0">

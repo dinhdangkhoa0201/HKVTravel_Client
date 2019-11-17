@@ -4,6 +4,8 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -41,19 +43,27 @@ public class DangKyControl implements Initializable {
 	@FXML
 	private JFXTextField txtHoTen;
 	@FXML
+	private Label lblErrorHoTen;
+	@FXML
 	private JFXTextField txtEmail;
-	@FXML
-	private JFXPasswordField txtMatKhau;
-	@FXML
-	private JFXPasswordField txtConfirmMatKhau;
-	@FXML
-	private JFXTextField txtDienThoai;
-	@FXML
-	private JFXTextField txtDiaChi;
 	@FXML
 	private Label lblEmailError;
 	@FXML
+	private JFXPasswordField txtMatKhau;
+	@FXML
+	private Label lblErrorMatKhau;
+	@FXML
+	private JFXPasswordField txtConfirmMatKhau;
+	@FXML
+	private Label lblErrorXacNhan;
+	@FXML
+	private JFXTextField txtDienThoai;
+	@FXML
 	private Label lblSDTError;
+	@FXML
+	private JFXTextField txtDiaChi;
+
+
 
 	private List<String> danhSachEmailKH;
 	private List<String> danhSachEmailNV;
@@ -80,58 +90,86 @@ public class DangKyControl implements Initializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		init();
-		txtEmail.textProperty().addListener((val, oldVal, newVal) -> {
-			if (!newVal.equals("")) {
-				if (danhSachEmailNV.contains(newVal) || danhSachEmailKH.contains(newVal)) {
-					lblEmailError.setText("Email '" + newVal + "' đã được sử dụng");
-				} else {
-					lblEmailError.setText("");
-				}
-				System.out.println(newVal);
-			}
-		});
-		txtDienThoai.textProperty().addListener((val, oldVal, newVal) -> {
-			if (!newVal.equals("")) {
-				if (danhSachSDTNV.contains(newVal) || danhSachSDTKH.contains(newVal)) {
-					lblSDTError.setText("SĐT '" + newVal + "' đã được sử dụng");
-				} else {
-					lblSDTError.setText("");
-				}
-				System.out.println(newVal);
-			}
-		});
-	}
-
-	private void init() {
 		txtHoTen.focusedProperty().addListener((o, oldVal, newVal) -> {
-			if (!newVal)
-				txtHoTen.validate();
+			if(!newVal) {
+				if(txtHoTen.getText().equals("")) {
+					lblErrorHoTen.setText("Chưa nhập Họ tên");
+				} else {
+					lblErrorHoTen.setText("");
+				}
+			}
 		});
-		txtEmail.focusedProperty().addListener((o, oldVal, newVal) -> {
-			if (!newVal)
-				txtEmail.validate();
+		txtEmail.focusedProperty().addListener((val, oldVal, newVal) -> {
+			if (!newVal) {
+				if (!txtEmail.getText().equals("")) {
+					if (danhSachEmailNV.contains(txtEmail.getText()) || danhSachEmailKH.contains(txtEmail.getText())) {
+						lblEmailError.setText("Email '" + txtEmail.getText() + "' đã được sử dụng");
+					} else {
+						String emailPattern = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+						String email = txtEmail.getText();
+						if (email.matches(emailPattern)) {
+							lblEmailError.setText("");
+						} else {
+							lblEmailError.setText("Email không hợp lệ");
+						}
+
+					}
+				} else if (txtEmail.getText().equals("")) {
+					lblEmailError.setText("Chưa nhập Email");
+				}
+			}
 		});
-		txtMatKhau.focusedProperty().addListener((o, oldVal, newVal) -> {
-			if (!newVal)
-				txtMatKhau.validate();
+		
+		txtMatKhau.focusedProperty().addListener((val, oldVal, newVal) -> {
+			if(!newVal) {
+				if(!txtMatKhau.getText().equals("")) {
+					if(!txtMatKhau.getText().matches("((?=.*[a-z])(?=.*d)(?=.*[@#$%])(?=.*[A-Z]).{6,16})")) {
+						lblErrorMatKhau.setText("Mật khẩu dài từ 8 - 40 kí tự, gồm chứ thường, chữ số, kí tự đặc biệt [@#$%],chữ in hoa");
+					} else {
+						lblErrorMatKhau.setText("");
+					}
+				} else {
+					lblErrorMatKhau.setText("Chưa nhập mật khẩu");
+				}
+			}
 		});
-		txtConfirmMatKhau.focusedProperty().addListener((o, oldVal, newVal) -> {
-			if (!newVal)
-				txtConfirmMatKhau.validate();
-		});
-		txtDienThoai.focusedProperty().addListener((o, oldVal, newVal) -> {
-			if (!newVal)
-				txtDienThoai.validate();
+		
+		txtConfirmMatKhau.focusedProperty().addListener((val, oldVal, newVal) -> {
+			if(!newVal) {
+				if(!txtConfirmMatKhau.getText().equals("")) {
+					if(!txtConfirmMatKhau.getText().equals(txtMatKhau.getText())) {
+						lblErrorXacNhan.setText("Mật khẩu xác nhận sai");
+					} else {
+						lblErrorXacNhan.setText("");
+					}
+				} else {
+					lblErrorXacNhan.setText("Chưa nhập mật khẩu");
+				}
+			}
 		});
 
-		btnSignUp.disableProperty()
-				.bind((txtHoTen.textProperty().isEmpty()
-						.or(txtEmail.textProperty().isEmpty().or(txtMatKhau.textProperty().isEmpty()
-								.or(txtConfirmMatKhau.textProperty().isEmpty().or(txtDienThoai.textProperty().isEmpty())
-										.or(lblEmailError.textProperty().isNotEmpty())
-										.or(lblSDTError.textProperty().isNotEmpty()))))));
+		txtDienThoai.focusedProperty().addListener((val, oldVal, newVal) -> {
+			if (!newVal) {
+				if(!txtDienThoai.getText().equals("")) {
+					if (danhSachSDTNV.contains(txtDienThoai.getText()) || danhSachSDTKH.contains(txtDienThoai.getText())) {
+						lblSDTError.setText("SĐT '" + newVal + "' đã được sử dụng");
+					} else if(!txtDienThoai.getText().matches("\\d{10}")) {
+						lblSDTError.setText("Số điện thoại không hợp lệ");
+					}
+					else {
+						lblSDTError.setText("");
+					}
+				} else {
+					lblSDTError.setText("Chưa nhập Số điện thoại");
+				}
+			}
+		});
+
+		btnSignUp.disableProperty().bind(lblErrorHoTen.textProperty().isNotEmpty()
+				.or(lblEmailError.textProperty().isNotEmpty())
+				.or(lblErrorMatKhau.textProperty().isNotEmpty())
+				.or(lblErrorXacNhan.textProperty().isNotEmpty())
+				.or(lblSDTError.textProperty().isNotEmpty()));
 	}
 
 	@FXML
