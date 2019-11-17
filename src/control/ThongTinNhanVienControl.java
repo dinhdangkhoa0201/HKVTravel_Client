@@ -2,7 +2,6 @@ package control;
 
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -14,7 +13,6 @@ import com.jfoenix.controls.JFXTextField;
 
 import application.Services;
 import entities.NhanVien;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -114,15 +112,15 @@ public class ThongTinNhanVienControl implements Initializable {
 			e.printStackTrace();
 		}
 
-		if(danhSachEmailKH.contains(nhanVien.getEmail())) {
+		if (danhSachEmailKH.contains(nhanVien.getEmail())) {
 			danhSachEmailKH.remove(nhanVien.getEmail());
 		} else if (danhSachEmailNV.contains(nhanVien.getEmail())) {
 			danhSachEmailNV.remove(nhanVien.getEmail());
-		} 
+		}
 
-		if(danhSachSDTKH.contains(nhanVien.getSoDienThoai())) {
+		if (danhSachSDTKH.contains(nhanVien.getSoDienThoai())) {
 			danhSachSDTKH.remove(nhanVien.getSoDienThoai());
-		} else if(danhSachSDTNV.contains(nhanVien.getSoDienThoai())) {
+		} else if (danhSachSDTNV.contains(nhanVien.getSoDienThoai())) {
 			danhSachSDTNV.remove(nhanVien.getSoDienThoai());
 		}
 
@@ -131,9 +129,9 @@ public class ThongTinNhanVienControl implements Initializable {
 
 	private void init() {
 		txtHoTen.textProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
+			if (!newVal.equals("")) {
 				String regex = "\\d+";
-				if(newVal.matches(regex)) {
+				if (newVal.matches(regex)) {
 					lblErrorHoTen.setText("Họ tên không hợp lệ");
 				} else {
 					lblErrorHoTen.setText("");
@@ -143,40 +141,41 @@ public class ThongTinNhanVienControl implements Initializable {
 			}
 		});
 		txtNgaySinh.textProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
+			if (!newVal.equals("")) {
 				String regex = "\\d{1,2}/\\d{1,2}/\\d{4}$";
-				if(!txtNgaySinh.getText().matches(regex)) {
+				if (!txtNgaySinh.getText().matches(regex)) {
 					lblErrorNgaySinh.setText("Ngày chưa hợp lệ");
-				}
-				else {
+				} else {
 					try {
 						String r1 = "\\d{1}/\\d{1}/\\d{4}$";
 						String r2 = "\\d{2}/\\d{1}/\\d{4}$";
 						String r3 = "\\d{1}/\\d{2}/\\d{4}$";
 						String[] temp = txtNgaySinh.getText().split("/");
 						String tempNgaySinh = "";
-						if(txtNgaySinh.getText().matches(r1)) {
-							tempNgaySinh += "0"+temp[0];
-							tempNgaySinh += "/0"+temp[1];
-							tempNgaySinh += "/"+temp[2];
-						} else if(txtNgaySinh.getText().matches(r2)) {
-							tempNgaySinh += ""+temp[0];
-							tempNgaySinh += "/0"+temp[1];
-							tempNgaySinh += "/"+temp[2];
-						} else if(txtNgaySinh.getText().matches(r3)) {
-							tempNgaySinh += "0"+temp[0];
-							tempNgaySinh += "/"+temp[1];
-							tempNgaySinh += "/"+temp[2];
+						if (txtNgaySinh.getText().matches(r1)) {
+							tempNgaySinh += "0" + temp[0];
+							tempNgaySinh += "/0" + temp[1];
+							tempNgaySinh += "/" + temp[2];
+						} else if (txtNgaySinh.getText().matches(r2)) {
+							tempNgaySinh += "" + temp[0];
+							tempNgaySinh += "/0" + temp[1];
+							tempNgaySinh += "/" + temp[2];
+						} else if (txtNgaySinh.getText().matches(r3)) {
+							tempNgaySinh += "0" + temp[0];
+							tempNgaySinh += "/" + temp[1];
+							tempNgaySinh += "/" + temp[2];
 						} else {
-							tempNgaySinh += ""+temp[0];
-							tempNgaySinh += "/"+temp[1];
-							tempNgaySinh += "/"+temp[2];
+							tempNgaySinh += "" + temp[0];
+							tempNgaySinh += "/" + temp[1];
+							tempNgaySinh += "/" + temp[2];
 						}
 						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 						LocalDate localDate = LocalDate.parse(tempNgaySinh, formatter);
 						System.out.println(localDate);
-						if(!localDate.format(formatter).equals(tempNgaySinh)) {
+						if (!localDate.format(formatter).equals(tempNgaySinh)) {
 							lblErrorNgaySinh.setText("Ngày không tồn tại");
+						} else if (LocalDate.now().getYear() - localDate.getYear() < 18) {
+							lblErrorNgaySinh.setText("Chưa đủ 18 tuổi");
 						} else {
 							lblErrorNgaySinh.setText("");
 						}
@@ -184,7 +183,7 @@ public class ThongTinNhanVienControl implements Initializable {
 						lblErrorNgaySinh.setText("Ngày không tồn tại");
 					}
 				}
-			}else {
+			} else {
 				lblErrorNgaySinh.setText("");
 			}
 		});
@@ -192,16 +191,16 @@ public class ThongTinNhanVienControl implements Initializable {
 			if (!newVal.equals("")) {
 				if (danhSachEmailNV.contains(newVal) || danhSachEmailKH.contains(newVal)) {
 					lblErrorEmail.setText("Email '" + newVal + "' đã được sử dụng");
-				} 
+				}
 			} else {
 				lblErrorEmail.setText("");
 			}
 		});
 		txtCMND.textProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
+			if (!newVal.equals("")) {
 				String regex = "\\d{8}";
 				String regex1 = "\\d{12}";
-				if(!newVal.matches(regex) && !newVal.matches(regex1)) {
+				if (!newVal.matches(regex) && !newVal.matches(regex1)) {
 					lblErrorCMND.setText("CMND không hợp lệ");
 				} else {
 					lblErrorCMND.setText("");
@@ -211,17 +210,16 @@ public class ThongTinNhanVienControl implements Initializable {
 			}
 		});
 		txtSoDienThoai.textProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
+			if (!newVal.equals("")) {
 				if (!txtSoDienThoai.getText().equals("")) {
 					String regex = "\\d{10}";
 					String regex1 = "\\d{11}";
-					if (danhSachSDTNV.contains(txtSoDienThoai.getText()) == true || danhSachSDTKH.contains(txtSoDienThoai.getText()) == true) {
+					if (danhSachSDTNV.contains(txtSoDienThoai.getText()) == true
+							|| danhSachSDTKH.contains(txtSoDienThoai.getText()) == true) {
 						lblErrorSDT.setText("SĐT '" + txtSoDienThoai.getText() + "' đã được sử dụng");
-					} 
-					else if(!txtSoDienThoai.getText().matches(regex) && !txtSoDienThoai.getText().matches(regex1)) {
+					} else if (!txtSoDienThoai.getText().matches(regex) && !txtSoDienThoai.getText().matches(regex1)) {
 						lblErrorSDT.setText("Số điện thoại không hợp lệ");
-					}
-					else {
+					} else {
 						lblErrorSDT.setText("");
 					}
 				}
@@ -230,27 +228,25 @@ public class ThongTinNhanVienControl implements Initializable {
 			}
 		});
 		txtDiaChi.textProperty().addListener((val, oldVal, newVal) -> {
-			if(newVal.equals("")) {
+			if (newVal.equals("")) {
 				lblErrorDiaChi.setText("Chưa nhập địa chỉ");
-			}
-			else  {
+			} else {
 				lblErrorDiaChi.setText("");
 			}
 		});
-		btnCapNhat.disableProperty().bind(txtHoTen.textProperty().isEqualTo(nhanVien.getHoTen())
-				.and(cbxGioiTinh.valueProperty().isEqualTo(nhanVien.getGioiTinh()))
-				.and(txtNgaySinh.textProperty().isEqualTo(nhanVien.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))))
-				.and(txtCMND.textProperty().isEqualTo(nhanVien.getCmnd()))
-				.and(txtEmail.textProperty().isEqualTo(nhanVien.getEmail()))
-				.and(txtSoDienThoai.textProperty().isEqualTo(nhanVien.getSoDienThoai()))
-				.and(txtDiaChi.textProperty().isEqualTo(nhanVien.getDiaChi()))
-				.or(lblErrorHoTen.textProperty().isNotEmpty())
-				.or(lblErrorGioiTinh.textProperty().isNotEmpty())
-				.or(lblErrorNgaySinh.textProperty().isNotEmpty())
-				.or(lblErrorCMND.textProperty().isNotEmpty())
-				.or(lblErrorEmail.textProperty().isNotEmpty())
-				.or(lblErrorSDT.textProperty().isNotEmpty())
-				.or(lblErrorDiaChi.textProperty().isNotEmpty()));
+		btnCapNhat.disableProperty()
+				.bind(txtHoTen.textProperty().isEqualTo(nhanVien.getHoTen())
+						.and(cbxGioiTinh.valueProperty().isEqualTo(nhanVien.getGioiTinh()))
+						.and(txtNgaySinh.textProperty()
+								.isEqualTo(nhanVien.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))))
+						.and(txtCMND.textProperty().isEqualTo(nhanVien.getCmnd()))
+						.and(txtEmail.textProperty().isEqualTo(nhanVien.getEmail()))
+						.and(txtSoDienThoai.textProperty().isEqualTo(nhanVien.getSoDienThoai()))
+						.and(txtDiaChi.textProperty().isEqualTo(nhanVien.getDiaChi()))
+						.or(lblErrorHoTen.textProperty().isNotEmpty()).or(lblErrorGioiTinh.textProperty().isNotEmpty())
+						.or(lblErrorNgaySinh.textProperty().isNotEmpty()).or(lblErrorCMND.textProperty().isNotEmpty())
+						.or(lblErrorEmail.textProperty().isNotEmpty()).or(lblErrorSDT.textProperty().isNotEmpty())
+						.or(lblErrorDiaChi.textProperty().isNotEmpty()));
 	}
 
 	@FXML

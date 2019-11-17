@@ -38,11 +38,11 @@ public class ThongTinCaNhanControl implements Initializable{
 	@FXML private JFXTextField txtNgaySinh;
 	@FXML private Label lblErrorNgaySinh;
 	@FXML private JFXTextField txtDiaChi;
+	@FXML private Label lblErrorDiaChi;
 	@FXML private Label lblChucVu;
-	
+
 	@FXML private JFXButton btnLuu;
-	@FXML private JFXButton btnChinhSuaHoSo;
-	
+
 	private boolean flag;
 	private NhanVien nhanVien;
 	private Object btnClose;
@@ -51,63 +51,6 @@ public class ThongTinCaNhanControl implements Initializable{
 		// TODO Auto-generated method stub
 		cbxGioiTinh.getItems().add("Nam");
 		cbxGioiTinh.getItems().add("Nữ");
-		btnLuu.setDisable(true);
-		txtHoTen.textProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
-				String regex = "\\d+";
-				if(newVal.matches(regex)) {
-					lblErrorHoTen.setText("Họ tên không hợp lệ");
-				} else {
-					lblErrorHoTen.setText("");
-				}
-			} else {
-				lblErrorHoTen.setText("Chưa nhập Họ tên");
-			}
-		});
-		
-		txtSoDT.textProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
-				String regex = "\\d{10}";
-				if(!newVal.matches(regex)) {
-					lblErrorSoDT.setText("Số điện thoại không hợp lệ");
-				} else {
-					lblErrorSoDT.setText("");
-				}
-			} else {
-				lblErrorSoDT.setText("Chưa nhập Số điện thoại");
-			}
-		});
-		
-		txtCMND.textProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
-				String regex = "\\d{8}";
-				String regex1 = "\\d{12}";
-				if(!newVal.matches(regex) && !newVal.matches(regex1)) {
-					lblErrorCMND.setText("CMND không hợp lệ");
-				} else {
-					lblErrorCMND.setText("");
-				} 
-			} else {
-				lblErrorCMND.setText("");
-			}
-		});
-		
-		txtNgaySinh.textProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
-				String regex = "\\d{1,2}/\\d{1,2}/\\d{4}$";
-				if(!newVal.matches(regex)) {
-					lblErrorNgaySinh.setText("Ngày chưa hợp lệ");
-				} 
-				else {
-					lblErrorNgaySinh.setText("");
-				}
-			}
-		});
-		btnLuu.disableProperty().bind(
-				lblErrorHoTen.textProperty().isNotEmpty().
-				or(lblErrorNgaySinh.textProperty().isNotEmpty().
-						or(lblErrorCMND.textProperty().isNotEmpty().
-								or(lblErrorSoDT.textProperty().isNotEmpty()))));
 	}
 
 	public void setValues(NhanVien nhanVien) {
@@ -122,6 +65,109 @@ public class ThongTinCaNhanControl implements Initializable{
 		txtNgaySinh.setText(nhanVien.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 		txtDiaChi.setText(nhanVien.getDiaChi());
 		lblChucVu.setText((nhanVien.getChucVu() == 1) ? "Quản lý" : "Nhân viên");
+
+		init();
+	}
+
+	private void init() {
+		txtHoTen.textProperty().addListener((val, oldVal, newVal) -> {
+			if(!newVal.equals("")) {
+				String regex = "\\d+";
+				if(newVal.matches(regex)) {
+					lblErrorHoTen.setText("Họ tên không hợp lệ");
+				} else {
+					lblErrorHoTen.setText("");
+				}
+			} else {
+				lblErrorHoTen.setText("Chưa nhập Họ tên");
+			}
+		});
+
+		txtSoDT.textProperty().addListener((val, oldVal, newVal) -> {
+			if(!newVal.equals("")) {
+				String regex = "\\d{10}";
+				if(!newVal.matches(regex)) {
+					lblErrorSoDT.setText("Số điện thoại không hợp lệ");
+				} else {
+					lblErrorSoDT.setText("");
+				}
+			} else {
+				lblErrorSoDT.setText("Chưa nhập Số điện thoại");
+			}
+		});
+
+		txtCMND.textProperty().addListener((val, oldVal, newVal) -> {
+			if(!newVal.equals("")) {
+				String regex = "\\d{8}";
+				String regex1 = "\\d{12}";
+				if(!newVal.matches(regex) && !newVal.matches(regex1)) {
+					lblErrorCMND.setText("CMND không hợp lệ");
+				} else {
+					lblErrorCMND.setText("");
+				} 
+			} else {
+				lblErrorCMND.setText("");
+			}
+		});
+
+		txtNgaySinh.textProperty().addListener((val, oldVal, newVal) -> {
+			if(!newVal.equals("")) {
+				String regex = "\\d{1,2}/\\d{1,2}/\\d{4}$";
+				if(!newVal.matches(regex)) {
+					lblErrorNgaySinh.setText("Ngày chưa hợp lệ");
+				} 
+				else {
+					try {
+						String r1 = "\\d{1}/\\d{1}/\\d{4}$";
+						String r2 = "\\d{2}/\\d{1}/\\d{4}$";
+						String r3 = "\\d{1}/\\d{2}/\\d{4}$";
+						String[] temp = txtNgaySinh.getText().split("/");
+						String tempNgaySinh = "";
+						if(txtNgaySinh.getText().matches(r1)) {
+							tempNgaySinh += "0"+temp[0];
+							tempNgaySinh += "/0"+temp[1];
+							tempNgaySinh += "/"+temp[2];
+						} else if(txtNgaySinh.getText().matches(r2)) {
+							tempNgaySinh += ""+temp[0];
+							tempNgaySinh += "/0"+temp[1];
+							tempNgaySinh += "/"+temp[2];
+						} else if(txtNgaySinh.getText().matches(r3)) {
+							tempNgaySinh += "0"+temp[0];
+							tempNgaySinh += "/"+temp[1];
+							tempNgaySinh += "/"+temp[2];
+						} else {
+							tempNgaySinh += ""+temp[0];
+							tempNgaySinh += "/"+temp[1];
+							tempNgaySinh += "/"+temp[2];
+						}
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+						LocalDate localDate = LocalDate.parse(tempNgaySinh, formatter);
+						System.out.println(localDate);
+						if(!localDate.format(formatter).equals(tempNgaySinh)) {
+							lblErrorNgaySinh.setText("Ngày không tồn tại");
+						} else if(LocalDate.now().getYear() - localDate.getYear() < 18) {
+							lblErrorNgaySinh.setText("Chưa đủ 18 tuổi");
+						}
+						else {
+							lblErrorNgaySinh.setText("");
+						}
+					} catch (Exception e) {
+						lblErrorNgaySinh.setText("Ngày không tồn tại");
+					}
+				}
+			}
+		});
+
+		btnLuu.disableProperty().bind(txtHoTen.textProperty().isEqualTo(nhanVien.getHoTen())
+				.and(txtSoDT.textProperty().isEqualTo(nhanVien.getSoDienThoai()))
+				.and(txtCMND.textProperty().isEqualTo(nhanVien.getCmnd()))
+				.and(cbxGioiTinh.valueProperty().isEqualTo(nhanVien.getGioiTinh()))
+				.and(txtNgaySinh.textProperty().isEqualTo(nhanVien.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))))
+				.and(txtDiaChi.textProperty().isEqualTo(nhanVien.getDiaChi()))
+				.or(lblErrorHoTen.textProperty().isNotEmpty())
+				.or(lblErrorCMND.textProperty().isNotEmpty())
+				.or(lblErrorNgaySinh.textProperty().isNotEmpty())
+				.or(lblErrorDiaChi.textProperty().isNotEmpty()));
 	}
 
 	@FXML
@@ -153,97 +199,38 @@ public class ThongTinCaNhanControl implements Initializable{
 			else
 				alert.close();
 		}
-		else if(e.getSource() == btnChinhSuaHoSo) {
-			btnChinhSuaHoSo.setDisable(true);
-			setEnable();
-			setFocus();
-		}
 		else if(e.getSource() == btnLuu) {
 			if(capNhatNhanVien() == true) {
-				btnChinhSuaHoSo.setDisable(flag);
-				setDisable();
-				setUnFocus();
 			}
 		}
 	}
-	
-	private void setEnable() {
-		boolean flag = true;
-		txtHoTen.setEditable(flag);
-		txtSoDT.setEditable(flag);
-		txtCMND.setEditable(flag);
-		cbxGioiTinh.setDisable(!flag);
-		txtNgaySinh.setEditable(flag);
-		txtDiaChi.setEditable(flag);
-	}
-	
-	private void setDisable() {
-		boolean flag = false;
-		txtHoTen.setEditable(flag);
-		txtSoDT.setEditable(flag);
-		txtCMND.setEditable(flag);
-		cbxGioiTinh.setDisable(!flag);
-		txtNgaySinh.setEditable(flag);
-		txtDiaChi.setEditable(flag);
-	}
-	
-	private void setFocus() {
-		String color = "#f00";
-		txtHoTen.setFocusColor(Paint.valueOf(color));
-		txtSoDT.setFocusColor(Paint.valueOf(color));
-		txtCMND.setFocusColor(Paint.valueOf(color));
-		cbxGioiTinh.setFocusColor(Paint.valueOf(color));
-		txtNgaySinh.setFocusColor(Paint.valueOf(color));
-		txtDiaChi.setFocusColor(Paint.valueOf(color));
-	}
-	
-	private void setUnFocus() {
 
-		String color = "#2db300";
-		txtHoTen.setUnFocusColor(Paint.valueOf(color));
-		txtSoDT.setUnFocusColor(Paint.valueOf(color));
-		txtCMND.setUnFocusColor(Paint.valueOf(color));
-		cbxGioiTinh.setUnFocusColor(Paint.valueOf(color));
-		txtNgaySinh.setUnFocusColor(Paint.valueOf(color));
-		txtDiaChi.setUnFocusColor(Paint.valueOf(color));
-		
-	}
-	
+
 	private boolean capNhatNhanVien() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		try {
-			LocalDate localDate = LocalDate.parse(txtNgaySinh.getText(), formatter);
-			if(!localDate.format(formatter).equals(txtNgaySinh.getText())) {
-				lblErrorNgaySinh.setText("Ngày không hợp lệ");
-				return false;
-			}
-			else {
-				lblErrorNgaySinh.setText("");
-			}
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		
-		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");		
 		try {
 			LocalDate localDate = LocalDate.parse(txtNgaySinh.getText(), formatter);
 			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(), cbxGioiTinh.getSelectionModel().getSelectedItem(), localDate, txtCMND.getText(), nhanVien.getNgayVaoLam(), txtDiaChi.getText(), nhanVien.getEmail(), txtSoDT.getText(), nhanVien.getChucVu());
+			System.out.println("new "+newNhanVien);
 			Services services = new Services();
 			NhanVienServices nhanVienServices = services.getNhanVienServices();
-			return nhanVienServices.suaNhanVien(newNhanVien);
+			if(nhanVienServices.suaNhanVien(newNhanVien) == true) {
+				this.nhanVien = newNhanVien;
+				return true;
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return false;
 	}
-	
+
 	public boolean getResult() {
 		return flag;
 	}
-	
 
-	
+
+
 	private void alert(AlertType alertType, String title, String header, String content) {
 		Alert alert = new Alert(alertType);
 		alert.setTitle(title);
