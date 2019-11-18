@@ -5,14 +5,17 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ThongTinCaNhanControl">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ThongTinCaNhanControl">
 	<top>
-		<HBox alignment="CENTER" prefHeight="104.0" prefWidth="1280.0" style="-fx-border-color: GRAY;" BorderPane.alignment="CENTER">
+		<HBox alignment="CENTER" prefWidth="1280.0" style="-fx-border-color: GRAY;" BorderPane.alignment="CENTER">
 			<children>
 				<Label alignment="BOTTOM_CENTER" text="HỒ SƠ CỦA TÔI" textAlignment="CENTER" underline="true">
 					<font>
@@ -29,11 +32,11 @@
 		</HBox>
 	</top>
 	<center>
-		<HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+		<HBox prefWidth="200.0" BorderPane.alignment="CENTER">
 			<children>
-				<HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+				<HBox prefWidth="200.0" HBox.hgrow="ALWAYS">
 					<children>
-						<VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="50.0" style="-fx-border-color: GRAY;" HBox.hgrow="ALWAYS">
+						<VBox alignment="TOP_CENTER" prefWidth="100.0" spacing="50.0" style="-fx-border-color: GRAY;" HBox.hgrow="ALWAYS">
 							<HBox.margin>
 								<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
 							</HBox.margin>
@@ -48,7 +51,7 @@
 								</Label>
 								<HBox prefWidth="590.0" spacing="50.0">
 									<children>
-										<VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="200.0" spacing="50.0">
+										<VBox prefWidth="200.0" spacing="50.0">
 											<children>
 												<Label text="Họ tên">
 													<font>
@@ -82,14 +85,14 @@
 												</Label>
 											</children>
 										</VBox>
-										<VBox maxHeight="-Infinity" prefHeight="439.0" prefWidth="400.0" HBox.hgrow="ALWAYS">
+										<VBox prefWidth="400.0" HBox.hgrow="ALWAYS">
 											<children>
 												<JFXTextField fx:id="txtHoTen" labelFloat="true" promptText="Họ tên (*)">
 													<font>
 														<Font size="15.0" />
 													</font>
 												</JFXTextField>
-												<Label fx:id="lblErrorHoTen" prefHeight="20.0" textFill="RED">
+												<Label fx:id="lblErrorHoTen" textFill="RED">
 													<VBox.margin>
 														<Insets top="5.0" />
 													</VBox.margin>
@@ -110,7 +113,7 @@
 														<Insets top="48.0" />
 													</VBox.margin>
 												</JFXTextField>
-												<Label fx:id="lblErrorSoDT" prefHeight="20.0" textFill="RED">
+												<Label fx:id="lblErrorSoDT" textFill="RED">
 													<VBox.margin>
 														<Insets top="5.0" />
 													</VBox.margin>
@@ -123,7 +126,7 @@
 														<Insets top="23.0" />
 													</VBox.margin>
 												</JFXTextField>
-												<Label fx:id="lblErrorCMND" layoutX="10.0" layoutY="204.0" prefHeight="20.0" textFill="RED">
+												<Label fx:id="lblErrorCMND" layoutX="10.0" layoutY="204.0" textFill="RED">
 													<VBox.margin>
 														<Insets top="5.0" />
 													</VBox.margin>
@@ -141,7 +144,7 @@
 														<Insets top="48.0" />
 													</VBox.margin>
 												</JFXTextField>
-												<Label fx:id="lblErrorNgaySinh" layoutX="10.0" layoutY="204.0" prefHeight="20.0" textFill="RED">
+												<Label fx:id="lblErrorNgaySinh" layoutX="10.0" layoutY="204.0" textFill="RED">
 													<VBox.margin>
 														<Insets top="5.0" />
 													</VBox.margin>
@@ -157,10 +160,28 @@
 						<Insets />
 					</HBox.margin>
 				</HBox>
-				<HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+				<HBox prefWidth="200.0" HBox.hgrow="ALWAYS">
 					<children>
-						<VBox prefHeight="200.0" prefWidth="100.0" spacing="50.0" style="-fx-border-color: GRAY;" HBox.hgrow="ALWAYS">
+						<VBox prefWidth="100.0" spacing="50.0" style="-fx-border-color: GRAY;" HBox.hgrow="ALWAYS">
 							<children>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox alignment="CENTER" spacing="35.0">
+                                 <children>
+                                    <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <ImageView fx:id="imgAnhDaiDien" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../img/man.png" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </Pane>
+                                    <JFXButton fx:id="btnAnhDaiDien" buttonType="RAISED" onMouseClicked="#handleButtonAction" text="Ảnh đại điện" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
 								<Label text="Liên hệ">
 									<font>
 										<Font name="System Bold" size="30.0" />
@@ -182,7 +203,7 @@
 												</Label>
 											</children>
 										</VBox>
-										<VBox maxHeight="-Infinity" prefWidth="390.0" HBox.hgrow="ALWAYS">
+										<VBox prefWidth="390.0" HBox.hgrow="ALWAYS">
 											<children>
 												<JFXTextField fx:id="txtDiaChi" labelFloat="true" promptText="Địa chỉ">
 													<font>
@@ -220,12 +241,15 @@
 		</HBox>
 	</center>
 	<bottom>
-		<HBox alignment="CENTER" prefHeight="78.0" prefWidth="1280.0" spacing="20.0" BorderPane.alignment="CENTER">
+		<HBox alignment="CENTER" prefWidth="1280.0" spacing="20.0" BorderPane.alignment="CENTER">
 			<children>
 				<JFXButton fx:id="btnLuu" buttonType="RAISED" onMouseClicked="#handleButtonAction" prefWidth="200.0" style="-fx-background-color: #009900;" text="Lưu" textFill="WHITE">
 					<font>
 						<Font size="20.0" />
 					</font>
+               <HBox.margin>
+                  <Insets bottom="5.0" top="5.0" />
+               </HBox.margin>
 				</JFXButton>
 			</children>
 		</HBox>

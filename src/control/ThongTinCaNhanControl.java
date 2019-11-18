@@ -1,10 +1,20 @@
 package control;
 
+import java.awt.Toolkit;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
+
+import javax.swing.ImageIcon;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -12,17 +22,21 @@ import com.jfoenix.controls.JFXTextField;
 
 import application.Services;
 import entities.NhanVien;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Paint;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.NhanVienServices;
 
@@ -42,15 +56,21 @@ public class ThongTinCaNhanControl implements Initializable{
 	@FXML private Label lblChucVu;
 
 	@FXML private JFXButton btnLuu;
+	@FXML private ImageView imgAnhDaiDien;
+	@FXML private JFXButton btnAnhDaiDien;
 
+	private File fileAnh;
 	private boolean flag;
 	private NhanVien nhanVien;
 	private Object btnClose;
+	private byte[] localBytes;
+	private FileChooser fileChooser;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 		cbxGioiTinh.getItems().add("Nam");
 		cbxGioiTinh.getItems().add("Nữ");
+		fileChooser = new FileChooser();
 	}
 
 	public void setValues(NhanVien nhanVien) {
@@ -65,7 +85,32 @@ public class ThongTinCaNhanControl implements Initializable{
 		txtNgaySinh.setText(nhanVien.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 		txtDiaChi.setText(nhanVien.getDiaChi());
 		lblChucVu.setText((nhanVien.getChucVu() == 1) ? "Quản lý" : "Nhân viên");
-
+		
+		if(nhanVien.getAnh() != null) {
+			try {
+				localBytes = nhanVien.getAnh();
+				InputStream inputStream = new ByteArrayInputStream(nhanVien.getAnh());
+				imgAnhDaiDien.setImage(new Image(inputStream));
+			} catch (Exception e) {
+			}
+		} else {
+			if(cbxGioiTinh.getValue().equals("Nam")) {
+				try {
+					Image image = new Image("/img/man.png");
+					fileAnh = new File("src/img/man.png");
+					imgAnhDaiDien.setImage(image);
+				} catch (Exception e) {
+				}
+				
+			} else {
+				try {
+					Image image = new Image("/img/girl.png");
+					fileAnh = new File("src/img/girl.png");
+					imgAnhDaiDien.setImage(image);
+				} catch (Exception e) {
+				}
+			}
+		}
 		init();
 	}
 
@@ -165,6 +210,27 @@ public class ThongTinCaNhanControl implements Initializable{
 				lblErrorDiaChi.setText("");
 			}
 		});
+		
+		cbxGioiTinh.valueProperty().addListener((o, oldVal, newVal) -> {
+			if(!newVal.equals("")) {
+				if(cbxGioiTinh.getValue().equals("Nam")) {
+					try {
+						Image image = new Image("/img/man.png");
+						fileAnh = new File("src/img/man.png");
+						imgAnhDaiDien.setImage(image);
+					} catch (Exception e) {
+					}
+					
+				} else {
+					try {
+						Image image = new Image("/img/girl.png");
+						fileAnh = new File("src/img/girl.png");
+						imgAnhDaiDien.setImage(image);
+					} catch (Exception e) {
+					}
+				}
+			}
+		});
 
 		btnLuu.disableProperty().bind(txtHoTen.textProperty().isEqualTo(nhanVien.getHoTen())
 				.and(txtSoDT.textProperty().isEqualTo(nhanVien.getSoDienThoai()))
@@ -199,7 +265,6 @@ public class ThongTinCaNhanControl implements Initializable{
 				try {
 					nhanVienServices.dangXuat(nhanVien);
 				} catch (RemoteException event) {
-					// TODO Auto-generated catch block
 					event.printStackTrace();
 				}
 				stage.close();
@@ -209,16 +274,44 @@ public class ThongTinCaNhanControl implements Initializable{
 		}
 		else if(e.getSource() == btnLuu) {
 			if(capNhatNhanVien() == true) {
+				alert(AlertType.INFORMATION, "Update Success", "Cập nhật thông tin thành công", "");
+				init();
+			}
+		}
+		else if(e.getSource() == btnAnhDaiDien) {
+			try {
+				byte[] anhDaiDien = themAnhDaiDien();
+				InputStream inputStream = new ByteArrayInputStream(anhDaiDien);
+				Image image = new Image(inputStream);
+				imgAnhDaiDien.setImage(image);
+				
+				Services services = new Services();
+				NhanVienServices nhanVienServices = services.getNhanVienServices();
+				if(nhanVienServices.capNhatAnhDaiDien(nhanVien.getMaNV(), anhDaiDien) == true) {
+					alert(AlertType.INFORMATION, "Success", "Đổi ảnh đại diện thành công", null);
+				}
+			} catch (Exception e2) {
 			}
 		}
 	}
+	
+	private byte[] themAnhDaiDien() {
+		byte[] bytesAnh = null;
+		try {
+			File file = fileChooser.showOpenDialog(null);
+			bytesAnh = Files.readAllBytes(file.toPath());
 
+		} catch (Exception e) {
+		}
+		return bytesAnh;
+	}
+	
 
 	private boolean capNhatNhanVien() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");		
 		try {
 			LocalDate localDate = LocalDate.parse(txtNgaySinh.getText(), formatter);
-			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(), cbxGioiTinh.getSelectionModel().getSelectedItem(), localDate, txtCMND.getText(), nhanVien.getNgayVaoLam(), txtDiaChi.getText(), nhanVien.getEmail(), txtSoDT.getText(), nhanVien.getChucVu());
+			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(), cbxGioiTinh.getSelectionModel().getSelectedItem(), localDate, txtCMND.getText(), nhanVien.getNgayVaoLam(), txtDiaChi.getText(), nhanVien.getEmail(), txtSoDT.getText(), nhanVien.getChucVu(), nhanVien.getAnh());
 			System.out.println("new "+newNhanVien);
 			Services services = new Services();
 			NhanVienServices nhanVienServices = services.getNhanVienServices();
@@ -227,7 +320,6 @@ public class ThongTinCaNhanControl implements Initializable{
 				return true;
 			}
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return false;
@@ -236,7 +328,6 @@ public class ThongTinCaNhanControl implements Initializable{
 	public boolean getResult() {
 		return flag;
 	}
-
 
 
 	private void alert(AlertType alertType, String title, String header, String content) {

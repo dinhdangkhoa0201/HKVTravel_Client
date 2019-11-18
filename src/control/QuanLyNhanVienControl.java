@@ -212,30 +212,30 @@ public class QuanLyNhanVienControl implements Initializable{
 	}
 
 	private void themNhanVien() {
-//		try {
-//			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ThemNhanVien.fxml"));
-//			DialogPane dialogPane = new DialogPane();
-//			dialogPane = fxmlLoader.load();
-//			ThemNhanVienControl themNhanVienControl = fxmlLoader.getController();
-//			Alert alert = new Alert(AlertType.CONFIRMATION);
-//			alert.setTitle("Thêm Nhân Viên");
-//			alert.setResizable(false);
-//			alert.setDialogPane(dialogPane);
-//			alert.initModality(Modality.WINDOW_MODAL);
-//			Window window = alert.getDialogPane().getScene().getWindow();
-//			window.setOnCloseRequest(event -> window.hide());
-//
-//			alert.showAndWait();
-//			if(themNhanVienControl.getResult() == true) {
-//				loadDataFromDatabase();
-//			}
-//		} catch (Exception e2) {
-//			// TODO: handle exception
-//			System.out.println(e2.getMessage());
-//			System.out.println("Button Add");
-//			e2.printStackTrace();
-//
-//		}
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ThemNhanVien.fxml"));
+			DialogPane dialogPane = new DialogPane();
+			dialogPane = fxmlLoader.load();
+			ThemNhanVienControl themNhanVienControl = fxmlLoader.getController();
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Thêm Nhân Viên");
+			alert.setResizable(false);
+			alert.setDialogPane(dialogPane);
+			alert.initModality(Modality.APPLICATION_MODAL);
+			Window window = alert.getDialogPane().getScene().getWindow();
+			window.setOnCloseRequest(event -> window.hide());
+
+			alert.showAndWait();
+			if(themNhanVienControl.getResult() == true) {
+				loadDataFromDatabase();
+			}
+		} catch (Exception e2) {
+			// TODO: handle exception
+			System.out.println(e2.getMessage());
+			System.out.println("Button Add");
+			e2.printStackTrace();
+
+		}
 	}
 
 }

@@ -1,5 +1,7 @@
 package application;
 	
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,5 +26,16 @@ public class Main_Client extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+//		File file = new File("src/img/man.png");
+//		try {
+//			if(file.exists()) {
+//				System.out.println("Exists");
+//				System.out.println(file.toURI());
+//			} else {
+//				System.out.println("Dell co gi");
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 }

@@ -28,6 +28,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 public class MainControl implements Initializable {
 
@@ -51,8 +53,7 @@ public class MainControl implements Initializable {
 	Button btnNhanVien;
 	private UserPassword userPassword;
 	private NhanVien nhanVien;
-	private Stage stage = new Stage();
-	@FXML HBox paneCenter;
+	@FXML Pane paneCenter;
 
 	public void setValues(NhanVien nv, UserPassword userPassword) {
 		this.userPassword = userPassword;
@@ -106,7 +107,6 @@ public class MainControl implements Initializable {
 					stage.show();
 				}
 			} catch (Exception e2) {
-				// TODO: handle exception
 				e2.printStackTrace();
 			}
 		}
@@ -116,10 +116,11 @@ public class MainControl implements Initializable {
 				BorderPane paneDoiMatKhau = fxmlLoader.load();
 				DoiMatKhauControl doiMatKhauControl = fxmlLoader.getController();
 				doiMatKhauControl.setValues(nhanVien, userPassword);
+//				paneDoiMatKhau.setPrefSize(paneCenter.getWidth(), paneCenter.getHeight());
+//				paneCenter.getChildren().clear();
+//				paneCenter.getChildren().add(paneDoiMatKhau);
 				border_pane.setCenter(paneDoiMatKhau);
 			} catch (Exception e2) {
-				// TODO: handle exception
-				
 				e2.printStackTrace();
 			}
 		}
@@ -129,10 +130,11 @@ public class MainControl implements Initializable {
 				BorderPane paneThongTinCaNhan = fxmlLoader.load();
 				ThongTinCaNhanControl thongTinCaNhanControl = fxmlLoader.getController();
 				thongTinCaNhanControl.setValues(nhanVien);
+//				paneThongTinCaNhan.setPrefSize(paneCenter.getWidth(), paneCenter.getHeight());
+//				paneCenter.getChildren().clear();
+//				paneCenter.getChildren().add(paneThongTinCaNhan);
 				border_pane.setCenter(paneThongTinCaNhan);
 			} catch (Exception e2) {
-				// TODO: handle exception
-				
 				e2.printStackTrace();
 			}
 		}
@@ -142,6 +144,9 @@ public class MainControl implements Initializable {
 				BorderPane paneNhanVien = fxmlLoader.load();
 				QuanLyNhanVienControl quanLyNhanVienControl = fxmlLoader.getController();
 				quanLyNhanVienControl.setValues(nhanVien);
+//				paneNhanVien.setPrefSize(paneCenter.getWidth(), paneCenter.getHeight());
+//				paneCenter.getChildren().clear();
+//				paneCenter.getChildren().add(paneNhanVien);
 				border_pane.setCenter(paneNhanVien);
 			} catch (Exception e2) {
 				// TODO: handle exception

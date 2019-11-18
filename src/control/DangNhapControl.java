@@ -123,6 +123,7 @@ public class DangNhapControl implements Initializable {
 								}
 							}
 						});
+						stage.setMaximized(true);
 						stage.show();
 
 					} catch (Exception e2) {
