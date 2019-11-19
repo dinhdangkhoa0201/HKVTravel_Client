@@ -123,8 +123,8 @@ public class DangKyControl implements Initializable {
 		txtMatKhau.focusedProperty().addListener((val, oldVal, newVal) -> {
 			if(!newVal) {
 				if(!txtMatKhau.getText().equals("")) {
-					if(!txtMatKhau.getText().matches("((?=.*[a-z])(?=.*d)(?=.*[@#$%])(?=.*[A-Z]).{6,16})")) {
-						lblErrorMatKhau.setText("Mật khẩu dài từ 8 - 40 kí tự, gồm chứ thường, chữ số, kí tự đặc biệt [@#$%],chữ in hoa");
+					if(!txtMatKhau.getText().matches("((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])).{6,16}")) {
+						lblErrorMatKhau.setText("Mật khẩu dài từ 6 - 16 kí tự, gồm chứ thường, chữ số,chữ in hoa");
 					} else {
 						lblErrorMatKhau.setText("");
 					}

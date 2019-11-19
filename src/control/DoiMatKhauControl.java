@@ -47,18 +47,27 @@ public class DoiMatKhauControl implements Initializable{
 		// TODO Auto-generated method stub
 		txtMatKhau.focusedProperty().addListener((o, oldVal, newVal) -> {
 			if(!newVal) {
-				if(!hash(txtMatKhau.getText()).equals(userPassword.getPassWord())) {
-					lblErrorMatKhau.setText("Mật khẩu hiện tại không đúng");
-				} else {
-					lblErrorMatKhau.setText("");
+				if(!txtMatKhau.getText().equals("")) {
+					if(!hash(txtMatKhau.getText()).equals(userPassword.getPassWord())) {
+						lblErrorMatKhau.setText("Mật khẩu hiện tại không đúng");
+					} else {
+						lblErrorMatKhau.setText("");
+					}
+				}
+				else {
+					lblErrorMatKhau.setText("Chưa nhập mật khẩu");
 				}
 			}
 		});
 		txtMatKhauMoi.focusedProperty().addListener((o, oldVal, newVal) -> {
 			if(!newVal) {
 				if(hash(txtMatKhauMoi.getText()).equals(userPassword.getPassWord())) {
-					lblErrorMatKhauMoi.setText("Mật khẩu mới không được trùng với mật khẩu hiện tại");
-				} else {
+					lblErrorMatKhauMoi.setText("Mật khẩu mới khôn"
+							+ "g được trùng với mật khẩu hiện tại");
+				} else if(!txtMatKhauMoi.getText().matches("((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])).{6,16}")) {
+					lblErrorMatKhauMoi.setText("Mật khẩu dài từ 6 - 16 kí tự, gồm chứ thường, chữ số,chữ in hoa");
+				}
+				else {
 					lblErrorMatKhauMoi.setText("");
 				}
 			}
@@ -82,7 +91,7 @@ public class DoiMatKhauControl implements Initializable{
 	public void setValues(NhanVien nhanVien, UserPassword userPassword) {
 		this.nhanVien = nhanVien;
 		this.userPassword = userPassword;
-		System.out.println(nhanVien);
+		System.out.println(nhanVien.getAnh().length);
 	}
 	
 	@FXML

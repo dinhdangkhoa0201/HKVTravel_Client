@@ -17,6 +17,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.javafx.scene.control.skin.TextFieldSkin;
 
 import application.Services;
 import entities.NhanVien;
@@ -69,6 +70,8 @@ public class ThemNhanVienControl implements Initializable{
 	@FXML private JFXButton btnAnhDaiDien;
 	
 	private FileChooser fileChooser;
+	private File fileAnh;
+	private byte[] byteAnh;
 	
 	private List<String> danhSachEmailKH;
 	private List<String> danhSachEmailNV;
@@ -80,15 +83,16 @@ public class ThemNhanVienControl implements Initializable{
 	private List<String> danhSachCMNDNV;
 
 	private boolean flag = false;
-	private ObservableList<String> gioiTinh = FXCollections.observableArrayList("Nam", "Nữ");
-	private File fileAnh;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		fileChooser = new FileChooser();
 		cbxChucVu.getItems().add("Nhân viên");
 		cbxChucVu.getItems().add("Quản lý");
 		cbxChucVu.getSelectionModel().select("Nhân viên");
-		cbxGioiTinh.setItems(gioiTinh);
+		cbxGioiTinh.getItems().add("Nam");
+		cbxGioiTinh.getItems().add("Nữ");
+		
 		Services services = new Services();
 		NhanVienServices nhanVienServices = services.getNhanVienServices();
 		KhachHangServices khachHangServices = services.getKhachHangServices();
@@ -100,7 +104,6 @@ public class ThemNhanVienControl implements Initializable{
 			danhSachCMNDKH = khachHangServices.danhSachCMND();
 			danhSachCMNDNV = nhanVienServices.danhSachCMND();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -121,20 +124,28 @@ public class ThemNhanVienControl implements Initializable{
 		
 		cbxGioiTinh.valueProperty().addListener((o, oldVal, newVal) -> {
 			if(!newVal.equals("")) {
-				if(cbxGioiTinh.getValue().equals("Nam")) {
-					try {
-						Image image = new Image("/img/man.png");
-						fileAnh = new File("src/img/man.png");
-						imgAnhDaiDien.setImage(image);
-					} catch (Exception e) {
-					}
-					
-				} else {
-					try {
-						Image image = new Image("/img/girl.png");
-						fileAnh = new File("src/img/girl.png");
-						imgAnhDaiDien.setImage(image);
-					} catch (Exception e) {
+				if(byteAnh == null) {
+					if(cbxGioiTinh.getValue().equals("Nam")) {
+						try {
+							fileAnh = new File("src/img/man.png");
+							byteAnh = Files.readAllBytes(fileAnh.toPath());
+							InputStream inputStream = new ByteArrayInputStream(byteAnh);
+							
+							Image image = new Image(inputStream);
+							imgAnhDaiDien.setImage(image);
+						} catch (Exception e) {
+						}
+						
+					} else {
+						try {
+							fileAnh = new File("src/img/girl.png");
+							byteAnh = Files.readAllBytes(fileAnh.toPath());
+							InputStream inputStream = new ByteArrayInputStream(byteAnh);
+							
+							Image image = new Image(inputStream);
+							imgAnhDaiDien.setImage(image);
+						} catch (Exception e) {
+						}
 					}
 				}
 			}
@@ -187,6 +198,7 @@ public class ThemNhanVienControl implements Initializable{
 							}
 							else {
 								lblErrorNgaySinh.setText("");
+								txtNgaySinh.setText(tempNgaySinh);
 							}
 						} catch (Exception e) {
 							lblErrorNgaySinh.setText("Ngày không tồn tại");
@@ -200,8 +212,8 @@ public class ThemNhanVienControl implements Initializable{
 		
 		txtCMND.focusedProperty().addListener((val, oldVal, newVal) -> {
 			if(!newVal) {
-				if(txtCMND.getText().equals("")) {
-					String regex = "\\d{8}";
+				if(!txtCMND.getText().equals("")) {
+					String regex = "\\d{9}";
 					String regex1 = "\\d{12}";
 					if(!txtCMND.getText().matches(regex) && !txtCMND.getText().matches(regex1)) {
 						lblErrorCMND.setText("CMND không hợp lệ");
@@ -212,7 +224,7 @@ public class ThemNhanVienControl implements Initializable{
 						lblErrorCMND.setText("");
 					} 
 				} else {
-					lblErrorCMND.setText("Chưa nhập CMND");
+					lblErrorCMND.setText("");
 				}
 			}
 		});
@@ -256,7 +268,7 @@ public class ThemNhanVienControl implements Initializable{
 		});
 
 		txtDiaChi.focusedProperty().addListener((o, oldVal, newVal) -> {
-			if(newVal) {
+			if(!newVal) {
 				if(txtDiaChi.getText().equals("")) {
 					lblErrorDiaChi.setText("Chưa nhập địa chỉ");
 				}else {
@@ -265,19 +277,59 @@ public class ThemNhanVienControl implements Initializable{
 			} 
 		});
 		
-		txtMatKhau.focusedProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal) {
-				if(!txtMatKhau.getText().equals("")) {
-					if(!txtMatKhau.getText().matches("((?=.*[a-z])(?=.*d)(?=.*[@#$%])(?=.*[A-Z]).{6,16})")) {
-						lblErrorMatKhau.setText("Mật khẩu dài từ 8 - 40 kí tự, gồm chứ thường, chữ số, kí tự đặc biệt [@#$%],chữ in hoa");
+		txtMatKhau.textProperty().addListener((val, oldVal, newVal) -> {
+			try {
+				if(!newVal.equals("")) {
+					if(!txtMatKhau.getText().equals("")) {
+						if(!txtMatKhau.getText().matches("((?=.*[a-z])(?=.*\\d)(?=.*[A-Z])).{6,16}")) {
+							lblErrorMatKhau.setText("Mật khẩu dài từ 6 - 16 kí tự, gồm chứ thường, chữ số,chữ in hoa");
+						} else {
+							lblErrorMatKhau.setText("");
+						}
 					} else {
-						lblErrorMatKhau.setText("");
+						lblErrorMatKhau.setText("Chưa nhập mật khẩu");
 					}
-				} else {
-					lblErrorMatKhau.setText("Chưa nhập mật khẩu");
 				}
+			} catch (Exception e) {
 			}
 		});
+		
+		BooleanProperty showPassword = new SimpleBooleanProperty() {
+			@Override
+			protected void invalidated() {
+				// force maskText to be called
+				String txt = txtMatKhau.getText();
+				txtMatKhau.setText(null);
+				txtMatKhau.setText(txt);
+			}
+		};
+
+		txtMatKhau.setSkin(new TextFieldSkin(txtMatKhau) {
+			@Override
+			protected String maskText(String txt) {
+				if (showPassword.get()) {
+					return txt;
+				}
+				return super.maskText(txt);
+			}
+		});
+		showPassword.bind(chkXemPassword.selectedProperty());
+		
+		btnThem.disableProperty().bind(lblErrorHoTen.textProperty().isNotEmpty()
+				.or(cbxGioiTinh.valueProperty().isNull())
+				.or(lblErrorNgaySinh.textProperty().isNotEmpty())
+				.or(lblErrorCMND.textProperty().isNotEmpty())
+				.or(lblErrorEmail.textProperty().isNotEmpty())
+				.or(lblErrorSoDienThoai.textProperty().isNotEmpty())
+				.or(lblErrorDiaChi.textProperty().isNotEmpty())
+				.or(lblErrorMatKhau.textProperty().isNotEmpty())
+				.or(txtHoTen.textProperty().isEmpty())
+				.or(txtNgaySinh.textProperty().isEmpty())
+				.or(txtCMND.textProperty().isEmpty())
+				.or(txtEmail.textProperty().isEmpty())
+				.or(txtSoDienThoai.textProperty().isEmpty())
+				.or(txtDiaChi.textProperty().isEmpty())
+				.or(txtMatKhau.textProperty().isEmpty()));
 	}
 
 
@@ -313,7 +365,8 @@ public class ThemNhanVienControl implements Initializable{
 			}
 		} else if(e.getSource() == btnAnhDaiDien) {
 			try {
-				InputStream inputStream = new ByteArrayInputStream(themAnhDaiDien());
+				byteAnh = themAnhDaiDien();
+				InputStream inputStream = new ByteArrayInputStream(byteAnh);
 				Image image = new Image(inputStream);
 				imgAnhDaiDien.setImage(image);
 			} catch (Exception e2) {
@@ -340,8 +393,16 @@ public class ThemNhanVienControl implements Initializable{
 	}
 
 	private boolean themNhanVien() {
+		try {
+			NhanVien newNhanVien = new NhanVien(null, txtHoTen.getText(), cbxGioiTinh.getValue(), LocalDate.parse(txtNgaySinh.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), txtCMND.getText(), LocalDate.now(), txtDiaChi.getText(), txtEmail.getText(), txtSoDienThoai.getText(), (cbxChucVu.getValue().equals("Nhân viên") == true) ? 0 : 1, byteAnh);
+			UserPassword userPassword = new UserPassword(null, txtMatKhau.getText());
+			Services services = new Services();
+			NhanVienServices nhanVienServices = services.getNhanVienServices();
+			return nhanVienServices.themNhanVien(newNhanVien, userPassword);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 		return false;
-		
 	}
 
 	public boolean getResult() {

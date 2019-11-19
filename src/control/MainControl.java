@@ -53,17 +53,17 @@ public class MainControl implements Initializable {
 	Button btnNhanVien;
 	private UserPassword userPassword;
 	private NhanVien nhanVien;
+	private String id;
+	
 	@FXML Pane paneCenter;
 
 	public void setValues(NhanVien nv, UserPassword userPassword) {
 		this.userPassword = userPassword;
 		this.nhanVien = nv;
-		lblTen.setText(this.nhanVien.getHoTen());
 	}
-
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
 		lblNgay.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 	}
 
@@ -77,7 +77,6 @@ public class MainControl implements Initializable {
 					nhanVienServices.dangXuat(this.nhanVien);
 					System.exit(0);
 				} catch (RemoteException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 
@@ -90,7 +89,6 @@ public class MainControl implements Initializable {
 				nhanVienServices.dangXuat(this.nhanVien);
 				System.exit(0);
 			} catch (RemoteException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
@@ -110,30 +108,49 @@ public class MainControl implements Initializable {
 				e2.printStackTrace();
 			}
 		}
-		else if(e.getSource() == btnDoiMatKhau) {
-			try {
-				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/DoiMatKhau.fxml"));
-				BorderPane paneDoiMatKhau = fxmlLoader.load();
-				DoiMatKhauControl doiMatKhauControl = fxmlLoader.getController();
-				doiMatKhauControl.setValues(nhanVien, userPassword);
-//				paneDoiMatKhau.setPrefSize(paneCenter.getWidth(), paneCenter.getHeight());
-//				paneCenter.getChildren().clear();
-//				paneCenter.getChildren().add(paneDoiMatKhau);
-				border_pane.setCenter(paneDoiMatKhau);
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
 		else if(e.getSource() == btnThongTinCaNhan) {
 			try {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ThongTinCaNhan.fxml"));
 				BorderPane paneThongTinCaNhan = fxmlLoader.load();
 				ThongTinCaNhanControl thongTinCaNhanControl = fxmlLoader.getController();
-				thongTinCaNhanControl.setValues(nhanVien);
+				try {
+					Services services = new Services();
+					NhanVienServices nhanVienServices = services.getNhanVienServices();
+					this.nhanVien = nhanVienServices.timNhanVienByMaNV(nhanVien.getMaNV());
+					thongTinCaNhanControl.setValues(nhanVien, userPassword);
+					border_pane.setCenter(paneThongTinCaNhan);
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
 //				paneThongTinCaNhan.setPrefSize(paneCenter.getWidth(), paneCenter.getHeight());
 //				paneCenter.getChildren().clear();
 //				paneCenter.getChildren().add(paneThongTinCaNhan);
-				border_pane.setCenter(paneThongTinCaNhan);
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		else if(e.getSource() == btnDoiMatKhau) {
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/DoiMatKhau.fxml"));
+				BorderPane paneDoiMatKhau = fxmlLoader.load();
+				DoiMatKhauControl doiMatKhauControl = fxmlLoader.getController();
+				try {
+					Services services = new Services();
+					NhanVienServices nhanVienServices = services.getNhanVienServices();
+					this.nhanVien = nhanVienServices.timNhanVienByMaNV(nhanVien.getMaNV());
+					
+					System.out.println("Doi mat khau "+nhanVien.getAnh().length);
+					doiMatKhauControl.setValues(nhanVien, userPassword);
+					
+//					paneDoiMatKhau.setPrefSize(paneCenter.getWidth(), paneCenter.getHeight());
+//					paneCenter.getChildren().clear();
+//					paneCenter.getChildren().add(paneDoiMatKhau);
+					border_pane.setCenter(paneDoiMatKhau);
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
+
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -149,7 +166,6 @@ public class MainControl implements Initializable {
 //				paneCenter.getChildren().add(paneNhanVien);
 				border_pane.setCenter(paneNhanVien);
 			} catch (Exception e2) {
-				// TODO: handle exception
 				e2.printStackTrace();
 			}
 		}

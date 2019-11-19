@@ -4,6 +4,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.text.Normalizer;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -14,6 +15,7 @@ import application.Services;
 import entities.KhachHang;
 import entities.NhanVien;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -47,8 +49,8 @@ public class QuanLyNhanVienControl implements Initializable{
 	@FXML private TableColumn<NhanVien, String> col_manv;
 	@FXML private TableColumn<NhanVien, String> col_hoten;
 	@FXML private TableColumn<NhanVien, String> col_gioitinh;
-	@FXML private TableColumn<NhanVien, LocalDate> col_ngaysinh;	
-	@FXML private TableColumn<NhanVien, LocalDate> col_ngayvaolam;
+	@FXML private TableColumn<NhanVien, String> col_ngaysinh;	
+	@FXML private TableColumn<NhanVien, String> col_ngayvaolam;
 	@FXML private TableColumn<NhanVien, String> col_CMND;
 	@FXML private TableColumn<NhanVien, String> col_diachi;
 	@FXML private TableColumn<NhanVien, String> col_email;
@@ -63,16 +65,14 @@ public class QuanLyNhanVienControl implements Initializable{
 		// TODO Auto-generated method stub
 		data = FXCollections.observableArrayList();
 		filter = new FilteredList<>(data);
-		
 		txtTim.textProperty().addListener((observable, oldValu,newValue)->{
 			filter.setPredicate(nhanvien ->{
-				if(newValue.equals("")) {
+				if(newValue.trim().equals("")) {
 					return true;
 				}
-				
 				else {
-					String temp  = Normalizer.normalize(nhanvien.getHoTen(), Normalizer.Form.NFD);
-					String ten = Normalizer.normalize(newValue, Normalizer.Form.NFD);
+					String temp  = Normalizer.normalize(nhanvien.getHoTen().trim(), Normalizer.Form.NFD);
+					String ten = Normalizer.normalize(newValue.trim(), Normalizer.Form.NFD);
 					Pattern pattern  = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
 					if (pattern.matcher(temp).replaceAll("").replaceAll("Đ", "D").replace("đ", "").toLowerCase().contains(pattern.matcher(ten).replaceAll("").replaceAll("Đ", "D").replace("đ", "").toLowerCase())) {
 						return true;
@@ -81,6 +81,8 @@ public class QuanLyNhanVienControl implements Initializable{
 				}
 			});
 		});
+		
+
 		setCellTable();
 		loadDataFromDatabase();
 	}
@@ -109,6 +111,21 @@ public class QuanLyNhanVienControl implements Initializable{
 				return stringProperty;
 			}
 		});
+		
+		col_ngaysinh.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<NhanVien,String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<NhanVien, String> param) {
+				return new SimpleObjectProperty<>(param.getValue().getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+			}
+		});
+		
+		col_ngayvaolam.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<NhanVien,String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<NhanVien, String> param) {
+				return new SimpleObjectProperty<>(param.getValue().getNgayVaoLam().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+			}
+		});
+		
 		col_diachi.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<NhanVien,String>, ObservableValue<String>>() {
 
 			@Override
@@ -126,7 +143,6 @@ public class QuanLyNhanVienControl implements Initializable{
 			Services services = new Services();
 			NhanVienServices nhanVienServices = services.getNhanVienServices();
 			data = FXCollections.observableArrayList(nhanVienServices.danhsachNhanVien());
-			System.out.println(data);
 			filter = new FilteredList<>(data, p -> true);
 			tableNhanVien.setItems(filter);
 			tableNhanVien.getSelectionModel().clearSelection();

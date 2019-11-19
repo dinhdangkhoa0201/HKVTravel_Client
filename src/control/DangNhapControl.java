@@ -79,6 +79,10 @@ public class DangNhapControl implements Initializable {
 		
 		init();
 	}
+	
+	public void setValues(NhanVien nhanVien) {
+		this.nhanVien = nhanVien;
+	}
 
 	private void init() {
 		cbxTaiKhoan.focusedProperty().addListener((o, oldVal, newVal) -> {

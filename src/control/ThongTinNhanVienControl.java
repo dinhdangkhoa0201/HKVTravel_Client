@@ -2,12 +2,14 @@ package control;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -90,8 +92,8 @@ public class ThongTinNhanVienControl implements Initializable {
 	private List<String> danhSachSDTNV;
 	
 	private FileChooser fileChooser;
-	
-	private byte[] localBytes;
+	private File fileAnh;
+	private byte[] byteAnh;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -115,28 +117,39 @@ public class ThongTinNhanVienControl implements Initializable {
 		
 		if(nhanVien.getAnh() != null) {
 			try {
-				InputStream inputStream = new ByteArrayInputStream(nhanVien.getAnh());
-				imgAnhDaiDien.setImage(new Image(inputStream));
 				System.out.println("Co Anh");
+				byteAnh = nhanVien.getAnh();
+				InputStream inputStream = new ByteArrayInputStream(byteAnh);
+				imgAnhDaiDien.setImage(new Image(inputStream));
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
+			
 		} else {
 			if(cbxGioiTinh.getValue().equals("Nam")) {
 				try {
-					Image image = new Image("/img/man.png");
+					fileAnh = new File("src/img/man.png");
+					byteAnh = Files.readAllBytes(fileAnh.toPath());
+					InputStream inputStream = new ByteArrayInputStream(byteAnh);
+					
+					Image image = new Image(inputStream);
 					imgAnhDaiDien.setImage(image);
 				} catch (Exception e) {
 				}
 				
 			} else {
 				try {
-					Image image = new Image("/img/girl.png");
+					fileAnh = new File("src/img/girl.png");
+					byteAnh = Files.readAllBytes(fileAnh.toPath());
+					InputStream inputStream = new ByteArrayInputStream(byteAnh);
+					
+					Image image = new Image(inputStream);
 					imgAnhDaiDien.setImage(image);
 				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}
-		
 		
 		
 		SimpleStringProperty propertyMaNV = new SimpleStringProperty(nhanVien.getMaNV());
@@ -184,6 +197,55 @@ public class ThongTinNhanVienControl implements Initializable {
 				lblErrorHoTen.setText("Chưa nhập Họ tên");
 			}
 		});
+		
+		cbxGioiTinh.valueProperty().addListener((o, oldVal, newVal) -> {
+			if(!newVal.equals("")) {
+				System.out.println("byte anh : "+byteAnh);
+				if(byteAnh != null) {
+					try {
+						File fileMan = new File("src/img/man.png");
+						byte[] byteMan = Files.readAllBytes(fileMan.toPath());
+						System.out.println("Man "+Arrays.equals(byteAnh, byteMan));
+
+						File fileWoman = new File("src/img/girl.png");
+						byte[] byteWoman = Files.readAllBytes(fileWoman.toPath());
+						System.out.println("Women "+Arrays.equals(byteAnh, byteWoman));
+						
+						System.out.println("both : "+Arrays.equals(byteMan, byteWoman));
+						
+						if(Arrays.equals(byteAnh, byteMan) == true || Arrays.equals(byteAnh, byteWoman)) {
+							if(cbxGioiTinh.getValue().equals("Nam")) {
+								try {
+									fileAnh = new File("src/img/man.png");
+									byteAnh = Files.readAllBytes(fileAnh.toPath());
+									InputStream inputStream = new ByteArrayInputStream(byteAnh);
+									
+									Image image = new Image(inputStream);
+									imgAnhDaiDien.setImage(image);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+								
+							} else {
+								try {
+									fileAnh = new File("src/img/girl.png");
+									byteAnh = Files.readAllBytes(fileAnh.toPath());
+									InputStream inputStream = new ByteArrayInputStream(byteAnh);
+									
+									Image image = new Image(inputStream);
+									imgAnhDaiDien.setImage(image);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		
 		txtNgaySinh.textProperty().addListener((val, oldVal, newVal) -> {
 			if (!newVal.equals("")) {
 				String regex = "\\d{1,2}/\\d{1,2}/\\d{4}$";
@@ -231,6 +293,7 @@ public class ThongTinNhanVienControl implements Initializable {
 				lblErrorNgaySinh.setText("");
 			}
 		});
+		
 		txtEmail.textProperty().addListener((val, oldVal, newVal) -> {
 			if (!newVal.equals("")) {
 				String regex = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
@@ -245,6 +308,7 @@ public class ThongTinNhanVienControl implements Initializable {
 				lblErrorEmail.setText("");
 			}
 		});
+		
 		txtCMND.textProperty().addListener((val, oldVal, newVal) -> {
 			if (!newVal.equals("")) {
 				String regex = "\\d{8}";
@@ -258,6 +322,7 @@ public class ThongTinNhanVienControl implements Initializable {
 				lblErrorCMND.setText("");
 			}
 		});
+		
 		txtSoDienThoai.textProperty().addListener((val, oldVal, newVal) -> {
 			if (!newVal.equals("")) {
 				if (!txtSoDienThoai.getText().equals("")) {
@@ -276,6 +341,7 @@ public class ThongTinNhanVienControl implements Initializable {
 				lblErrorSDT.setText("Chưa nhập Số điện thoại");
 			}
 		});
+		
 		txtDiaChi.textProperty().addListener((val, oldVal, newVal) -> {
 			if (newVal.equals("")) {
 				lblErrorDiaChi.setText("Chưa nhập địa chỉ");
@@ -386,7 +452,7 @@ public class ThongTinNhanVienControl implements Initializable {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");		
 		try {
 			LocalDate localDate = LocalDate.parse(txtNgaySinh.getText(), formatter);
-			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(), cbxGioiTinh.getSelectionModel().getSelectedItem(), localDate, txtCMND.getText(), nhanVien.getNgayVaoLam(), txtDiaChi.getText(), nhanVien.getEmail(), txtSoDienThoai.getText(), nhanVien.getChucVu(), nhanVien.getAnh());
+			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(), cbxGioiTinh.getSelectionModel().getSelectedItem(), localDate, txtCMND.getText(), nhanVien.getNgayVaoLam(), txtDiaChi.getText(), nhanVien.getEmail(), txtSoDienThoai.getText(), nhanVien.getChucVu(), byteAnh);
 			System.out.println("new "+newNhanVien);
 			Services services = new Services();
 			NhanVienServices nhanVienServices = services.getNhanVienServices();

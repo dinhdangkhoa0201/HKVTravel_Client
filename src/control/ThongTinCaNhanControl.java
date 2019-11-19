@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
@@ -12,6 +13,7 @@ import java.nio.file.Paths;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
@@ -22,10 +24,13 @@ import com.jfoenix.controls.JFXTextField;
 
 import application.Services;
 import entities.NhanVien;
+import entities.UserPassword;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -58,13 +63,16 @@ public class ThongTinCaNhanControl implements Initializable{
 	@FXML private JFXButton btnLuu;
 	@FXML private ImageView imgAnhDaiDien;
 	@FXML private JFXButton btnAnhDaiDien;
-
+	private FileChooser fileChooser;
 	private File fileAnh;
+	private byte[] byteAnh;
+	
 	private boolean flag;
 	private NhanVien nhanVien;
+	private UserPassword userPassword;
 	private Object btnClose;
-	private byte[] localBytes;
-	private FileChooser fileChooser;
+
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -73,9 +81,11 @@ public class ThongTinCaNhanControl implements Initializable{
 		fileChooser = new FileChooser();
 	}
 
-	public void setValues(NhanVien nhanVien) {
+	public void setValues(NhanVien nhanVien, UserPassword userPassword) {
 		this.nhanVien = nhanVien;
-		System.out.println(nhanVien);
+		this.userPassword = userPassword;
+		System.out.println("ttnbv "+nhanVien.getAnh().length);
+		
 		txtHoTen.setText(nhanVien.getHoTen());
 		txtEmail.setText(nhanVien.getEmail());
 		txtSoDT.setText((nhanVien.getSoDienThoai() == null) ? "" : nhanVien.getSoDienThoai());
@@ -88,24 +98,30 @@ public class ThongTinCaNhanControl implements Initializable{
 		
 		if(nhanVien.getAnh() != null) {
 			try {
-				localBytes = nhanVien.getAnh();
-				InputStream inputStream = new ByteArrayInputStream(nhanVien.getAnh());
+				byteAnh = nhanVien.getAnh();
+				InputStream inputStream = new ByteArrayInputStream(byteAnh);
 				imgAnhDaiDien.setImage(new Image(inputStream));
 			} catch (Exception e) {
 			}
 		} else {
 			if(cbxGioiTinh.getValue().equals("Nam")) {
 				try {
-					Image image = new Image("/img/man.png");
 					fileAnh = new File("src/img/man.png");
+					byteAnh = Files.readAllBytes(fileAnh.toPath());
+					InputStream inputStream = new ByteArrayInputStream(byteAnh);
+					
+					Image image = new Image(inputStream);
 					imgAnhDaiDien.setImage(image);
 				} catch (Exception e) {
 				}
 				
 			} else {
 				try {
-					Image image = new Image("/img/girl.png");
 					fileAnh = new File("src/img/girl.png");
+					byteAnh = Files.readAllBytes(fileAnh.toPath());
+					InputStream inputStream = new ByteArrayInputStream(byteAnh);
+					
+					Image image = new Image(inputStream);
 					imgAnhDaiDien.setImage(image);
 				} catch (Exception e) {
 				}
@@ -213,20 +229,47 @@ public class ThongTinCaNhanControl implements Initializable{
 		
 		cbxGioiTinh.valueProperty().addListener((o, oldVal, newVal) -> {
 			if(!newVal.equals("")) {
-				if(cbxGioiTinh.getValue().equals("Nam")) {
+				System.out.println("byte anh : "+byteAnh);
+				if(byteAnh != null) {
 					try {
-						Image image = new Image("/img/man.png");
-						fileAnh = new File("src/img/man.png");
-						imgAnhDaiDien.setImage(image);
-					} catch (Exception e) {
-					}
-					
-				} else {
-					try {
-						Image image = new Image("/img/girl.png");
-						fileAnh = new File("src/img/girl.png");
-						imgAnhDaiDien.setImage(image);
-					} catch (Exception e) {
+						File fileMan = new File("src/img/man.png");
+						byte[] byteMan = Files.readAllBytes(fileMan.toPath());
+						System.out.println("Man "+Arrays.equals(byteAnh, byteMan));
+
+						File fileWoman = new File("src/img/girl.png");
+						byte[] byteWoman = Files.readAllBytes(fileWoman.toPath());
+						System.out.println("Women "+Arrays.equals(byteAnh, byteWoman));
+						
+						System.out.println("both : "+Arrays.equals(byteMan, byteWoman));
+						
+						if(Arrays.equals(byteAnh, byteMan) == true || Arrays.equals(byteAnh, byteWoman)) {
+							if(cbxGioiTinh.getValue().equals("Nam")) {
+								try {
+									fileAnh = new File("src/img/man.png");
+									byteAnh = Files.readAllBytes(fileAnh.toPath());
+									InputStream inputStream = new ByteArrayInputStream(byteAnh);
+									
+									Image image = new Image(inputStream);
+									imgAnhDaiDien.setImage(image);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+								
+							} else {
+								try {
+									fileAnh = new File("src/img/girl.png");
+									byteAnh = Files.readAllBytes(fileAnh.toPath());
+									InputStream inputStream = new ByteArrayInputStream(byteAnh);
+									
+									Image image = new Image(inputStream);
+									imgAnhDaiDien.setImage(image);
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+							}
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
 				}
 			}
@@ -275,22 +318,26 @@ public class ThongTinCaNhanControl implements Initializable{
 		else if(e.getSource() == btnLuu) {
 			if(capNhatNhanVien() == true) {
 				alert(AlertType.INFORMATION, "Update Success", "Cập nhật thông tin thành công", "");
+				
 				init();
 			}
 		}
 		else if(e.getSource() == btnAnhDaiDien) {
 			try {
-				byte[] anhDaiDien = themAnhDaiDien();
-				InputStream inputStream = new ByteArrayInputStream(anhDaiDien);
+				byteAnh = themAnhDaiDien();
+				InputStream inputStream = new ByteArrayInputStream(byteAnh);
 				Image image = new Image(inputStream);
 				imgAnhDaiDien.setImage(image);
 				
 				Services services = new Services();
 				NhanVienServices nhanVienServices = services.getNhanVienServices();
-				if(nhanVienServices.capNhatAnhDaiDien(nhanVien.getMaNV(), anhDaiDien) == true) {
+				if(nhanVienServices.capNhatAnhDaiDien(nhanVien.getMaNV(), byteAnh) == true) {
 					alert(AlertType.INFORMATION, "Success", "Đổi ảnh đại diện thành công", null);
+					nhanVien = nhanVienServices.timNhanVienByMaNV(nhanVien.getMaNV());
+					
 				}
 			} catch (Exception e2) {
+				e2.printStackTrace();
 			}
 		}
 	}
@@ -311,12 +358,15 @@ public class ThongTinCaNhanControl implements Initializable{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");		
 		try {
 			LocalDate localDate = LocalDate.parse(txtNgaySinh.getText(), formatter);
-			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(), cbxGioiTinh.getSelectionModel().getSelectedItem(), localDate, txtCMND.getText(), nhanVien.getNgayVaoLam(), txtDiaChi.getText(), nhanVien.getEmail(), txtSoDT.getText(), nhanVien.getChucVu(), nhanVien.getAnh());
+			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(), cbxGioiTinh.getSelectionModel().getSelectedItem(), localDate, txtCMND.getText(), nhanVien.getNgayVaoLam(), txtDiaChi.getText(), nhanVien.getEmail(), txtSoDT.getText(), nhanVien.getChucVu(), byteAnh);
+	
 			System.out.println("new "+newNhanVien);
 			Services services = new Services();
 			NhanVienServices nhanVienServices = services.getNhanVienServices();
 			if(nhanVienServices.suaNhanVien(newNhanVien) == true) {
 				this.nhanVien = newNhanVien;
+				MainControl control = new MainControl();
+				control.setValues(nhanVien, userPassword);
 				return true;
 			}
 		} catch (Exception e) {
