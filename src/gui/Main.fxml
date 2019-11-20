@@ -167,7 +167,7 @@
 													<Insets top="10.0" />
 												</padding>
 											</Button>
-											<Button alignment="TOP_RIGHT" contentDisplay="TOP" graphicTextGap="5.0" prefHeight="100.0" prefWidth="100.0" text="Hướng dẫn viên" textAlignment="CENTER" wrapText="true">
+											<Button fx:id="btnHuongDanVien" alignment="TOP_RIGHT" contentDisplay="TOP" graphicTextGap="5.0" onMouseClicked="#handleButtonAction" prefHeight="100.0" prefWidth="100.0" text="Hướng dẫn viên" textAlignment="CENTER" wrapText="true">
 												<graphic>
 													<ImageView>
 														<image>

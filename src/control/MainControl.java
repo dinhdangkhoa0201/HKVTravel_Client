@@ -53,17 +53,19 @@ public class MainControl implements Initializable {
 	Button btnNhanVien;
 	@FXML
 	Button btnKhachHang;
+	@FXML
+	Pane paneCenter;
+	@FXML
+	Button btnHuongDanVien;
 	private UserPassword userPassword;
 	private NhanVien nhanVien;
 	private String id;
-	
-	@FXML Pane paneCenter;
 
 	public void setValues(NhanVien nv, UserPassword userPassword) {
 		this.userPassword = userPassword;
 		this.nhanVien = nv;
 	}
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		lblNgay.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
@@ -71,8 +73,9 @@ public class MainControl implements Initializable {
 
 	@FXML
 	public void handleButtonAction(MouseEvent e) {
-		if(e.getSource() == btnClose1) {
-			if(alert(AlertType.CONFIRMATION, "Confirm Exit", "Do you want to exit the HKVTravel", null).getResult() == ButtonType.OK) {
+		if (e.getSource() == btnClose1) {
+			if (alert(AlertType.CONFIRMATION, "Confirm Exit", "Do you want to exit the HKVTravel", null)
+					.getResult() == ButtonType.OK) {
 				Services services = new Services();
 				NhanVienServices nhanVienServices = services.getNhanVienServices();
 				try {
@@ -83,8 +86,7 @@ public class MainControl implements Initializable {
 				}
 
 			}
-		}
-		else if(e.getSource() == btnClose) {
+		} else if (e.getSource() == btnClose) {
 			Services services = new Services();
 			NhanVienServices nhanVienServices = services.getNhanVienServices();
 			try {
@@ -93,10 +95,10 @@ public class MainControl implements Initializable {
 			} catch (RemoteException e1) {
 				e1.printStackTrace();
 			}
-		}
-		else if(e.getSource() == btnDangXuat) {
+		} else if (e.getSource() == btnDangXuat) {
 			try {
-				if(alert(AlertType.CONFIRMATION, "Confirm Logout", "Do you want to Logout HKVTravel", null).getResult() == ButtonType.OK) {
+				if (alert(AlertType.CONFIRMATION, "Confirm Logout", "Do you want to Logout HKVTravel", null)
+						.getResult() == ButtonType.OK) {
 					Node node = (Node) e.getSource();
 					Stage stage = (Stage) node.getScene().getWindow();
 					AnchorPane root = new FXMLLoader(getClass().getResource("/gui/DangNhap.fxml")).load();
@@ -109,8 +111,7 @@ public class MainControl implements Initializable {
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-		}
-		else if(e.getSource() == btnThongTinCaNhan) {
+		} else if (e.getSource() == btnThongTinCaNhan) {
 			try {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/ThongTinCaNhan.fxml"));
 				BorderPane paneThongTinCaNhan = fxmlLoader.load();
@@ -127,12 +128,11 @@ public class MainControl implements Initializable {
 //				paneThongTinCaNhan.setPrefSize(paneCenter.getWidth(), paneCenter.getHeight());
 //				paneCenter.getChildren().clear();
 //				paneCenter.getChildren().add(paneThongTinCaNhan);
-				
+
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-		}
-		else if(e.getSource() == btnDoiMatKhau) {
+		} else if (e.getSource() == btnDoiMatKhau) {
 			try {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/DoiMatKhau.fxml"));
 				BorderPane paneDoiMatKhau = fxmlLoader.load();
@@ -141,10 +141,10 @@ public class MainControl implements Initializable {
 					Services services = new Services();
 					NhanVienServices nhanVienServices = services.getNhanVienServices();
 					this.nhanVien = nhanVienServices.timNhanVienByMaNV(nhanVien.getMaNV());
-					
-					System.out.println("Doi mat khau "+nhanVien.getAnh().length);
+
+					System.out.println("Doi mat khau " + nhanVien.getAnh().length);
 					doiMatKhauControl.setValues(nhanVien, userPassword);
-					
+
 //					paneDoiMatKhau.setPrefSize(paneCenter.getWidth(), paneCenter.getHeight());
 //					paneCenter.getChildren().clear();
 //					paneCenter.getChildren().add(paneDoiMatKhau);
@@ -156,8 +156,7 @@ public class MainControl implements Initializable {
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-		}
-		else if(e.getSource() == btnNhanVien) {
+		} else if (e.getSource() == btnNhanVien) {
 			try {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/QuanLyNhanVien.fxml"));
 				BorderPane paneNhanVien = fxmlLoader.load();
@@ -170,8 +169,7 @@ public class MainControl implements Initializable {
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-		}
-		else if(e.getSource() == btnKhachHang) {
+		} else if (e.getSource() == btnKhachHang) {
 			try {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/QuanLyKhachHang.fxml"));
 				BorderPane paneNhanVien = fxmlLoader.load();
@@ -179,9 +177,16 @@ public class MainControl implements Initializable {
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
+		} else if(e.getSource() == btnHuongDanVien) {
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/QuanLyHDV.fxml"));
+				BorderPane paneHuongDanVien = fxmlLoader.load();
+				border_pane.setCenter(paneHuongDanVien);
+			} catch (Exception e2) {
+			}
 		}
 	}
-	
+
 	private static Alert alert(AlertType alertType, String title, String header, String content) {
 		Alert alert = new Alert(alertType);
 		alert.setTitle(title);
@@ -190,6 +195,5 @@ public class MainControl implements Initializable {
 		alert.showAndWait();
 		return alert;
 	}
-
 
 }

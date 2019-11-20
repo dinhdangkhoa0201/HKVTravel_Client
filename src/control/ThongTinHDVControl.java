@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.rmi.RemoteException;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -18,9 +19,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
 import application.Services;
-import entities.NhanVien;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
+import entities.HuongDanVien;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -35,10 +34,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import services.HuongDanVienServices;
 import services.KhachHangServices;
 import services.NhanVienServices;
 
-public class ThongTinNhanVienControl implements Initializable {
+public class ThongTinHDVControl implements Initializable {
 	@FXML
 	private JFXButton btnCapNhat;
 	@FXML
@@ -75,16 +75,15 @@ public class ThongTinNhanVienControl implements Initializable {
 	@FXML
 	private TextField txtSoDienThoai;
 	@FXML
-	private Label lblErrorSDT;
+	private Label lblErrorSoDienThoai;
 	@FXML
 	private ImageView imgAnhDaiDien;
 	@FXML
 	private JFXButton btnAnhDaiDien;
-
+	
 	private boolean flag;
-	private NhanVien nhanVien;
+	private HuongDanVien huongDanVien;
 	final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
 	private List<String> danhSachEmailKH;
 	private List<String> danhSachEmailNV;
 
@@ -97,7 +96,6 @@ public class ThongTinNhanVienControl implements Initializable {
 	private FileChooser fileChooser;
 	private File fileAnh;
 	private byte[] byteAnh;
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cbxGioiTinh.getItems().add("Nam");
@@ -105,23 +103,20 @@ public class ThongTinNhanVienControl implements Initializable {
 		fileChooser = new FileChooser();
 	}
 
-	public void setValues(NhanVien nhanVien, NhanVien quanLy) {
-		this.nhanVien = nhanVien;
-
-		txtHoTen.setText(nhanVien.getHoTen());
-		if (!nhanVien.getGioiTinh().equalsIgnoreCase(""))
-			cbxGioiTinh.setValue(nhanVien.getGioiTinh());
-		txtNgaySinh.setText(nhanVien.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-		txtCMND.setText(nhanVien.getCmnd());
-		txtNgayVaoLam.setText(nhanVien.getNgayVaoLam().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-		txtEmail.setText(nhanVien.getEmail());
-		txtDiaChi.setText(nhanVien.getDiaChi());
-		txtSoDienThoai.setText(nhanVien.getSoDienThoai());
-
-		if (nhanVien.getAnh() != null) {
+	public void setValues(HuongDanVien hdv) throws ParseException {
+		this.huongDanVien = hdv;
+		txtHoTen.setText(huongDanVien.getHoTenHDV());
+		if (!hdv.getGioiTinh().equalsIgnoreCase(""))
+			cbxGioiTinh.setValue(hdv.getGioiTinh());
+		txtNgaySinh.setText(hdv.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		txtCMND.setText(huongDanVien.getCmnd());
+		txtEmail.setText(huongDanVien.getEmail());
+		txtDiaChi.setText(huongDanVien.getDiaChi());
+		txtSoDienThoai.setText(huongDanVien.getSoDienThoai());
+		if (hdv.getAnh() != null) {
 			try {
 				System.out.println("Co Anh");
-				byteAnh = nhanVien.getAnh();
+				byteAnh = hdv.getAnh();
 				InputStream inputStream = new ByteArrayInputStream(byteAnh);
 				imgAnhDaiDien.setImage(new Image(inputStream));
 			} catch (Exception e) {
@@ -152,9 +147,7 @@ public class ThongTinNhanVienControl implements Initializable {
 
 			}
 		}
-		SimpleStringProperty propertyMaNV = new SimpleStringProperty(nhanVien.getMaNV());
-		SimpleStringProperty propertyMaQL = new SimpleStringProperty(quanLy.getMaNV());
-		btnXoa.disableProperty().bind(propertyMaNV.isEqualTo(propertyMaQL));
+		
 		Services services = new Services();
 		NhanVienServices nhanVienServices = services.getNhanVienServices();
 		KhachHangServices khachHangServices = services.getKhachHangServices();
@@ -168,27 +161,26 @@ public class ThongTinNhanVienControl implements Initializable {
 		} catch (RemoteException e) {
 		}
 
-		if (danhSachEmailKH.contains(nhanVien.getEmail())) {
-			danhSachEmailKH.remove(nhanVien.getEmail());
-		} else if (danhSachEmailNV.contains(nhanVien.getEmail())) {
-			danhSachEmailNV.remove(nhanVien.getEmail());
+		if (danhSachEmailKH.contains(hdv.getEmail())) {
+			danhSachEmailKH.remove(hdv.getEmail());
+		} else if (danhSachEmailNV.contains(hdv.getEmail())) {
+			danhSachEmailNV.remove(hdv.getEmail());
 		}
 
-		if (danhSachSDTKH.contains(nhanVien.getSoDienThoai())) {
-			danhSachSDTKH.remove(nhanVien.getSoDienThoai());
-		} else if (danhSachSDTNV.contains(nhanVien.getSoDienThoai())) {
-			danhSachSDTNV.remove(nhanVien.getSoDienThoai());
+		if (danhSachSDTKH.contains(hdv.getSoDienThoai())) {
+			danhSachSDTKH.remove(hdv.getSoDienThoai());
+		} else if (danhSachSDTNV.contains(hdv.getSoDienThoai())) {
+			danhSachSDTNV.remove(hdv.getSoDienThoai());
 		}
 
-		if (danhSachCMNDKH.contains(nhanVien.getCmnd())) {
-			danhSachCMNDKH.remove(nhanVien.getCmnd());
-		} else if (danhSachCMNDNV.contains(nhanVien.getCmnd())) {
-			danhSachCMNDNV.remove(nhanVien.getCmnd());
+		if (danhSachCMNDKH.contains(hdv.getCmnd())) {
+			danhSachCMNDKH.remove(hdv.getCmnd());
+		} else if (danhSachCMNDNV.contains(hdv.getCmnd())) {
+			danhSachCMNDNV.remove(hdv.getCmnd());
 		}
-
 		init();
 	}
-
+	
 	private void init() {
 		txtHoTen.textProperty().addListener((val, oldVal, newVal) -> {
 			if (!newVal.equals("")) {
@@ -337,15 +329,15 @@ public class ThongTinNhanVienControl implements Initializable {
 					String regex1 = "\\d{11}";
 					if (danhSachSDTNV.contains(txtSoDienThoai.getText()) == true
 							|| danhSachSDTKH.contains(txtSoDienThoai.getText()) == true) {
-						lblErrorSDT.setText("SĐT '" + txtSoDienThoai.getText() + "' đã được sử dụng");
+						lblErrorSoDienThoai.setText("SĐT '" + txtSoDienThoai.getText() + "' đã được sử dụng");
 					} else if (!txtSoDienThoai.getText().matches(regex) && !txtSoDienThoai.getText().matches(regex1)) {
-						lblErrorSDT.setText("Số điện thoại không hợp lệ");
+						lblErrorSoDienThoai.setText("Số điện thoại không hợp lệ");
 					} else {
-						lblErrorSDT.setText("");
+						lblErrorSoDienThoai.setText("");
 					}
 				}
 			} else {
-				lblErrorSDT.setText("Chưa nhập Số điện thoại");
+				lblErrorSoDienThoai.setText("Chưa nhập Số điện thoại");
 			}
 		});
 
@@ -358,22 +350,22 @@ public class ThongTinNhanVienControl implements Initializable {
 		});
 
 		btnCapNhat.disableProperty()
-				.bind(txtHoTen.textProperty().isEqualTo(nhanVien.getHoTen())
-						.and(cbxGioiTinh.valueProperty().isEqualTo(nhanVien.getGioiTinh()))
+				.bind(txtHoTen.textProperty().isEqualTo(huongDanVien.getHoTenHDV())
+						.and(cbxGioiTinh.valueProperty().isEqualTo(huongDanVien.getGioiTinh()))
 						.and(txtNgaySinh.textProperty()
-								.isEqualTo(nhanVien.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))))
-						.and(txtCMND.textProperty().isEqualTo(nhanVien.getCmnd()))
-						.and(txtEmail.textProperty().isEqualTo(nhanVien.getEmail()))
-						.and(txtSoDienThoai.textProperty().isEqualTo(nhanVien.getSoDienThoai()))
-						.and(txtDiaChi.textProperty().isEqualTo(nhanVien.getDiaChi()))
+								.isEqualTo(huongDanVien.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))))
+						.and(txtCMND.textProperty().isEqualTo(huongDanVien.getCmnd()))
+						.and(txtEmail.textProperty().isEqualTo(huongDanVien.getEmail()))
+						.and(txtSoDienThoai.textProperty().isEqualTo(huongDanVien.getSoDienThoai()))
+						.and(txtDiaChi.textProperty().isEqualTo(huongDanVien.getDiaChi()))
 						.or(lblErrorHoTen.textProperty().isNotEmpty()).or(lblErrorGioiTinh.textProperty().isNotEmpty())
 						.or(lblErrorNgaySinh.textProperty().isNotEmpty()).or(lblErrorCMND.textProperty().isNotEmpty())
-						.or(lblErrorEmail.textProperty().isNotEmpty()).or(lblErrorSDT.textProperty().isNotEmpty())
+						.or(lblErrorEmail.textProperty().isNotEmpty()).or(lblErrorSoDienThoai.textProperty().isNotEmpty())
 						.or(lblErrorDiaChi.textProperty().isNotEmpty()));
 	}
 
 	@FXML
-	private void handlButtonAction(MouseEvent e) {
+	private void handleButtonAction(MouseEvent e) {
 		if (e.getSource() == btnClose) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Do you want to exit?");
@@ -399,26 +391,6 @@ public class ThongTinNhanVienControl implements Initializable {
 				Stage stage = (Stage) node.getScene().getWindow();
 				stage.close();
 			}
-		} else if (e.getSource() == btnXoa) {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Do you want to delete?");
-			alert.setContentText("Are you sure?");
-
-			ButtonType yesBtn = new ButtonType("Yes", ButtonData.YES);
-			ButtonType noBtn = new ButtonType("No", ButtonData.NO);
-
-			alert.getButtonTypes().setAll(yesBtn, noBtn);
-
-			if (alert.showAndWait().get() == yesBtn) {
-				if (xoaNhanVien() == true) {
-					this.flag = true;
-					alert(AlertType.INFORMATION, "SUCCESS", "Xoá Nhân Viên thành công", "");
-					Node node = (Node) e.getSource();
-					Stage stage = (Stage) node.getScene().getWindow();
-					stage.close();
-				}
-			} else
-				alert.close();
 		} else if (e.getSource() == btnAnhDaiDien) {
 			try {
 				byte[] anhDaiDien = themAnhDaiDien();
@@ -427,8 +399,8 @@ public class ThongTinNhanVienControl implements Initializable {
 				imgAnhDaiDien.setImage(image);
 
 				Services services = new Services();
-				NhanVienServices nhanVienServices = services.getNhanVienServices();
-				if (nhanVienServices.capNhatAnhDaiDien(nhanVien.getMaNV(), anhDaiDien) == true) {
+				HuongDanVienServices huongDanVienServices = services.getHuongDanVienServices();
+				if (huongDanVienServices.capNhatAnhDaiDien(huongDanVien.getMaHDV(), anhDaiDien) == true) {
 					alert(AlertType.INFORMATION, "Success", "Đổi ảnh đại diện thành công", null);
 					flag = true;
 				} else {
@@ -437,40 +409,27 @@ public class ThongTinNhanVienControl implements Initializable {
 			} catch (Exception e2) {
 			}
 		}
-	}
 
+	}
+	
 	private byte[] themAnhDaiDien() {
 		byte[] bytesAnh = null;
 		try {
 			File file = fileChooser.showOpenDialog(null);
 			bytesAnh = Files.readAllBytes(file.toPath());
-
 		} catch (Exception e) {
 		}
 		return bytesAnh;
 	}
-
-	private boolean xoaNhanVien() {
-		return false;
-	};
+	
 
 	private boolean capNhatNhanVien() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		try {
-			LocalDate localDate = LocalDate.parse(txtNgaySinh.getText(), formatter);
-			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(),
-					cbxGioiTinh.getSelectionModel().getSelectedItem(), localDate, txtCMND.getText(),
-					nhanVien.getNgayVaoLam(), txtDiaChi.getText(), nhanVien.getEmail(), txtSoDienThoai.getText(),
-					nhanVien.getChucVu(), byteAnh);
-			System.out.println("new " + newNhanVien);
+			HuongDanVien newHuongDanVien = new HuongDanVien(huongDanVien.getMaHDV(), txtHoTen.getText(), cbxGioiTinh.getValue(), LocalDate.parse(txtNgaySinh.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), txtCMND.getText(), txtEmail.getText(), txtSoDienThoai.getText(), txtDiaChi.getText(), huongDanVien.isTrangThai(), byteAnh);
 			Services services = new Services();
-			NhanVienServices nhanVienServices = services.getNhanVienServices();
-			if (nhanVienServices.suaNhanVien(newNhanVien) == true) {
-				this.nhanVien = newNhanVien;
-				return true;
-			}
+			HuongDanVienServices huongDanVienServices = services.getHuongDanVienServices();
+			return huongDanVienServices.suaHuongDanVien(newHuongDanVien);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return false;
 	}
