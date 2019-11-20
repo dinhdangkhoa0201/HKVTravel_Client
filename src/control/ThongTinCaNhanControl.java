@@ -14,6 +14,7 @@ import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
@@ -43,35 +44,60 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import services.KhachHangServices;
 import services.NhanVienServices;
 
-public class ThongTinCaNhanControl implements Initializable{
-	@FXML private JFXTextField txtHoTen;
-	@FXML private Label lblErrorHoTen;
-	@FXML private JFXTextField txtEmail; 
-	@FXML private JFXTextField txtSoDT;
-	@FXML private Label lblErrorSoDT;
-	@FXML private JFXTextField txtCMND;
-	@FXML private Label lblErrorCMND;
-	@FXML private JFXComboBox<String> cbxGioiTinh;
-	@FXML private JFXTextField txtNgaySinh;
-	@FXML private Label lblErrorNgaySinh;
-	@FXML private JFXTextField txtDiaChi;
-	@FXML private Label lblErrorDiaChi;
-	@FXML private Label lblChucVu;
+public class ThongTinCaNhanControl implements Initializable {
+	@FXML
+	private JFXTextField txtHoTen;
+	@FXML
+	private Label lblErrorHoTen;
+	@FXML
+	private JFXTextField txtEmail;
+	@FXML
+	private JFXTextField txtSoDT;
+	@FXML
+	private Label lblErrorSoDT;
+	@FXML
+	private JFXTextField txtCMND;
+	@FXML
+	private Label lblErrorCMND;
+	@FXML
+	private JFXComboBox<String> cbxGioiTinh;
+	@FXML
+	private JFXTextField txtNgaySinh;
+	@FXML
+	private Label lblErrorNgaySinh;
+	@FXML
+	private JFXTextField txtDiaChi;
+	@FXML
+	private Label lblErrorDiaChi;
+	@FXML
+	private Label lblChucVu;
 
-	@FXML private JFXButton btnLuu;
-	@FXML private ImageView imgAnhDaiDien;
-	@FXML private JFXButton btnAnhDaiDien;
+	@FXML
+	private JFXButton btnLuu;
+	@FXML
+	private ImageView imgAnhDaiDien;
+	@FXML
+	private JFXButton btnAnhDaiDien;
 	private FileChooser fileChooser;
 	private File fileAnh;
 	private byte[] byteAnh;
-	
+
 	private boolean flag;
 	private NhanVien nhanVien;
 	private UserPassword userPassword;
 	private Object btnClose;
 
+	private List<String> danhSachEmailKH;
+	private List<String> danhSachEmailNV;
+
+	private List<String> danhSachSDTKH;
+	private List<String> danhSachSDTNV;
+
+	private List<String> danhSachCMNDKH;
+	private List<String> danhSachCMNDNV;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -84,19 +110,19 @@ public class ThongTinCaNhanControl implements Initializable{
 	public void setValues(NhanVien nhanVien, UserPassword userPassword) {
 		this.nhanVien = nhanVien;
 		this.userPassword = userPassword;
-		System.out.println("ttnbv "+nhanVien.getAnh().length);
-		
+		System.out.println("ttnbv " + nhanVien.getAnh().length);
+
 		txtHoTen.setText(nhanVien.getHoTen());
 		txtEmail.setText(nhanVien.getEmail());
 		txtSoDT.setText((nhanVien.getSoDienThoai() == null) ? "" : nhanVien.getSoDienThoai());
 		txtCMND.setText(nhanVien.getCmnd());
-		if(!nhanVien.getGioiTinh().equalsIgnoreCase(""))
+		if (!nhanVien.getGioiTinh().equalsIgnoreCase(""))
 			cbxGioiTinh.setValue(nhanVien.getGioiTinh());
 		txtNgaySinh.setText(nhanVien.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 		txtDiaChi.setText(nhanVien.getDiaChi());
 		lblChucVu.setText((nhanVien.getChucVu() == 1) ? "Quản lý" : "Nhân viên");
-		
-		if(nhanVien.getAnh() != null) {
+
+		if (nhanVien.getAnh() != null) {
 			try {
 				byteAnh = nhanVien.getAnh();
 				InputStream inputStream = new ByteArrayInputStream(byteAnh);
@@ -104,37 +130,70 @@ public class ThongTinCaNhanControl implements Initializable{
 			} catch (Exception e) {
 			}
 		} else {
-			if(cbxGioiTinh.getValue().equals("Nam")) {
+			if (cbxGioiTinh.getValue().equals("Nam")) {
 				try {
 					fileAnh = new File("src/img/man.png");
 					byteAnh = Files.readAllBytes(fileAnh.toPath());
 					InputStream inputStream = new ByteArrayInputStream(byteAnh);
-					
+
 					Image image = new Image(inputStream);
 					imgAnhDaiDien.setImage(image);
 				} catch (Exception e) {
 				}
-				
+
 			} else {
 				try {
 					fileAnh = new File("src/img/girl.png");
 					byteAnh = Files.readAllBytes(fileAnh.toPath());
 					InputStream inputStream = new ByteArrayInputStream(byteAnh);
-					
+
 					Image image = new Image(inputStream);
 					imgAnhDaiDien.setImage(image);
 				} catch (Exception e) {
 				}
 			}
 		}
+
+		Services services = new Services();
+		NhanVienServices nhanVienServices = services.getNhanVienServices();
+		KhachHangServices khachHangServices = services.getKhachHangServices();
+		try {
+			danhSachEmailNV = nhanVienServices.danhSachEmail();
+			danhSachEmailKH = khachHangServices.danhSachEmail();
+			danhSachSDTKH = khachHangServices.danhSachSDT();
+			danhSachSDTNV = nhanVienServices.danhSachSDT();
+			danhSachCMNDKH = khachHangServices.danhSachCMND();
+			danhSachCMNDNV = nhanVienServices.danhSachCMND();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+
+		if (danhSachEmailKH.contains(nhanVien.getEmail())) {
+			danhSachEmailKH.remove(nhanVien.getEmail());
+		} else if (danhSachEmailNV.contains(nhanVien.getEmail())) {
+			danhSachEmailNV.remove(nhanVien.getEmail());
+		}
+
+		if (danhSachSDTKH.contains(nhanVien.getSoDienThoai())) {
+			danhSachSDTKH.remove(nhanVien.getSoDienThoai());
+		} else if (danhSachSDTNV.contains(nhanVien.getSoDienThoai())) {
+			danhSachSDTNV.remove(nhanVien.getSoDienThoai());
+		}
+
+		if (danhSachCMNDKH.contains(nhanVien.getCmnd())) {
+			danhSachCMNDKH.remove(nhanVien.getCmnd());
+		} else if (danhSachCMNDNV.contains(nhanVien.getCmnd())) {
+			danhSachCMNDNV.remove(nhanVien.getCmnd());
+		}
+
 		init();
 	}
 
 	private void init() {
 		txtHoTen.textProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
+			if (!newVal.equals("")) {
 				String regex = "\\d+";
-				if(newVal.matches(regex)) {
+				if (newVal.matches(regex)) {
 					lblErrorHoTen.setText("Họ tên không hợp lệ");
 				} else {
 					lblErrorHoTen.setText("");
@@ -145,9 +204,9 @@ public class ThongTinCaNhanControl implements Initializable{
 		});
 
 		txtSoDT.textProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
+			if (!newVal.equals("")) {
 				String regex = "\\d{10}";
-				if(!newVal.matches(regex)) {
+				if (!newVal.matches(regex)) {
 					lblErrorSoDT.setText("Số điện thoại không hợp lệ");
 				} else {
 					lblErrorSoDT.setText("");
@@ -158,58 +217,58 @@ public class ThongTinCaNhanControl implements Initializable{
 		});
 
 		txtCMND.textProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
+			if (!newVal.equals("")) {
 				String regex = "\\d{8}";
 				String regex1 = "\\d{12}";
-				if(!newVal.matches(regex) && !newVal.matches(regex1)) {
+				if (!newVal.matches(regex) && !newVal.matches(regex1)) {
 					lblErrorCMND.setText("CMND không hợp lệ");
+				} else if (danhSachCMNDKH.contains(txtCMND.getText()) || danhSachCMNDNV.contains(txtCMND.getText())) {
+					lblErrorCMND.setText("CMND đã tồn tại");
 				} else {
 					lblErrorCMND.setText("");
-				} 
+				}
 			} else {
 				lblErrorCMND.setText("");
 			}
 		});
 
 		txtNgaySinh.textProperty().addListener((val, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
+			if (!newVal.equals("")) {
 				String regex = "\\d{1,2}/\\d{1,2}/\\d{4}$";
-				if(!newVal.matches(regex)) {
+				if (!newVal.matches(regex)) {
 					lblErrorNgaySinh.setText("Ngày chưa hợp lệ");
-				} 
-				else {
+				} else {
 					try {
 						String r1 = "\\d{1}/\\d{1}/\\d{4}$";
 						String r2 = "\\d{2}/\\d{1}/\\d{4}$";
 						String r3 = "\\d{1}/\\d{2}/\\d{4}$";
 						String[] temp = txtNgaySinh.getText().split("/");
 						String tempNgaySinh = "";
-						if(txtNgaySinh.getText().matches(r1)) {
-							tempNgaySinh += "0"+temp[0];
-							tempNgaySinh += "/0"+temp[1];
-							tempNgaySinh += "/"+temp[2];
-						} else if(txtNgaySinh.getText().matches(r2)) {
-							tempNgaySinh += ""+temp[0];
-							tempNgaySinh += "/0"+temp[1];
-							tempNgaySinh += "/"+temp[2];
-						} else if(txtNgaySinh.getText().matches(r3)) {
-							tempNgaySinh += "0"+temp[0];
-							tempNgaySinh += "/"+temp[1];
-							tempNgaySinh += "/"+temp[2];
+						if (txtNgaySinh.getText().matches(r1)) {
+							tempNgaySinh += "0" + temp[0];
+							tempNgaySinh += "/0" + temp[1];
+							tempNgaySinh += "/" + temp[2];
+						} else if (txtNgaySinh.getText().matches(r2)) {
+							tempNgaySinh += "" + temp[0];
+							tempNgaySinh += "/0" + temp[1];
+							tempNgaySinh += "/" + temp[2];
+						} else if (txtNgaySinh.getText().matches(r3)) {
+							tempNgaySinh += "0" + temp[0];
+							tempNgaySinh += "/" + temp[1];
+							tempNgaySinh += "/" + temp[2];
 						} else {
-							tempNgaySinh += ""+temp[0];
-							tempNgaySinh += "/"+temp[1];
-							tempNgaySinh += "/"+temp[2];
+							tempNgaySinh += "" + temp[0];
+							tempNgaySinh += "/" + temp[1];
+							tempNgaySinh += "/" + temp[2];
 						}
 						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 						LocalDate localDate = LocalDate.parse(tempNgaySinh, formatter);
 						System.out.println(localDate);
-						if(!localDate.format(formatter).equals(tempNgaySinh)) {
+						if (!localDate.format(formatter).equals(tempNgaySinh)) {
 							lblErrorNgaySinh.setText("Ngày không tồn tại");
-						} else if(LocalDate.now().getYear() - localDate.getYear() < 18) {
+						} else if (LocalDate.now().getYear() - localDate.getYear() < 18) {
 							lblErrorNgaySinh.setText("Chưa đủ 18 tuổi");
-						}
-						else {
+						} else {
 							lblErrorNgaySinh.setText("");
 						}
 					} catch (Exception e) {
@@ -218,49 +277,49 @@ public class ThongTinCaNhanControl implements Initializable{
 				}
 			}
 		});
-		
+
 		txtDiaChi.textProperty().addListener((o, oldVal, newVal) -> {
-			if(newVal.equals("")) {
+			if (newVal.equals("")) {
 				lblErrorDiaChi.setText("Chưa nhập địa chỉ");
 			} else {
 				lblErrorDiaChi.setText("");
 			}
 		});
-		
+
 		cbxGioiTinh.valueProperty().addListener((o, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
-				System.out.println("byte anh : "+byteAnh);
-				if(byteAnh != null) {
+			if (!newVal.equals("")) {
+				System.out.println("byte anh : " + byteAnh);
+				if (byteAnh != null) {
 					try {
 						File fileMan = new File("src/img/man.png");
 						byte[] byteMan = Files.readAllBytes(fileMan.toPath());
-						System.out.println("Man "+Arrays.equals(byteAnh, byteMan));
+						System.out.println("Man " + Arrays.equals(byteAnh, byteMan));
 
 						File fileWoman = new File("src/img/girl.png");
 						byte[] byteWoman = Files.readAllBytes(fileWoman.toPath());
-						System.out.println("Women "+Arrays.equals(byteAnh, byteWoman));
-						
-						System.out.println("both : "+Arrays.equals(byteMan, byteWoman));
-						
-						if(Arrays.equals(byteAnh, byteMan) == true || Arrays.equals(byteAnh, byteWoman)) {
-							if(cbxGioiTinh.getValue().equals("Nam")) {
+						System.out.println("Women " + Arrays.equals(byteAnh, byteWoman));
+
+						System.out.println("both : " + Arrays.equals(byteMan, byteWoman));
+
+						if (Arrays.equals(byteAnh, byteMan) == true || Arrays.equals(byteAnh, byteWoman)) {
+							if (cbxGioiTinh.getValue().equals("Nam")) {
 								try {
 									fileAnh = new File("src/img/man.png");
 									byteAnh = Files.readAllBytes(fileAnh.toPath());
 									InputStream inputStream = new ByteArrayInputStream(byteAnh);
-									
+
 									Image image = new Image(inputStream);
 									imgAnhDaiDien.setImage(image);
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
-								
+
 							} else {
 								try {
 									fileAnh = new File("src/img/girl.png");
 									byteAnh = Files.readAllBytes(fileAnh.toPath());
 									InputStream inputStream = new ByteArrayInputStream(byteAnh);
-									
+
 									Image image = new Image(inputStream);
 									imgAnhDaiDien.setImage(image);
 								} catch (Exception e) {
@@ -279,17 +338,16 @@ public class ThongTinCaNhanControl implements Initializable{
 				.and(txtSoDT.textProperty().isEqualTo(nhanVien.getSoDienThoai()))
 				.and(txtCMND.textProperty().isEqualTo(nhanVien.getCmnd()))
 				.and(cbxGioiTinh.valueProperty().isEqualTo(nhanVien.getGioiTinh()))
-				.and(txtNgaySinh.textProperty().isEqualTo(nhanVien.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))))
+				.and(txtNgaySinh.textProperty()
+						.isEqualTo(nhanVien.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))))
 				.and(txtDiaChi.textProperty().isEqualTo(nhanVien.getDiaChi()))
-				.or(lblErrorHoTen.textProperty().isNotEmpty())
-				.or(lblErrorCMND.textProperty().isNotEmpty())
-				.or(lblErrorNgaySinh.textProperty().isNotEmpty())
-				.or(lblErrorDiaChi.textProperty().isNotEmpty()));
+				.or(lblErrorHoTen.textProperty().isNotEmpty()).or(lblErrorCMND.textProperty().isNotEmpty())
+				.or(lblErrorNgaySinh.textProperty().isNotEmpty()).or(lblErrorDiaChi.textProperty().isNotEmpty()));
 	}
 
 	@FXML
 	private void handleButtonAction(MouseEvent e) {
-		if(e.getSource() == btnClose) {
+		if (e.getSource() == btnClose) {
 
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Do you want to exit?");
@@ -300,7 +358,7 @@ public class ThongTinCaNhanControl implements Initializable{
 
 			alert.getButtonTypes().setAll(yesBtn, noBtn);
 
-			if(alert.showAndWait().get() == yesBtn) {
+			if (alert.showAndWait().get() == yesBtn) {
 				Node node = (Node) e.getSource();
 				Stage stage = (Stage) node.getScene().getWindow();
 				Services services = new Services();
@@ -311,37 +369,34 @@ public class ThongTinCaNhanControl implements Initializable{
 					event.printStackTrace();
 				}
 				stage.close();
-			}
-			else
+			} else
 				alert.close();
-		}
-		else if(e.getSource() == btnLuu) {
-			if(capNhatNhanVien() == true) {
+		} else if (e.getSource() == btnLuu) {
+			if (capNhatNhanVien() == true) {
 				alert(AlertType.INFORMATION, "Update Success", "Cập nhật thông tin thành công", "");
-				
+
 				init();
 			}
-		}
-		else if(e.getSource() == btnAnhDaiDien) {
+		} else if (e.getSource() == btnAnhDaiDien) {
 			try {
 				byteAnh = themAnhDaiDien();
 				InputStream inputStream = new ByteArrayInputStream(byteAnh);
 				Image image = new Image(inputStream);
 				imgAnhDaiDien.setImage(image);
-				
+
 				Services services = new Services();
 				NhanVienServices nhanVienServices = services.getNhanVienServices();
-				if(nhanVienServices.capNhatAnhDaiDien(nhanVien.getMaNV(), byteAnh) == true) {
+				if (nhanVienServices.capNhatAnhDaiDien(nhanVien.getMaNV(), byteAnh) == true) {
 					alert(AlertType.INFORMATION, "Success", "Đổi ảnh đại diện thành công", null);
 					nhanVien = nhanVienServices.timNhanVienByMaNV(nhanVien.getMaNV());
-					
+
 				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
 		}
 	}
-	
+
 	private byte[] themAnhDaiDien() {
 		byte[] bytesAnh = null;
 		try {
@@ -352,18 +407,20 @@ public class ThongTinCaNhanControl implements Initializable{
 		}
 		return bytesAnh;
 	}
-	
 
 	private boolean capNhatNhanVien() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		try {
 			LocalDate localDate = LocalDate.parse(txtNgaySinh.getText(), formatter);
-			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(), cbxGioiTinh.getSelectionModel().getSelectedItem(), localDate, txtCMND.getText(), nhanVien.getNgayVaoLam(), txtDiaChi.getText(), nhanVien.getEmail(), txtSoDT.getText(), nhanVien.getChucVu(), byteAnh);
-	
-			System.out.println("new "+newNhanVien);
+			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(),
+					cbxGioiTinh.getSelectionModel().getSelectedItem(), localDate, txtCMND.getText(),
+					nhanVien.getNgayVaoLam(), txtDiaChi.getText(), nhanVien.getEmail(), txtSoDT.getText(),
+					nhanVien.getChucVu(), byteAnh);
+
+			System.out.println("new " + newNhanVien);
 			Services services = new Services();
 			NhanVienServices nhanVienServices = services.getNhanVienServices();
-			if(nhanVienServices.suaNhanVien(newNhanVien) == true) {
+			if (nhanVienServices.suaNhanVien(newNhanVien) == true) {
 				this.nhanVien = newNhanVien;
 				MainControl control = new MainControl();
 				control.setValues(nhanVien, userPassword);
@@ -378,7 +435,6 @@ public class ThongTinCaNhanControl implements Initializable{
 	public boolean getResult() {
 		return flag;
 	}
-
 
 	private void alert(AlertType alertType, String title, String header, String content) {
 		Alert alert = new Alert(alertType);

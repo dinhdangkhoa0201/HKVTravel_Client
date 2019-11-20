@@ -90,7 +90,10 @@ public class ThongTinNhanVienControl implements Initializable {
 
 	private List<String> danhSachSDTKH;
 	private List<String> danhSachSDTNV;
-	
+
+	private List<String> danhSachCMNDKH;
+	private List<String> danhSachCMNDNV;
+
 	private FileChooser fileChooser;
 	private File fileAnh;
 	private byte[] byteAnh;
@@ -114,49 +117,44 @@ public class ThongTinNhanVienControl implements Initializable {
 		txtEmail.setText(nhanVien.getEmail());
 		txtDiaChi.setText(nhanVien.getDiaChi());
 		txtSoDienThoai.setText(nhanVien.getSoDienThoai());
-		
-		if(nhanVien.getAnh() != null) {
+
+		if (nhanVien.getAnh() != null) {
 			try {
 				System.out.println("Co Anh");
 				byteAnh = nhanVien.getAnh();
 				InputStream inputStream = new ByteArrayInputStream(byteAnh);
 				imgAnhDaiDien.setImage(new Image(inputStream));
 			} catch (Exception e) {
-				e.printStackTrace();
 			}
-			
+
 		} else {
-			if(cbxGioiTinh.getValue().equals("Nam")) {
+			if (cbxGioiTinh.getValue().equals("Nam")) {
 				try {
 					fileAnh = new File("src/img/man.png");
 					byteAnh = Files.readAllBytes(fileAnh.toPath());
 					InputStream inputStream = new ByteArrayInputStream(byteAnh);
-					
+
 					Image image = new Image(inputStream);
 					imgAnhDaiDien.setImage(image);
 				} catch (Exception e) {
 				}
-				
+
 			} else {
 				try {
 					fileAnh = new File("src/img/girl.png");
 					byteAnh = Files.readAllBytes(fileAnh.toPath());
 					InputStream inputStream = new ByteArrayInputStream(byteAnh);
-					
+
 					Image image = new Image(inputStream);
 					imgAnhDaiDien.setImage(image);
 				} catch (Exception e) {
-					e.printStackTrace();
 				}
+
 			}
 		}
-		
-		
 		SimpleStringProperty propertyMaNV = new SimpleStringProperty(nhanVien.getMaNV());
 		SimpleStringProperty propertyMaQL = new SimpleStringProperty(quanLy.getMaNV());
-
 		btnXoa.disableProperty().bind(propertyMaNV.isEqualTo(propertyMaQL));
-
 		Services services = new Services();
 		NhanVienServices nhanVienServices = services.getNhanVienServices();
 		KhachHangServices khachHangServices = services.getKhachHangServices();
@@ -165,8 +163,9 @@ public class ThongTinNhanVienControl implements Initializable {
 			danhSachEmailKH = khachHangServices.danhSachEmail();
 			danhSachSDTKH = khachHangServices.danhSachSDT();
 			danhSachSDTNV = nhanVienServices.danhSachSDT();
+			danhSachCMNDKH = khachHangServices.danhSachCMND();
+			danhSachCMNDNV = nhanVienServices.danhSachCMND();
 		} catch (RemoteException e) {
-			e.printStackTrace();
 		}
 
 		if (danhSachEmailKH.contains(nhanVien.getEmail())) {
@@ -179,6 +178,12 @@ public class ThongTinNhanVienControl implements Initializable {
 			danhSachSDTKH.remove(nhanVien.getSoDienThoai());
 		} else if (danhSachSDTNV.contains(nhanVien.getSoDienThoai())) {
 			danhSachSDTNV.remove(nhanVien.getSoDienThoai());
+		}
+
+		if (danhSachCMNDKH.contains(nhanVien.getCmnd())) {
+			danhSachCMNDKH.remove(nhanVien.getCmnd());
+		} else if (danhSachCMNDNV.contains(nhanVien.getCmnd())) {
+			danhSachCMNDNV.remove(nhanVien.getCmnd());
 		}
 
 		init();
@@ -197,41 +202,41 @@ public class ThongTinNhanVienControl implements Initializable {
 				lblErrorHoTen.setText("Chưa nhập Họ tên");
 			}
 		});
-		
+
 		cbxGioiTinh.valueProperty().addListener((o, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
-				System.out.println("byte anh : "+byteAnh);
-				if(byteAnh != null) {
+			if (!newVal.equals("")) {
+				System.out.println("byte anh : " + byteAnh);
+				if (byteAnh != null) {
 					try {
 						File fileMan = new File("src/img/man.png");
 						byte[] byteMan = Files.readAllBytes(fileMan.toPath());
-						System.out.println("Man "+Arrays.equals(byteAnh, byteMan));
+						System.out.println("Man " + Arrays.equals(byteAnh, byteMan));
 
 						File fileWoman = new File("src/img/girl.png");
 						byte[] byteWoman = Files.readAllBytes(fileWoman.toPath());
-						System.out.println("Women "+Arrays.equals(byteAnh, byteWoman));
-						
-						System.out.println("both : "+Arrays.equals(byteMan, byteWoman));
-						
-						if(Arrays.equals(byteAnh, byteMan) == true || Arrays.equals(byteAnh, byteWoman)) {
-							if(cbxGioiTinh.getValue().equals("Nam")) {
+						System.out.println("Women " + Arrays.equals(byteAnh, byteWoman));
+
+						System.out.println("both : " + Arrays.equals(byteMan, byteWoman));
+
+						if (Arrays.equals(byteAnh, byteMan) == true || Arrays.equals(byteAnh, byteWoman)) {
+							if (cbxGioiTinh.getValue().equals("Nam")) {
 								try {
 									fileAnh = new File("src/img/man.png");
 									byteAnh = Files.readAllBytes(fileAnh.toPath());
 									InputStream inputStream = new ByteArrayInputStream(byteAnh);
-									
+
 									Image image = new Image(inputStream);
 									imgAnhDaiDien.setImage(image);
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
-								
+
 							} else {
 								try {
 									fileAnh = new File("src/img/girl.png");
 									byteAnh = Files.readAllBytes(fileAnh.toPath());
 									InputStream inputStream = new ByteArrayInputStream(byteAnh);
-									
+
 									Image image = new Image(inputStream);
 									imgAnhDaiDien.setImage(image);
 								} catch (Exception e) {
@@ -245,7 +250,7 @@ public class ThongTinNhanVienControl implements Initializable {
 				}
 			}
 		});
-		
+
 		txtNgaySinh.textProperty().addListener((val, oldVal, newVal) -> {
 			if (!newVal.equals("")) {
 				String regex = "\\d{1,2}/\\d{1,2}/\\d{4}$";
@@ -293,13 +298,13 @@ public class ThongTinNhanVienControl implements Initializable {
 				lblErrorNgaySinh.setText("");
 			}
 		});
-		
+
 		txtEmail.textProperty().addListener((val, oldVal, newVal) -> {
 			if (!newVal.equals("")) {
 				String regex = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
 				if (danhSachEmailNV.contains(newVal) || danhSachEmailKH.contains(newVal)) {
 					lblErrorEmail.setText("Email '" + newVal + "' đã được sử dụng");
-				} else if(!newVal.matches(regex)) {
+				} else if (!newVal.matches(regex)) {
 					lblErrorEmail.setText("Địa chỉ email không hợp lệ");
 				} else {
 					lblErrorEmail.setText("");
@@ -308,13 +313,15 @@ public class ThongTinNhanVienControl implements Initializable {
 				lblErrorEmail.setText("");
 			}
 		});
-		
+
 		txtCMND.textProperty().addListener((val, oldVal, newVal) -> {
 			if (!newVal.equals("")) {
 				String regex = "\\d{8}";
 				String regex1 = "\\d{12}";
 				if (!newVal.matches(regex) && !newVal.matches(regex1)) {
 					lblErrorCMND.setText("CMND không hợp lệ");
+				} else if (danhSachCMNDKH.contains(txtCMND.getText()) || danhSachCMNDNV.contains(txtCMND.getText())) {
+					lblErrorCMND.setText("CMND đã tồn tại");
 				} else {
 					lblErrorCMND.setText("");
 				}
@@ -322,7 +329,7 @@ public class ThongTinNhanVienControl implements Initializable {
 				lblErrorCMND.setText("");
 			}
 		});
-		
+
 		txtSoDienThoai.textProperty().addListener((val, oldVal, newVal) -> {
 			if (!newVal.equals("")) {
 				if (!txtSoDienThoai.getText().equals("")) {
@@ -341,7 +348,7 @@ public class ThongTinNhanVienControl implements Initializable {
 				lblErrorSDT.setText("Chưa nhập Số điện thoại");
 			}
 		});
-		
+
 		txtDiaChi.textProperty().addListener((val, oldVal, newVal) -> {
 			if (newVal.equals("")) {
 				lblErrorDiaChi.setText("Chưa nhập địa chỉ");
@@ -349,7 +356,7 @@ public class ThongTinNhanVienControl implements Initializable {
 				lblErrorDiaChi.setText("");
 			}
 		});
-		
+
 		btnCapNhat.disableProperty()
 				.bind(txtHoTen.textProperty().isEqualTo(nhanVien.getHoTen())
 						.and(cbxGioiTinh.valueProperty().isEqualTo(nhanVien.getGioiTinh()))
@@ -412,17 +419,16 @@ public class ThongTinNhanVienControl implements Initializable {
 				}
 			} else
 				alert.close();
-		} 
-		else if(e.getSource() == btnAnhDaiDien) {
+		} else if (e.getSource() == btnAnhDaiDien) {
 			try {
 				byte[] anhDaiDien = themAnhDaiDien();
 				InputStream inputStream = new ByteArrayInputStream(anhDaiDien);
 				Image image = new Image(inputStream);
 				imgAnhDaiDien.setImage(image);
-				
+
 				Services services = new Services();
 				NhanVienServices nhanVienServices = services.getNhanVienServices();
-				if(nhanVienServices.capNhatAnhDaiDien(nhanVien.getMaNV(), anhDaiDien) == true) {
+				if (nhanVienServices.capNhatAnhDaiDien(nhanVien.getMaNV(), anhDaiDien) == true) {
 					alert(AlertType.INFORMATION, "Success", "Đổi ảnh đại diện thành công", null);
 					flag = true;
 				} else {
@@ -432,7 +438,7 @@ public class ThongTinNhanVienControl implements Initializable {
 			}
 		}
 	}
-	
+
 	private byte[] themAnhDaiDien() {
 		byte[] bytesAnh = null;
 		try {
@@ -449,14 +455,17 @@ public class ThongTinNhanVienControl implements Initializable {
 	}
 
 	private boolean capNhatNhanVien() {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		try {
 			LocalDate localDate = LocalDate.parse(txtNgaySinh.getText(), formatter);
-			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(), cbxGioiTinh.getSelectionModel().getSelectedItem(), localDate, txtCMND.getText(), nhanVien.getNgayVaoLam(), txtDiaChi.getText(), nhanVien.getEmail(), txtSoDienThoai.getText(), nhanVien.getChucVu(), byteAnh);
-			System.out.println("new "+newNhanVien);
+			NhanVien newNhanVien = new NhanVien(nhanVien.getMaNV(), txtHoTen.getText(),
+					cbxGioiTinh.getSelectionModel().getSelectedItem(), localDate, txtCMND.getText(),
+					nhanVien.getNgayVaoLam(), txtDiaChi.getText(), nhanVien.getEmail(), txtSoDienThoai.getText(),
+					nhanVien.getChucVu(), byteAnh);
+			System.out.println("new " + newNhanVien);
 			Services services = new Services();
 			NhanVienServices nhanVienServices = services.getNhanVienServices();
-			if(nhanVienServices.suaNhanVien(newNhanVien) == true) {
+			if (nhanVienServices.suaNhanVien(newNhanVien) == true) {
 				this.nhanVien = newNhanVien;
 				return true;
 			}

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.QuanLyKhachHangControl">
+   <center>
+      <HBox>
+         <children>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <HBox spacing="50.0">
+                           <children>
+                              <JFXButton fx:id="btnDatTour" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" layoutX="10.0" layoutY="10.0" onMouseClicked="#handlButtonAction" prefHeight="100.0" prefWidth="100.0" text="Đặt tour">
+                                 <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/iconDuLich.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="btnThem" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" maxHeight="-Infinity" minHeight="-Infinity" onMouseClicked="#handlButtonAction" prefHeight="100.0" prefWidth="100.0" text="Thêm Khách hàng" textAlignment="CENTER" wrapText="true">
+                                 <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/iconThem.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXButton fx:id="btnReLoad" buttonType="RAISED" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#handlButtonAction" prefHeight="100.0" prefWidth="100.0" text="Reload">
+                                 <graphic>
+                                    <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../img/iconReload.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </JFXButton>
+                              <JFXTextField fx:id="txtTim" labelFloat="true" prefHeight="44.0" prefWidth="365.0" promptText="Tìm kiếm Khách hàng">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </JFXTextField>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <TableView fx:id="tableKhachHang" onMouseClicked="#handlButtonAction" prefHeight="500.0" prefWidth="1366.0" stylesheets="@../application/application.css">
+                          <columns>
+                            <TableColumn fx:id="col_makh" minWidth="-1.0" prefWidth="-1.0" text="Mã Nhân Viên" />
+                            <TableColumn fx:id="col_hoten" minWidth="-1.0" prefWidth="-1.0" text="Họ Tên" />
+                              <TableColumn fx:id="col_gioitinh" minWidth="-1.0" prefWidth="-1.0" text="Giới Tính" />
+                              <TableColumn fx:id="col_ngaysinh" minWidth="-1.0" prefWidth="-1.0" text="Ngày Sinh" />
+                              <TableColumn fx:id="col_diachi" minWidth="-1.0" prefWidth="-1.0" text="Địa Chỉ" />
+                              <TableColumn fx:id="col_email" minWidth="-1.0" prefWidth="-1.0" text="Email" />
+                              <TableColumn fx:id="col_dienthoai" minWidth="-1.0" prefWidth="-1.0" text="Số Điện Thoại" />
+                          </columns>
+                          <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <top>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="45.0" prefWidth="299.0" text="Quản Lý Khách Hàng" underline="true">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox prefHeight="18.0" prefWidth="1280.0" BorderPane.alignment="CENTER" />
+   </bottom>
+</BorderPane>

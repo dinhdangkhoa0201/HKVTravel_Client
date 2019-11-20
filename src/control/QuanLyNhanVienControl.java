@@ -246,8 +246,6 @@ public class QuanLyNhanVienControl implements Initializable{
 				loadDataFromDatabase();
 			}
 		} catch (Exception e2) {
-			// TODO: handle exception
-			System.out.println(e2.getMessage());
 			System.out.println("Button Add");
 			e2.printStackTrace();
 

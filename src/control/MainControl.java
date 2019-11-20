@@ -51,6 +51,8 @@ public class MainControl implements Initializable {
 	Label lblNgay;
 	@FXML
 	Button btnNhanVien;
+	@FXML
+	Button btnKhachHang;
 	private UserPassword userPassword;
 	private NhanVien nhanVien;
 	private String id;
@@ -164,6 +166,15 @@ public class MainControl implements Initializable {
 //				paneNhanVien.setPrefSize(paneCenter.getWidth(), paneCenter.getHeight());
 //				paneCenter.getChildren().clear();
 //				paneCenter.getChildren().add(paneNhanVien);
+				border_pane.setCenter(paneNhanVien);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		else if(e.getSource() == btnKhachHang) {
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/QuanLyKhachHang.fxml"));
+				BorderPane paneNhanVien = fxmlLoader.load();
 				border_pane.setCenter(paneNhanVien);
 			} catch (Exception e2) {
 				e2.printStackTrace();

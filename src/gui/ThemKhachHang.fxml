@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.validation.RequiredFieldValidator?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<DialogPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ThemKhachHangControl">
+   <content>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0">
+      	<center>
+      		<HBox>
+      			<children>
+      				<HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+      					<children>
+      						<VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+      							<children>
+      								<HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      									<children>
+      										<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+      											<image>
+      												<Image url="@../img/iconName.png" />
+      											</image>
+      										</ImageView>
+      										<VBox HBox.hgrow="ALWAYS">
+      											<children>
+      												<JFXTextField fx:id="txtHoTen" labelFloat="true" promptText="Họ và Tên">
+      													<font>
+      														<Font size="15.0" />
+      													</font>
+      													<validators>
+      														<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
+														</RequiredFieldValidator>
+      													</validators>
+      												</JFXTextField>
+      												<Label fx:id="lblErrorHoTen" textFill="RED">
+      													<VBox.margin>
+      														<Insets top="5.0" />
+      													</VBox.margin>
+      												</Label>
+      											</children>
+      										</VBox>
+      									</children>
+      								</HBox>
+      								<HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      									<children>
+      										<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+      											<image>
+      												<Image url="@../img/iconGender.png" />
+      											</image>
+      										</ImageView>
+      										<VBox>
+      											<children>
+      												<JFXComboBox fx:id="cbxGioiTinh" editable="true" labelFloat="true" prefWidth="213.0" promptText="Giới Tính" stylesheets="@../application/application.css" visibleRowCount="2">
+      													<validators>
+      														<RequiredFieldValidator message="Chưa chọn Giới tính">
+														</RequiredFieldValidator>
+      													</validators>
+      												</JFXComboBox>
+      												<Label fx:id="lblErrorGioiTinh" textFill="RED">
+      													<VBox.margin>
+      														<Insets top="5.0" />
+      													</VBox.margin>
+      												</Label>
+      											</children>
+      										</VBox>
+      									</children>
+      								</HBox>
+      								<HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      									<children>
+      										<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+      											<image>
+      												<Image url="@../img/iconBirthday.png" />
+      											</image>
+      										</ImageView>
+      										<VBox>
+      											<children>
+      												<JFXTextField fx:id="txtNgaySinh" labelFloat="true" promptText="Ngày sinh (dd/MM/yyyy)">
+      													<font>
+      														<Font size="15.0" />
+      													</font>
+      												</JFXTextField>
+      												<Label fx:id="lblErrorNgaySinh" textFill="RED">
+      													<VBox.margin>
+      														<Insets top="5.0" />
+      													</VBox.margin>
+      												</Label>
+      											</children>
+      										</VBox>
+      									</children>
+      								</HBox>
+      								<HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      									<children>
+      										<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+      											<image>
+      												<Image url="@../img/iconID.png" />
+      											</image>
+      										</ImageView>
+      										<VBox>
+      											<children>
+      												<JFXTextField fx:id="txtCMND" labelFloat="true" promptText="CMND">
+      													<font>
+      														<Font size="15.0" />
+      													</font>
+      													<validators>
+      														<RequiredFieldValidator message="Vui lòng nhập dữ liệu" />
+      													</validators>
+      												</JFXTextField>
+      												<Label fx:id="lblErrorCMND" textFill="RED">
+      													<VBox.margin>
+      														<Insets top="5.0" />
+      													</VBox.margin>
+      												</Label>
+      											</children>
+      										</VBox>
+      									</children>
+      								</HBox>
+      							</children>
+      							<HBox.margin>
+      								<Insets />
+      							</HBox.margin>
+      							<padding>
+      								<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      							</padding>
+      						</VBox>
+      					</children>
+      				</HBox>
+      				<HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+      					<children>
+      						<VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+      							<children>
+      								<HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      									<children>
+      										<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+      											<image>
+      												<Image url="@../img/iconEmail.png" />
+      											</image>
+      										</ImageView>
+      										<VBox HBox.hgrow="ALWAYS">
+      											<children>
+      												<JFXTextField fx:id="txtEmail" labelFloat="true" promptText="Email">
+      													<font>
+      														<Font size="15.0" />
+      													</font>
+      													<validators>
+      														<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
+														</RequiredFieldValidator>
+      													</validators>
+      												</JFXTextField>
+      												<Label fx:id="lblErrorEmail" textFill="RED">
+      													<VBox.margin>
+      														<Insets top="5.0" />
+      													</VBox.margin>
+      												</Label>
+      											</children>
+      										</VBox>
+      									</children>
+      								</HBox>
+      								<HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      									<children>
+      										<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+      											<image>
+      												<Image url="@../img/iconAddress.png" />
+      											</image>
+      										</ImageView>
+      										<VBox HBox.hgrow="ALWAYS">
+      											<children>
+      												<JFXTextField fx:id="txtDiaChi" labelFloat="true" promptText="Địa chỉ">
+      													<font>
+      														<Font size="15.0" />
+      													</font>
+      													<validators>
+      														<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
+														</RequiredFieldValidator>
+      													</validators>
+      												</JFXTextField>
+      												<Label fx:id="lblErrorDiaChi" textFill="RED">
+      													<VBox.margin>
+      														<Insets top="5.0" />
+      													</VBox.margin>
+      												</Label>
+      											</children>
+      										</VBox>
+      									</children>
+      								</HBox>
+      								<HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      									<children>
+      										<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+      											<image>
+      												<Image url="@../img/iconPhone.png" />
+      											</image>
+      										</ImageView>
+      										<VBox>
+      											<children>
+      												<JFXTextField fx:id="txtSoDienThoai" labelFloat="true" promptText="Số điện thoại">
+      													<font>
+      														<Font size="15.0" />
+      													</font>
+      													<validators>
+      														<RequiredFieldValidator message="Vui lòng nhập dữ liệu">
+														</RequiredFieldValidator>
+      													</validators>
+      												</JFXTextField>
+      												<Label fx:id="lblErrorSoDienThoai" textFill="RED">
+      													<VBox.margin>
+      														<Insets top="5.0" />
+      													</VBox.margin>
+      												</Label>
+      											</children>
+      										</VBox>
+      									</children>
+      								</HBox>
+      								<HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+      									<children>
+      										<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+      											<image>
+      												<Image url="@../img/iconDoiMatKhau.png" />
+      											</image>
+      										</ImageView>
+      										<VBox>
+      											<children>
+      												<JFXPasswordField fx:id="txtMatKhau" prefHeight="31.0" prefWidth="365.0" promptText="Mật khẩu">
+      													<font>
+      														<Font size="15.0" />
+      													</font>
+      												</JFXPasswordField>
+      												<Label fx:id="lblErrorMatKhau" textFill="RED">
+      													<VBox.margin>
+      														<Insets top="5.0" />
+      													</VBox.margin>
+      												</Label>
+      											</children>
+      										</VBox>
+      										<JFXCheckBox fx:id="chkXemPassword" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" text=" ">
+      											<HBox.margin>
+      												<Insets top="10.0" />
+      											</HBox.margin>
+      										</JFXCheckBox>
+      									</children>
+      								</HBox>
+      							</children>
+      							<padding>
+      								<Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      							</padding>
+      						</VBox>
+      					</children>
+      				</HBox>
+      			</children>
+      		</HBox>
+      	</center>
+      	<top>
+      		<HBox alignment="CENTER" prefHeight="172.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+      			<children>
+      				<Label text="Thêm Khách Hàng" textAlignment="CENTER" underline="true">
+      					<font>
+      						<Font name="System Bold" size="30.0" />
+      					</font>
+      				</Label>
+      			</children>
+      		</HBox>
+      	</top>
+      	<bottom>
+      		<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      			<children>
+      				<JFXButton fx:id="btnThem" contentDisplay="TOP" graphicTextGap="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleButtonAction" prefHeight="82.0" prefWidth="100.0" text="Thêm">
+      					<graphic>
+      						<ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+      							<image>
+      								<Image url="@../img/iconThem.png" />
+      							</image>
+      						</ImageView>
+      					</graphic>
+      					<font>
+      						<Font size="15.0" />
+      					</font>
+      				</JFXButton>
+      			</children>
+      		</HBox>
+      	</bottom>
+      </BorderPane>
+   </content>
+</DialogPane>

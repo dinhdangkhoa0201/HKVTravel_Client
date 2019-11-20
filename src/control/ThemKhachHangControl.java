@@ -1,10 +1,6 @@
 package control;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.InputStream;
 import java.net.URL;
-import java.nio.file.Files;
 import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,31 +16,28 @@ import com.jfoenix.controls.JFXTextField;
 import com.sun.javafx.scene.control.skin.TextFieldSkin;
 
 import application.Services;
+import entities.KhachHang;
 import entities.NhanVien;
 import entities.UserPassword;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import services.KhachHangServices;
 import services.NhanVienServices;
 
-public class ThemNhanVienControl implements Initializable{
-	@FXML private JFXButton btnClose;
-	@FXML private JFXButton btnThem;
+public class ThemKhachHangControl implements Initializable{
+
+	@FXML JFXButton btnClose;
+	@FXML JFXButton btnThem;
 
 	@FXML private JFXTextField txtHoTen;
 	@FXML private Label lblErrorHoTen;
@@ -63,15 +56,9 @@ public class ThemNhanVienControl implements Initializable{
 	@FXML private Label lblErrorSoDienThoai;
 	@FXML private JFXPasswordField txtMatKhau;
 	@FXML private Label lblErrorMatKhau;
-	@FXML private JFXComboBox<String> cbxChucVu;
 	@FXML private JFXCheckBox chkXemPassword;
 	
-	@FXML private ImageView imgAnhDaiDien;
-	@FXML private JFXButton btnAnhDaiDien;
-	
-	private FileChooser fileChooser;
-	private File fileAnh;
-	private byte[] byteAnh;
+	private boolean flag = false;
 	
 	private List<String> danhSachEmailKH;
 	private List<String> danhSachEmailNV;
@@ -82,17 +69,11 @@ public class ThemNhanVienControl implements Initializable{
 	private List<String> danhSachCMNDKH;
 	private List<String> danhSachCMNDNV;
 
-	private boolean flag = false;
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		fileChooser = new FileChooser();
-		cbxChucVu.getItems().add("Nhân viên");
-		cbxChucVu.getItems().add("Quản lý");
-		cbxChucVu.getSelectionModel().select("Nhân viên");
+		// TODO Auto-generated method stub
 		cbxGioiTinh.getItems().add("Nam");
 		cbxGioiTinh.getItems().add("Nữ");
-		
 		Services services = new Services();
 		NhanVienServices nhanVienServices = services.getNhanVienServices();
 		KhachHangServices khachHangServices = services.getKhachHangServices();
@@ -120,35 +101,6 @@ public class ThemNhanVienControl implements Initializable{
 					lblErrorHoTen.setText("Chưa nhập Họ tên");
 				}
 			} 
-		});
-		
-		cbxGioiTinh.valueProperty().addListener((o, oldVal, newVal) -> {
-			if(!newVal.equals("")) {
-				if(byteAnh == null) {
-					if(cbxGioiTinh.getValue().equals("Nam")) {
-						try {
-							fileAnh = new File("src/img/man.png");
-							byteAnh = Files.readAllBytes(fileAnh.toPath());
-							InputStream inputStream = new ByteArrayInputStream(byteAnh);
-							
-							Image image = new Image(inputStream);
-							imgAnhDaiDien.setImage(image);
-						} catch (Exception e) {
-						}
-						
-					} else {
-						try {
-							fileAnh = new File("src/img/girl.png");
-							byteAnh = Files.readAllBytes(fileAnh.toPath());
-							InputStream inputStream = new ByteArrayInputStream(byteAnh);
-							
-							Image image = new Image(inputStream);
-							imgAnhDaiDien.setImage(image);
-						} catch (Exception e) {
-						}
-					}
-				}
-			}
 		});
 		
 		cbxGioiTinh.focusedProperty().addListener((val, oldVal, newVal) -> {
@@ -249,7 +201,7 @@ public class ThemNhanVienControl implements Initializable{
 				}
 			}
 		});
-
+		
 		txtSoDienThoai.focusedProperty().addListener((val, oldVal, newVal) -> {
 			if (!newVal) {
 				if(!txtSoDienThoai.getText().equals("")) {
@@ -266,7 +218,8 @@ public class ThemNhanVienControl implements Initializable{
 				}
 			}
 		});
-
+		
+		
 		txtDiaChi.focusedProperty().addListener((o, oldVal, newVal) -> {
 			if(!newVal) {
 				if(txtDiaChi.getText().equals("")) {
@@ -294,27 +247,27 @@ public class ThemNhanVienControl implements Initializable{
 			}
 		});
 		
-		BooleanProperty showPassword = new SimpleBooleanProperty() {
-			@Override
-			protected void invalidated() {
-				// force maskText to be called
-				String txt = txtMatKhau.getText();
-				txtMatKhau.setText(null);
-				txtMatKhau.setText(txt);
-			}
-		};
+        BooleanProperty showPassword = new SimpleBooleanProperty() {
+            @Override
+            protected void invalidated() {
+                // force maskText to be called
+                String txt = txtMatKhau.getText();
+                txtMatKhau.setText(null);
+                txtMatKhau.setText(txt);
+            }
+        };
 
-		txtMatKhau.setSkin(new TextFieldSkin(txtMatKhau) {
-			@Override
-			protected String maskText(String txt) {
-				if (showPassword.get()) {
-					return txt;
-				}
-				return super.maskText(txt);
-			}
-		});
-		showPassword.bind(chkXemPassword.selectedProperty());
-		
+        txtMatKhau.setSkin(new TextFieldSkin(txtMatKhau) {
+            @Override
+            protected String maskText(String txt) {
+                if (showPassword.get()) {
+                    return txt;
+                }
+                return super.maskText(txt);
+            }
+        });
+        showPassword.bind(chkXemPassword.selectedProperty());
+        
 		btnThem.disableProperty().bind(lblErrorHoTen.textProperty().isNotEmpty()
 				.or(cbxGioiTinh.valueProperty().isNull())
 				.or(lblErrorNgaySinh.textProperty().isNotEmpty())
@@ -330,11 +283,12 @@ public class ThemNhanVienControl implements Initializable{
 				.or(txtSoDienThoai.textProperty().isEmpty())
 				.or(txtDiaChi.textProperty().isEmpty())
 				.or(txtMatKhau.textProperty().isEmpty()));
+		
 	}
-
+	
 
 	@FXML
-	private void handlButtonAction(MouseEvent e) {
+	private void handleButtonAction(MouseEvent e) {
 		if(e.getSource() == btnClose) {
 
 			Alert alert = new Alert(AlertType.WARNING);
@@ -347,7 +301,6 @@ public class ThemNhanVienControl implements Initializable{
 			alert.getButtonTypes().setAll(yesBtn, noBtn);
 
 			if(alert.showAndWait().get() == yesBtn) {
-
 				Node node = (Node) e.getSource();
 				Stage stage = (Stage) node.getScene().getWindow();
 				stage.close();
@@ -356,32 +309,28 @@ public class ThemNhanVienControl implements Initializable{
 				alert.close();
 		}
 		else if(e.getSource() == btnThem) {
-			if(themNhanVien() == true) {
+			if(themKhachHang() == true) {
 				this.flag = true;
-				alert(AlertType.INFORMATION, "SUCCESS", "Thêm Nhân viên thành công", null);
+				alert(AlertType.INFORMATION, "SUCCESS", "Thêm Khách hàng thành công", null);
 				Node node = (Node) e.getSource();
 				Stage stage = (Stage) node.getScene().getWindow();
 				stage.close();
 			}
-		} else if(e.getSource() == btnAnhDaiDien) {
-			try {
-				byteAnh = themAnhDaiDien();
-				InputStream inputStream = new ByteArrayInputStream(byteAnh);
-				Image image = new Image(inputStream);
-				imgAnhDaiDien.setImage(image);
-			} catch (Exception e2) {
-			}
+
 		}
-	}	
+	}
 	
-	private byte[] themAnhDaiDien() {
-		byte[] bytseAnh = null;
+	private boolean themKhachHang() {
 		try {
-			File file = fileChooser.showOpenDialog(null);
-			bytseAnh = Files.readAllBytes(file.toPath());
+			KhachHang newKhachHang = new KhachHang(null, txtHoTen.getText(), cbxGioiTinh.getValue(), LocalDate.parse(txtNgaySinh.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), txtCMND.getText(), txtEmail.getText(), txtSoDienThoai.getText(), txtDiaChi.getText());
+			UserPassword userPassword = new UserPassword(null, txtMatKhau.getText());
+			Services services = new Services();
+			KhachHangServices khachHangServices = services.getKhachHangServices();
+			return khachHangServices.themKhachHang(newKhachHang, userPassword);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return bytseAnh;
+		return false;
 	}
 	
 	private static void alert(AlertType alertType, String title, String header, String content) {
@@ -391,20 +340,7 @@ public class ThemNhanVienControl implements Initializable{
 		alert.setContentText(content);
 		alert.showAndWait();
 	}
-
-	private boolean themNhanVien() {
-		try {
-			NhanVien newNhanVien = new NhanVien(null, txtHoTen.getText(), cbxGioiTinh.getValue(), LocalDate.parse(txtNgaySinh.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy")), txtCMND.getText(), LocalDate.now(), txtDiaChi.getText(), txtEmail.getText(), txtSoDienThoai.getText(), (cbxChucVu.getValue().equals("Nhân viên") == true) ? 0 : 1, byteAnh);
-			UserPassword userPassword = new UserPassword(null, txtMatKhau.getText());
-			Services services = new Services();
-			NhanVienServices nhanVienServices = services.getNhanVienServices();
-			return nhanVienServices.themNhanVien(newNhanVien, userPassword);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
+	
 	public boolean getResult() {
 		return flag;
 	}
