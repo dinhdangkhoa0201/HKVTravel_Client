@@ -1,10 +1,21 @@
 package control;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.text.Normalizer;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -39,9 +50,10 @@ import services.KhachHangServices;
 public class QuanLyKhachHangControl implements Initializable{
 	@FXML private JFXButton btnReLoad;
 	@FXML private JFXButton btnThem;
-	@FXML private JFXButton btnTim;
-	@FXML private JFXTextField txtTim;
+	@FXML private JFXButton btnExportExcel;
 	@FXML private JFXButton btnDatTour;
+	@FXML private JFXTextField txtTim;
+
 
 	@FXML private TableView<KhachHang> tableKhachHang;
 	@FXML private TableColumn<KhachHang, String> col_makh;
@@ -51,10 +63,11 @@ public class QuanLyKhachHangControl implements Initializable{
 	@FXML private TableColumn<KhachHang, String> col_email;
 	@FXML private TableColumn<KhachHang, String> col_dienthoai;
 	@FXML private TableColumn<KhachHang, String> col_diachi;
-
+	
 	private ObservableList<KhachHang> data;
 	private FilteredList<KhachHang> filter;
 	private String maKh="";
+	private FileOutputStream fileOutputStream;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
@@ -150,8 +163,10 @@ public class QuanLyKhachHangControl implements Initializable{
 		else if(e.getSource() == btnThem) {
 			themKhachHang();
 		}
-		else if(e.getSource() == btnTim) {
-
+		else if(e.getSource() == btnExportExcel) {
+			if(exportExcel() == true) {
+				alert(AlertType.INFORMATION, "Export file success!", "Xuất dữ liệu thành công", null);
+			}
 		}
 		else if(e.getSource() == btnDatTour) {
 			try {
@@ -230,6 +245,88 @@ public class QuanLyKhachHangControl implements Initializable{
 			e2.printStackTrace();
 
 		}
+	}
+	
+	private boolean exportExcel() {
+		String tenFile = "KhachHang";
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		HSSFSheet sheet = workbook.createSheet(tenFile);
+		HSSFFont font = workbook.createFont();
+		font.setBold(true);
+		HSSFCellStyle style = workbook.createCellStyle();
+		style.setFont(font);
+		int rownumber = 0;
+		Row row = sheet.createRow(rownumber);
+		Cell cell;
+		
+		cell = setCellProperty(row, 0, CellType.STRING, "Mã KH", style);
+		cell = setCellProperty(row, 1, CellType.STRING, "Họ tên", style);
+		cell = setCellProperty(row, 2, CellType.STRING, "Giới tính", style);
+		cell = setCellProperty(row, 3, CellType.STRING, "Ngày sinh", style);
+		cell = setCellProperty(row, 4, CellType.STRING, "CMND", style);
+		cell = setCellProperty(row, 5, CellType.STRING, "Địa chỉ", style);
+		cell = setCellProperty(row, 6, CellType.STRING, "Email", style);
+		cell = setCellProperty(row, 7, CellType.STRING, "Điện thoại", style);
+		
+		for(KhachHang khachHang : data) {
+			rownumber++;
+			row = sheet.createRow(rownumber);
+			
+			cell = row.createCell(0, CellType.STRING);
+			cell.setCellValue(khachHang.getMaKH());
+			
+			cell = row.createCell(1, CellType.STRING);
+			cell.setCellValue(khachHang.getHoTenKH());
+			
+			cell = row.createCell(2, CellType.STRING);
+			cell.setCellValue(khachHang.getGioiTinh());
+			
+			cell = row.createCell(3, CellType.STRING);
+			cell.setCellValue(khachHang.getNgaySinh().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+			
+			cell = row.createCell(4, CellType.STRING);
+			cell.setCellValue(khachHang.getCmnd());
+			
+			cell = row.createCell(5, CellType.STRING);
+			cell.setCellValue(khachHang.getDiaChi());
+			
+			cell = row.createCell(6, CellType.STRING);
+			cell.setCellValue(khachHang.getEmail());
+			
+			cell = row.createCell(7, CellType.STRING);
+			cell.setCellValue(khachHang.getSoDienThoai());
+			
+		}
+		
+		
+		try {
+			File file = new File("excel/"+tenFile+".xlsx");
+			fileOutputStream = new FileOutputStream(file);
+			workbook.write(fileOutputStream);
+			if(file.mkdir() == false) {
+				return true;
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+		
+	}
+	
+	private Cell setCellProperty(Row row,int col, CellType cellType, String cellValue, HSSFCellStyle style) {
+		Cell cell = row.createCell(col, cellType);
+		cell.setCellValue(cellValue);
+		cell.setCellStyle(style);
+		return cell;
+	}
+	
+	private void alert(AlertType alertType, String title, String header, String content) {
+		Alert alert = new Alert(alertType);
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(content);
+		alert.showAndWait();
 	}
 
 	private void ThongTinKhachHang() {		

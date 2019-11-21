@@ -93,6 +93,17 @@
       </HBox>
    </top>
    <bottom>
-      <HBox prefHeight="18.0" prefWidth="1280.0" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="18.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="btnExportExcel" contentDisplay="CENTER" onMouseClicked="#handlButtonAction" text=" ">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/iconExcel.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children></HBox>
    </bottom>
 </BorderPane>
