@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXMasonryPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.validation.RequiredFieldValidator?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.HTMLEditor?>
+
+<DialogPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ThemTourControl">
+   <content>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0">
+         <center>
+            <ScrollPane fitToWidth="true" prefWidth="1280.0">
+               <content>
+                  <AnchorPane>
+                     <children>
+                        <VBox alignment="TOP_CENTER" fillWidth="false" layoutY="-2.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <children>
+                              <HBox spacing="50.0" style="-fx-background-color: #e0ebeb;" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox prefHeight="330.0" prefWidth="500.0" spacing="30.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox spacing="50.0">
+                                             <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/iconTenTour.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <VBox HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <JFXTextField fx:id="txtTenTour" labelFloat="true" promptText="Tên Tour" stylesheets="@../main/application.css">
+                                                         <font>
+                                                            <Font size="15.0" />
+                                                         </font>
+                                                         <validators>
+                                                            <RequiredFieldValidator message="Vui lòng nhập dữ liệu" styleClass="regex-valid" stylesheets="@../main/application.css" />
+                                                         </validators>
+                                                      </JFXTextField>
+                                                      <Label fx:id="lblErrorTenTour" textFill="RED">
+                                                         <VBox.margin>
+                                                            <Insets top="5.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox spacing="50.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/iconNoiKhoiHanh.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <VBox>
+                                                   <children>
+                                                      <JFXComboBox fx:id="cbxNoiDi" labelFloat="true" promptText="Nơi khơi hành" stylesheets="@../application/application.css">
+                                                         <validators>
+                                                            <RequiredFieldValidator message="Chưa chọn nơi đi" styleClass="regex-valid" stylesheets="@../main/application.css" />
+                                                         </validators>
+                                                      </JFXComboBox>
+                                                      <Label fx:id="lblErrorNoiKhoiHanh" textFill="RED">
+                                                         <VBox.margin>
+                                                            <Insets top="5.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox spacing="50.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/iconNoiDen.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <VBox>
+                                                   <children>
+                                                      <JFXComboBox fx:id="cbxNoiDen" labelFloat="true" promptText="Nơi đến" stylesheets="@../application/application.css">
+                                                         <validators>
+                                                            <RequiredFieldValidator message="Chưa chọn Nơi đến" />
+                                                         </validators>
+                                                      </JFXComboBox>
+                                                      <Label fx:id="lblErrorNoiDen" textFill="RED">
+                                                         <VBox.margin>
+                                                            <Insets top="5.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox spacing="50.0">
+                                             <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/iconPhuongTien.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <VBox>
+                                                   <children>
+                                                      <JFXComboBox fx:id="cbxPhuongTien" labelFloat="true" prefHeight="30.0" promptText="Phương tiện" styleClass="jfx-combo-box" stylesheets="@../application/application.css">
+                                                         <validators>
+                                                            <RequiredFieldValidator message="Chưa chọn Phương tiện" />
+                                                         </validators>
+                                                      </JFXComboBox>
+                                                      <Label fx:id="lblErrorPhuongTien" textFill="RED">
+                                                         <VBox.margin>
+                                                            <Insets top="5.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox spacing="50.0">
+                                             <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/iconSoLuong.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <VBox>
+                                                   <children>
+                                                      <JFXComboBox fx:id="cbxSoLuong" editable="true" labelFloat="true" promptText="Số Lượng" styleClass="jfx-combo-box" stylesheets="@../application/application.css">
+                                                         <validators>
+                                                            <RequiredFieldValidator message="Chưa chọn Số lượng" />
+                                                         </validators>
+                                                      </JFXComboBox>
+                                                      <Label fx:id="lblErrorSoLuong" textFill="RED">
+                                                         <VBox.margin>
+                                                            <Insets top="5.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <VBox prefHeight="433.0" prefWidth="500.0" spacing="30.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox spacing="50.0">
+                                             <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/iconNgayKhoiHanh.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <VBox>
+                                                   <children>
+                                                      <JFXTextField fx:id="txtNgayKhoiHanh" labelFloat="true" prefHeight="31.0" prefWidth="211.0" promptText="Ngày Khởi hành (dd/MM/yyyy)">
+                                                         <font>
+                                                            <Font size="15.0" />
+                                                         </font>
+                                                      </JFXTextField>
+                                                      <Label fx:id="lblErrorNgayKhoiHanh" textFill="RED">
+                                                         <VBox.margin>
+                                                            <Insets top="5.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox spacing="50.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/icoNgayKetThuc.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <VBox>
+                                                   <children>
+                                                      <JFXTextField fx:id="txtNgayKetThuc" labelFloat="true" prefHeight="31.0" prefWidth="197.0" promptText="Ngày Kết thúc (dd/MM/yyyy)">
+                                                         <font>
+                                                            <Font size="15.0" />
+                                                         </font>
+                                                      </JFXTextField>
+                                                      <Label fx:id="lblErrorNgayKetThuc" textFill="RED">
+                                                         <VBox.margin>
+                                                            <Insets top="5.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox spacing="50.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/iconGioKhoiHanh.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <VBox>
+                                                   <children>
+                                                      <JFXTextField fx:id="txtGioKhoiHanh" labelFloat="true" promptText="Giờ Khởi hành (HH:mm)">
+                                                         <font>
+                                                            <Font size="15.0" />
+                                                         </font>
+                                                      </JFXTextField>
+                                                      <Label fx:id="lblErrorGioKhoiHanh" textFill="RED">
+                                                         <VBox.margin>
+                                                            <Insets top="5.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox spacing="50.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/iconGiaTien.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <VBox>
+                                                   <children>
+                                                      <JFXTextField fx:id="txtGiaVe" labelFloat="true" promptText="Giá vé">
+                                                         <font>
+                                                            <Font size="15.0" />
+                                                         </font>
+                                                         <validators>
+                                                            <RequiredFieldValidator message="Vui lòng nhập dữ liệu" />
+                                                         </validators>
+                                                      </JFXTextField>
+                                                      <Label fx:id="lblErrorGiaVe" textFill="RED">
+                                                         <VBox.margin>
+                                                            <Insets top="5.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <HBox spacing="50.0">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                             <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../img/iconHuongDanVien.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <VBox>
+                                                   <children>
+                                                      <JFXComboBox fx:id="cbxHuongDanVien" editable="true" labelFloat="true" prefWidth="413.0" promptText="Hướng dẫn viên" styleClass="jfx-combo-box" stylesheets="@../application/application.css">
+                                                         <validators>
+                                                            <RequiredFieldValidator message="Vui lòng nhập dữ liệu" />
+                                                         </validators>
+                                                      </JFXComboBox>
+                                                      <Label fx:id="lblErrorHuongDanVien" textFill="RED">
+                                                         <VBox.margin>
+                                                            <Insets top="5.0" />
+                                                         </VBox.margin>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </HBox>
+                                          <JFXCheckBox fx:id="chkHienThi" text="Hiển thị">
+                                             <VBox.margin>
+                                                <Insets />
+                                             </VBox.margin>
+                                          </JFXCheckBox>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <VBox alignment="TOP_CENTER">
+                                 <children>
+                                    <TabPane fx:id="tab" rotateGraphic="true" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                                       <tabs>
+                                          <Tab text="Mô Tả">
+                                             <content>
+                                                <AnchorPane>
+                                                   <children>
+                                                      <VBox>
+                                                         <children>
+                                                            <JFXToggleButton fx:id="btnXacNhanMoTa" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" text="Xác nhận" />
+                                                            <HTMLEditor fx:id="editorMoTa" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" prefWidth="950.0" stylesheets="@../main/application.css" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab text="Chương Trình Tour">
+                                             <content>
+                                                <AnchorPane>
+                                                   <children>
+                                                      <VBox>
+                                                         <children>
+                                                            <JFXToggleButton fx:id="btnXacNhanCTT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="120.0" text="Xác nhận" />
+                                                            <HTMLEditor fx:id="editorChuongTrinhTour" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" prefWidth="950.0" stylesheets="@../main/application.css" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab text="Chính sách Tour">
+                                             <content>
+                                                <AnchorPane>
+                                                   <children>
+                                                      <VBox>
+                                                         <children>
+                                                            <JFXToggleButton fx:id="btnXacNhanCST" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="119.0" text="Xác nhân" />
+                                                            <HTMLEditor fx:id="editorChinhSachTour" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" prefWidth="950.0" stylesheets="@../main/application.css" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab text="Ảnh Đại Diện">
+                                             <content>
+                                                <AnchorPane>
+                                                   <children>
+                                                      <JFXButton fx:id="btnThemAnhDaiDien" layoutX="23.0" layoutY="10.0" onMouseClicked="#handlButtonAction" stylesheets="@../main/application.css" text="Thêm Ảnh Đại Diện" />
+                                                      <ScrollPane fx:id="scrollThemAnhDaiDien" layoutY="35.0" prefWidth="950.0" stylesheets="@../main/application.css">
+                                                         <content>
+                                                            <AnchorPane>
+                                                               <children>
+                                                                  <VBox>
+                                                                     <children>
+                                                                        <JFXMasonryPane fx:id="masonryAnhDaiDien" prefWidth="930.0" />
+                                                                     </children>
+                                                                  </VBox>
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </content>
+                                                      </ScrollPane>
+                                                      <JFXButton fx:id="btnReloadAnhDaiDien" buttonType="RAISED" layoutX="863.0" layoutY="6.0" onMouseClicked="#handlButtonAction" text="Reload">
+                                                         <graphic>
+                                                            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../img/iconReload.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </graphic>
+                                                      </JFXButton>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </Tab>
+                                          <Tab text="Ảnh">
+                                             <content>
+                                                <VBox>
+                                                   <children>
+                                                      <HBox>
+                                                         <children>
+                                                            <JFXButton fx:id="btnReload" buttonType="RAISED" onMouseClicked="#handlButtonAction" text="Reload">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../img/iconReload.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </JFXButton>
+                                                            <JFXButton fx:id="btnThemAnh" onMouseClicked="#handlButtonAction" text="Thêm Ảnh" />
+                                                         </children>
+                                                      </HBox>
+                                                      <JFXMasonryPane fx:id="masonryDanhSachAnh" prefHeight="11.0" prefWidth="930.0" />
+                                                   </children>
+                                                </VBox>
+                                             </content>
+                                          </Tab>
+                                       </tabs>
+                                    </TabPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+         </center>
+         <top>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Thêm Tour" textAlignment="CENTER" underline="true">
+                     <font>
+                        <Font name="System Bold" size="30.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="btnClose" contentDisplay="CENTER" graphicTextGap="0.0" onMouseClicked="#handlButtonAction" prefHeight="25.0" prefWidth="25.0" text=" ">
+                     <graphic>
+                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/iconClose.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </top>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="73.0" prefWidth="1260.0" spacing="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnThemTour" buttonType="RAISED" contentDisplay="TOP" onMouseClicked="#handlButtonAction" ripplerFill="#fcff4d" text="Thêm">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8_add_48px_1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnCapNhat" buttonType="RAISED" contentDisplay="TOP" onMouseClicked="#handlButtonAction" ripplerFill="#fcff4d" text="Cập nhật">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/iconReload.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnDemo" buttonType="RAISED" contentDisplay="TOP" onMouseClicked="#handlButtonAction" ripplerFill="#fcff4d" text="Demo">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/iconDemo.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </content>
+</DialogPane>

@@ -208,7 +208,7 @@ public class Services {
 	 */
 	public TourServices getTourServices() {
 		try {
-			tourServices = (TourServices) Naming.lookup("rmi://" + HOST + ":" + PORT + "/nhanVienServices");
+			tourServices = (TourServices) Naming.lookup("rmi://" + HOST + ":" + PORT + "/tourServices");
 			return tourServices;
 		} catch (MalformedURLException | RemoteException | NotBoundException e) {
 			// TODO Auto-generated catch block

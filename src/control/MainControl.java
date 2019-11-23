@@ -57,6 +57,8 @@ public class MainControl implements Initializable {
 	Pane paneCenter;
 	@FXML
 	Button btnHuongDanVien;
+	@FXML
+	Button btnTour;
 	private UserPassword userPassword;
 	private NhanVien nhanVien;
 	private String id;
@@ -177,12 +179,20 @@ public class MainControl implements Initializable {
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-		} else if(e.getSource() == btnHuongDanVien) {
+		} else if (e.getSource() == btnHuongDanVien) {
 			try {
 				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/QuanLyHDV.fxml"));
 				BorderPane paneHuongDanVien = fxmlLoader.load();
 				border_pane.setCenter(paneHuongDanVien);
 			} catch (Exception e2) {
+			}
+		} else if (e.getSource() == btnTour) {
+			try {
+				FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/gui/QuanLyTour.fxml"));
+				BorderPane paneTour = fxmlLoader.load();
+				border_pane.setCenter(paneTour);
+			} catch (Exception e2) {
+				e2.printStackTrace();
 			}
 		}
 	}

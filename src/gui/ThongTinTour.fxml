@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXMasonryPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<DialogPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ThongTinTourControl">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="705.0" prefWidth="1366.0">
+         <children>
+            <ScrollPane fx:id="scroll" prefHeight="705.0" prefWidth="1366.0" stylesheets="@../main/application.css">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #b3e0ff;">
+                     <children>
+                        <VBox>
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <JFXMasonryPane fx:id="masonryAnhDaiDien" prefWidth="1366.0" />
+                                    <VBox alignment="CENTER" prefWidth="1166.0">
+                                       <children>
+                                          <Label fx:id="lblTenTour" alignment="BASELINE_CENTER" contentDisplay="TOP" graphicTextGap="0.0" text="Tên Tour" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
+                                             <font>
+                                                <Font name="System Bold" size="30.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                              <HBox alignment="CENTER">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="220.0" prefWidth="455.0">
+                                       <children>
+                                          <HBox prefHeight="100.0" prefWidth="250.0">
+                                             <children>
+                                                <Label text="MÃ TOUR">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblMaTour" text="Label">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Label text="ĐIỂM KHỞI HÀNH">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblNoiDi" text="Label">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="250.0">
+                                             <children>
+                                                <Label text="NGÀY KHỞI HÀNH">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblNgayKhoiHanh" text="Label">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="194.0" prefHeight="100.0" prefWidth="268.0">
+                                             <children>
+                                                <Label text="PHƯƠNG TIỆN">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblPhuongTien" text="Label">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="50.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                    <Region prefHeight="220.0" prefWidth="165.0" />
+                                    <VBox prefHeight="220.0" prefWidth="455.0">
+                                       <children>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                                <Label text="ĐIỂM ĐẾN">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblNoiDen" text="Label">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="250.0">
+                                             <children>
+                                                <Label text="THỜI GIAN">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblGioKhoiHanh" text="Label">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox layoutX="10.0" layoutY="192.0" prefHeight="100.0" prefWidth="250.0">
+                                             <children>
+                                                <Label text="GIÁ VÉ">
+                                                   <HBox.margin>
+                                                      <Insets left="20.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="lblGiaVe" text="Label">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" top="10.0" />
+                                                   </HBox.margin>
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <JFXMasonryPane fx:id="masonryHinhAnh" HSpacing="10.0" VSpacing="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="1000.0">
+                                 <VBox.margin>
+                                    <Insets left="170.0" />
+                                 </VBox.margin>
+                              </JFXMasonryPane>
+                              <Pane>
+                                 <children>
+                                    <WebView fx:id="webViewMoTa" disable="true" layoutX="175.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1000.0" />
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="548.0" prefWidth="1348.0">
+                                 <children>
+                                    <TabPane layoutX="174.0" layoutY="14.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE">
+                                      <tabs>
+                                        <Tab text="Chương trình Tour">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+                                                   <children>
+                                                      <WebView fx:id="webViewChuongTrinhTour" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                          </content>
+                                        </Tab>
+                                        <Tab text="Chính sách Tour">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="301.0" prefWidth="973.0">
+                                                   <children>
+                                                      <WebView fx:id="webViewChinhSachTour" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                          </content>
+                                        </Tab>
+                                      </tabs>
+                                    </TabPane>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </VBox>
+                        <Label layoutX="668.0" layoutY="1585.0" prefHeight="17.0" prefWidth="0.0" text="ádasdasd" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children>
+      </AnchorPane>
+   </content>
+</DialogPane>

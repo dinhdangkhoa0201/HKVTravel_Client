@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.QuanLyTourControl">
+	<center>
+		<HBox>
+			<children>
+				<VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+					<children>
+						<HBox alignment="CENTER" prefHeight="93.0" prefWidth="1280.0">
+							<children>
+								<JFXButton fx:id="btnThem" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#handleButtonAction" prefHeight="90.0" prefWidth="84.0" text="Thêm Mới ">
+									<graphic>
+										<Pane>
+											<children>
+												<ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+													<image>
+														<Image url="@../img/iconThemTour.png" />
+													</image>
+												</ImageView>
+											</children>
+											<effect>
+												<DropShadow height="9.88" offsetX="1.0" offsetY="3.0" radius="4.255000000000001" width="9.14" />
+											</effect>
+											<padding>
+												<Insets bottom="5.0" />
+											</padding>
+										</Pane>
+									</graphic>
+									<font>
+										<Font size="13.0" />
+									</font>
+								</JFXButton>
+								<JFXButton fx:id="btnReload" contentDisplay="TOP" graphicTextGap="0.0" onMouseClicked="#handleButtonAction" prefHeight="90.0" prefWidth="84.0" text="Cập nhật">
+									<graphic>
+										<Pane>
+											<children>
+												<ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+													<image>
+														<Image url="@../img/iconReload.png" />
+													</image>
+												</ImageView>
+											</children>
+											<effect>
+												<DropShadow height="9.88" offsetX="1.0" offsetY="3.0" radius="4.255000000000001" width="9.14" />
+											</effect>
+											<padding>
+												<Insets bottom="5.0" />
+											</padding>
+										</Pane>
+									</graphic>
+									<font>
+										<Font size="13.0" />
+									</font>
+								</JFXButton>
+							</children>
+						</HBox>
+						<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+							<children>
+								<JFXTextField fx:id="txtSearchTenTour" labelFloat="true" promptText="Tên Tour">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</JFXTextField>
+                        <JFXTextField fx:id="txtSearchNgayKhoiHanh" labelFloat="true" layoutX="397.0" layoutY="45.0" prefHeight="31.0" prefWidth="207.0" promptText="Ngày khởi hành (dd/MM/yyyy)">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXTextField>
+								<JFXTextField fx:id="txtSearchNoiDi" labelFloat="true" promptText="Nơi đi">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</JFXTextField>
+								<JFXTextField fx:id="txtSearchNoiDen" promptText="Nơi đến">
+									<font>
+										<Font size="15.0" />
+									</font>
+								</JFXTextField>
+							</children>
+						</HBox>
+						<HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+							<children>
+								<TableView fx:id="tableTour" editable="true" onMouseClicked="#handleButtonAction" prefHeight="481.0" prefWidth="1801.0" stylesheets="@../application/application.css">
+									<columns>
+										<TableColumn fx:id="col_matour" minWidth="-1.0" prefWidth="-1.0" text="Mã Tour" />
+										<TableColumn fx:id="col_tentour" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Tên Tour" />
+										<TableColumn fx:id="col_noidi" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Nơi Đi" />
+										<TableColumn fx:id="col_noiden" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Nơi Đến" />
+										<TableColumn fx:id="col_ngaykhoihanh" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Ngày Khởi Hành" />
+										<TableColumn fx:id="col_ngayketthuc" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Ngày Kết Thúc" />
+										<TableColumn fx:id="col_giokhoihanh" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Giờ Khởi Hành" />
+										<TableColumn fx:id="col_phuongtien" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Phương Tiện" />
+										<TableColumn fx:id="col_hienthi" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Hiển Thị" />
+										<TableColumn fx:id="col_gia" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Giá" />
+									</columns>
+									<columnResizePolicy>
+										<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+									</columnResizePolicy>
+								</TableView>
+							</children>
+						</HBox>
+					</children>
+				</VBox>
+			</children>
+		</HBox>
+	</center>
+	<top>
+		<HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+			<children>
+				<Label text="Quản Lý Tour" underline="true">
+					<font>
+						<Font name="System Bold" size="30.0" />
+					</font>
+				</Label>
+			</children>
+		</HBox>
+	</top>
+</BorderPane>
