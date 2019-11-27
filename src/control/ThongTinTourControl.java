@@ -86,7 +86,7 @@ public class ThongTinTourControl implements Initializable {
 		engineMoTa = webViewMoTa.getEngine();
 		engineChuongTrinhTour = webViewChuongTrinhTour.getEngine();
 		engineChinhSachTour = webViewChinhSachTour.getEngine();
-
+		
 		webViewMoTa.getChildrenUnmodifiable().addListener(new ListChangeListener<Node>() {
 			@Override
 			public void onChanged(Change<? extends Node> change) {
@@ -243,6 +243,7 @@ public class ThongTinTourControl implements Initializable {
 			masonryAnhDaiDien.getChildren().addAll(children);
 			Platform.runLater(() -> {
 				scroll.setVvalue(0);
+				scroll.requestFocus();
 			});
 		} catch (Exception e) {
 			
@@ -287,6 +288,7 @@ public class ThongTinTourControl implements Initializable {
 			masonryHinhAnh.getChildren().addAll(children);
 			Platform.runLater(() -> {
 				scroll.setVvalue(0);
+				scroll.requestFocus();
 			});
 		} catch (Exception e) {
 			

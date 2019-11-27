@@ -91,7 +91,6 @@ public class DoiMatKhauControl implements Initializable{
 	public void setValues(NhanVien nhanVien, UserPassword userPassword) {
 		this.nhanVien = nhanVien;
 		this.userPassword = userPassword;
-		System.out.println(nhanVien.getAnh().length);
 	}
 	
 	@FXML

@@ -59,10 +59,19 @@ public class MainControl implements Initializable {
 	Button btnHuongDanVien;
 	@FXML
 	Button btnTour;
+	@FXML
+	Button btnTimKiemNhanVien;
+	@FXML
+	Button btnTimKiemKhachHang;
+	@FXML
+	Button btnTimKiemTour;
+
+	@FXML Button btnTimKhachHang;
+
 	private UserPassword userPassword;
 	private NhanVien nhanVien;
 	private String id;
-
+	
 	public void setValues(NhanVien nv, UserPassword userPassword) {
 		this.userPassword = userPassword;
 		this.nhanVien = nv;
@@ -125,7 +134,6 @@ public class MainControl implements Initializable {
 					thongTinCaNhanControl.setValues(nhanVien, userPassword);
 					border_pane.setCenter(paneThongTinCaNhan);
 				} catch (Exception e2) {
-					// TODO: handle exception
 				}
 //				paneThongTinCaNhan.setPrefSize(paneCenter.getWidth(), paneCenter.getHeight());
 //				paneCenter.getChildren().clear();
@@ -143,10 +151,7 @@ public class MainControl implements Initializable {
 					Services services = new Services();
 					NhanVienServices nhanVienServices = services.getNhanVienServices();
 					this.nhanVien = nhanVienServices.timNhanVienByMaNV(nhanVien.getMaNV());
-
-					System.out.println("Doi mat khau " + nhanVien.getAnh().length);
 					doiMatKhauControl.setValues(nhanVien, userPassword);
-
 //					paneDoiMatKhau.setPrefSize(paneCenter.getWidth(), paneCenter.getHeight());
 //					paneCenter.getChildren().clear();
 //					paneCenter.getChildren().add(paneDoiMatKhau);

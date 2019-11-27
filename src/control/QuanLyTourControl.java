@@ -4,6 +4,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -232,9 +233,14 @@ public class QuanLyTourControl implements Initializable {
 	private void loadDataFromDatabase() {
 		try {
 			Services services = new Services();
+			
 			TourServices tourServices = services.getTourServices();
+			
+			List<Tour> tours = tourServices.danhsachTour();
+			tours.forEach(x -> {
+				
+			});			
 			data = FXCollections.observableArrayList(tourServices.danhsachTour());
-			System.out.println(data);
 			filteredList = new FilteredList<>(data, p -> true);
 			tableTour.setItems(filteredList);
 			Platform.runLater(() -> tableTour.refresh());
@@ -290,7 +296,7 @@ public class QuanLyTourControl implements Initializable {
 				window.setOnCloseRequest(event -> window.hide());
 				alert.showAndWait();
 				if (themTourControl.getResult() == true) {
-					alert.close();
+					loadDataFromDatabase();
 				}
 
 			} catch (Exception e2) {
